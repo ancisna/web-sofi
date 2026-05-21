@@ -1,9 +1,7 @@
-<h1>Angular + Supabase 🚀</h1>
+<!--<h1>Angular + Supabase 🚀</h1>
 
 @if (auth.loading()) {
-
   <p>Cargando sesión...</p>
-
 }
 
 @else {
@@ -13,6 +11,9 @@
     <p>Usuario autenticado:</p>
 
     <p>{{ auth.user()?.email }}</p>
+    <p>Role: {{ auth.profile()?.role }}</p>
+
+    <p>Nombre: {{ auth.profile()?.full_name }}</p>
 
     <button (click)="auth.signOut()">
       Logout
@@ -48,4 +49,6 @@
 
   }
 
-}
+  }-->
+
+  <home-page />
