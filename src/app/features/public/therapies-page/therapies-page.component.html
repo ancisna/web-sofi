@@ -1,0 +1,15 @@
+<section class="p-4 md:p-6">
+  <div class="mb-6 text-center">
+    <h1 class="text-4xl font-bold">Terapias</h1>
+    <p class="mt-3">Espacios terapéuticos adaptados a distintas necesidades.</p>
+  </div>
+  <div
+    class="flex flex-column md:flex-row md:flex-wrap gap-4 justify-content-center"
+  >
+    @for (therapy of therapies(); track therapy.title) {
+      <div class="w-full md:w-20rem">
+        <card-therapy [therapy]="therapy" />
+      </div>
+    }
+  </div>
+</section>

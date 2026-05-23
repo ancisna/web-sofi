@@ -1,0 +1,21 @@
+<div class="flex flex-column min-h-screen">
+  <header class="surface-card border-bottom-1 border-200 px-4 py-3">
+    <div class="flex justify-content-between align-items-center">
+      <div class="text-xl font-bold">Web Sofi</div>
+      <nav class="flex gap-4">
+        <a routerLink="/">Home</a>
+        <a routerLink="/therapies"> Terapias </a>
+        <a routerLink="/workshops"> Talleres </a>
+        <a routerLink="/articles"> Artículos </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <router-outlet />
+  </main>
+
+  <footer class="surface-card border-top-1 border-200 p-4 text-center">
+    © Web Sofi
+  </footer>
+</div>
