@@ -1,7 +1,5 @@
-.contact-bar {
-  background: red !important;
-}
-
-.navbar-main {
-  background: lime !important;
+.logo-image {
+  height: 7rem;
+  width: auto;
+  display: block;
 }

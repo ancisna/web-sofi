@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@300;400;500;700&display=swap");
+
+:root {
+  --font-heading: "Fraunces", serif;
+  --font-body: "DM Sans", sans-serif;
+  /* BRAND COLORS */
+
+  --sofi-primary: #e0b7c5;
+  --sofi-primary-soft: #f8edf2;
+  --sofi-background: #fcfafb;
+  --sofi-surface: #ffffff;
+  --sofi-text: #4d474a;
+  --sofi-text-muted: #82797d;
+
+  /* RADIUS */
+
+  --sofi-radius: 18px;
+
+  /* SHADOW */
+
+  --sofi-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+.bg-sofi-primary {
+  background: var(--sofi-primary);
+}
+
+.bg-sofi-primary-soft {
+  background: var(--sofi-primary-soft);
+}
+
+.text-sofi-primary {
+  color: var(--sofi-primary);
+}
+
+.surface-sofi {
+  background: var(--sofi-surface);
+  border-radius: var(--sofi-radius);
+  box-shadow: var(--sofi-shadow);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--sofi-text);
+  background: var(--sofi-background);
+}
+
+h1,
+h2,
+h3,
+h4,
+.logo-brand {
+  font-family: var(--font-heading);
+}
