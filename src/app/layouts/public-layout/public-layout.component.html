@@ -1,13 +1,67 @@
 <div class="flex flex-column min-h-screen">
-  <header class="surface-card border-bottom-1 border-200 px-4 py-3">
-    <div class="flex justify-content-between align-items-center">
-      <div class="text-xl font-bold">Web Sofi</div>
-      <nav class="flex gap-4">
-        <a routerLink="/">Home</a>
-        <a routerLink="/therapies"> Terapias </a>
-        <a routerLink="/workshops"> Talleres </a>
-        <a routerLink="/articles"> Artículos </a>
-      </nav>
+  <header>
+    <!-- CONTACT BAR -->
+
+    <div class="bg-pink-100 contact-bar px-3 py-2">
+      <div
+        class="flex justify-content-between align-items-center max-w-screen-xl mx-auto"
+      >
+        <div class="flex gap-2 align-items-center">
+          <i class="pi pi-envelope"></i>
+          <span>Escríbanos</span>
+        </div>
+        <div class="flex gap-2 align-items-center">
+          <i class="pi pi-phone"></i>
+          <span>688 955 546</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <div class="navbar-main px-4 py-3 border-bottom-1 border-200">
+      <div
+        class="flex relative justify-content-between align-items-center max-w-screen-xl mx-auto"
+      >
+        <!-- LOGO -->
+
+        <div class="flex align-items-center gap-3">
+          <div class="text-2xl font-bold">Web Sofi</div>
+        </div>
+
+        <!-- DESKTOP MENU -->
+
+        <nav class="hidden lg:flex gap-5 align-items-center">
+          <a routerLink="/">Inicio</a>
+          <a routerLink="/therapies"> Terapias </a>
+          <a routerLink="/workshops"> Talleres </a>
+          <a routerLink="/articles"> Artículos </a>
+        </nav>
+
+        <!-- MOBILE BUTTON -->
+
+        <button
+          pButton
+          icon="pi pi-bars"
+          severity="secondary"
+          class="lg:hidden"
+          (click)="toggleMobileMenu()"
+        ></button>
+        @if (mobileMenuOpen()) {
+          <div
+            class="absolute right-0 top-full z-5 w-16rem shadow-4 border-round p-4 mt-2 navbar-main"
+          >
+            <nav class="flex flex-column gap-3">
+              <a routerLink="/"> Inicio </a>
+
+              <a routerLink="/therapies"> Terapias </a>
+
+              <a routerLink="/workshops"> Talleres </a>
+
+              <a routerLink="/articles"> Artículos </a>
+            </nav>
+          </div>
+        }
+      </div>
     </div>
   </header>
 
