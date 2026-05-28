@@ -1,15 +1,25 @@
-<section class="p-4 md:p-6">
-  <div class="mb-6 text-center">
-    <h1 class="text-4xl font-bold">Terapias</h1>
-    <p class="mt-3">Espacios terapéuticos adaptados a distintas necesidades.</p>
-  </div>
-  <div
-    class="flex flex-column md:flex-row md:flex-wrap gap-4 justify-content-center"
-  >
-    @for (therapy of therapies(); track therapy.title) {
-      <div class="w-full md:w-20rem">
-        <card-therapy [therapy]="therapy" />
-      </div>
-    }
+<section class="py-8 px-4 lg:px-8">
+  <div class="max-w-screen-xl mx-auto">
+    <h1 class="mb-4">Terapias</h1>
+
+    <p class="mb-7 hero-text text-lg">
+      Espacios terapéuticos adaptados a diferentes necesidades emocionales y
+      vitales.
+    </p>
+
+    <div class="grid">
+      @for (therapy of therapies; track therapy.id) {
+        <div class="col-12 md:col-6 lg:col-4 mb-4">
+          <info-card
+            [title]="therapy.title"
+            [description]="therapy.description"
+            [badge]="'Terapia'"
+            [duration]="therapy.duration + ' min'"
+            [price]="therapy.price + ' €'"
+            [link]="'/therapies/' + therapy.id"
+          />
+        </div>
+      }
+    </div>
   </div>
 </section>

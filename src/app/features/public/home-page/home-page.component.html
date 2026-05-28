@@ -1,29 +1,33 @@
-<section class="surface-ground px-4 py-7 lg:px-8">
+<section class="py-8 px-4 lg:px-8">
   <div
-    class="max-w-screen-xl mx-auto flex flex-column lg:flex-row align-items-center gap-7"
+    class="max-w-screen-xl mx-auto flex flex-column lg:flex-row align-items-center gap-8"
   >
     <!-- LEFT -->
 
-    <div class="flex-1 text-center lg:text-left">
-      <span class="text-primary font-semibold">
-        Psicología · Bienestar · Terapia
+    <div class="flex-1">
+      <span class="text-sm font-medium" style="color: var(--sofi-primary)">
+        Psicología · Bienestar · Acompañamiento
       </span>
 
-      <h1 class="text-5xl lg:text-7xl font-bold mt-3 mb-4">
-        Un espacio para cuidar tu bienestar emocional
+      <h1 class="mt-3 mb-4 text-5xl lg:text-7xl line-height-1">
+        Un espacio para comprenderte, cuidarte y avanzar.
       </h1>
 
-      <p class="text-lg line-height-3 mb-5">
-        Terapia psicológica, talleres y acompañamiento emocional para ayudarte a
-        avanzar con calma, claridad y herramientas reales.
+      <p
+        class="text-lg line-height-3 mb-5"
+        style="color: var(--sofi-text-muted)"
+      >
+        Terapia psicológica, talleres y acompañamiento emocional desde una
+        mirada humana, cercana y profesional.
       </p>
 
-      <div
-        class="flex flex-column sm:flex-row gap-3 justify-content-center lg:justify-content-start"
-      >
-        <p-button label="Ver terapias" />
+      <div class="flex flex-column sm:flex-row gap-3 mt-5">
+        <p-button label="Ver terapias" icon="pi pi-heart" />
 
-        <p-button label="Contactar" severity="secondary" />
+        <p-button label="Talleres" severity="secondary" icon="pi pi-users" />
+      </div>
+      <div class="mt-6 text-sm hero-text">
+        Terapia individual · Talleres presenciales · Acompañamiento emocional
       </div>
     </div>
 
@@ -31,10 +35,48 @@
 
     <div class="flex-1">
       <img
-        src="https://picsum.photos/900/650"
-        alt="Psicología"
-        class="w-full border-round-3xl shadow-4"
+        src="https://images.unsplash.com/photo-1516302752625-fcc3c50ae61f?w=900"
+        alt="Sofía Reyes Psicóloga"
+        class="hero-image"
       />
+    </div>
+  </div>
+</section>
+<section class="py-8 px-4 lg:px-8">
+  <div class="max-w-screen-xl mx-auto">
+    <h2 class="mb-6">Terapias destacadas</h2>
+
+    <div class="grid">
+      @for (therapy of therapies; track therapy.id) {
+        <div class="col-12 md:col-6 lg:col-4 mb-4">
+          <info-card
+            [title]="therapy.title"
+            [description]="therapy.description"
+            [badge]="'Terapia'"
+            [duration]="therapy.duration + ' min'"
+            [price]="therapy.price + ' €'"
+            [link]="'/therapies/' + therapy.id"
+          />
+        </div>
+      }
+    </div>
+  </div>
+</section>
+<section class="py-8 px-4 lg:px-8">
+  <div class="max-w-screen-xl mx-auto">
+    <h2 class="mb-6">Talleres destacados</h2>
+    <div class="grid">
+      @for (workshop of workshops; track workshop.id) {
+        <div class="col-12 md:col-6 lg:col-4 mb-4">
+          <info-card
+            [title]="workshop.title"
+            [description]="workshop.description"
+            [badge]="'Taller'"
+            [duration]="workshop.date"
+            [price]="workshop.price + ' €'"
+          />
+        </div>
+      }
     </div>
   </div>
 </section>

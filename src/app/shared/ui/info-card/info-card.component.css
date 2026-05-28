@@ -1,0 +1,10 @@
+.info-card {
+  background: var(--sofi-surface);
+  border-radius: var(--sofi-radius);
+  box-shadow: var(--sofi-shadow);
+  padding: 1.5rem;
+}
+.info-badge {
+  color: var(--sofi-primary);
+  font-weight: 600;
+}

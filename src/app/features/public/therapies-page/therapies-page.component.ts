@@ -1,36 +1,24 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
-import { CardTherapyComponent } from '@shared/components/card-therapy/card-therapy.component';
+import { InfoCardComponent } from '@shared/ui/info-card/info-card.component';
+
+import { TherapyService } from '@core/services/therapy.service';
+
+import { Therapy } from '@core/models/therapy.model';
 
 @Component({
   selector: 'therapies-page',
+
   standalone: true,
-  imports: [CardTherapyComponent],
+
+  imports: [InfoCardComponent],
+
   templateUrl: './therapies-page.component.html',
+
   styleUrl: './therapies-page.component.css',
 })
 export class TherapiesPageComponent {
-  therapies = signal([
-    {
-      title: 'Ansiedad',
-      duration: '60 min',
-      price: '60€',
-      description:
-        'Trabajo terapéutico para ansiedad, estrés y regulación emocional.',
-    },
-    {
-      title: 'Autoestima',
-      duration: '60 min',
-      price: '55€',
-      description:
-        'Acompañamiento psicológico para fortalecer autoestima y autoconcepto.',
-    },
-    {
-      title: 'Terapia adolescentes',
-      duration: '50 min',
-      price: '65€',
-      description:
-        'Espacio terapéutico adaptado a adolescencia y desarrollo emocional.',
-    },
-  ]);
+  private therapyService = inject(TherapyService);
+
+  therapies: Therapy[] = this.therapyService.getAll();
 }

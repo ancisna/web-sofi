@@ -1,3 +1,21 @@
-:host {
+.hero-image {
+  width: 100%;
+
   display: block;
+
+  border-radius: var(--sofi-radius);
+
+  box-shadow: var(--sofi-shadow);
+}
+
+.hero-section {
+  background: var(--sofi-background);
+}
+
+.hero-eyebrow {
+  color: var(--sofi-primary);
+}
+
+.hero-text {
+  color: var(--sofi-text-muted);
 }
