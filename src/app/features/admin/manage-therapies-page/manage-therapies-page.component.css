@@ -1,0 +1,27 @@
+.admin-card {
+  background: var(--sofi-surface);
+
+  padding: 1.5rem;
+
+  border-radius: var(--sofi-radius);
+
+  box-shadow: var(--sofi-shadow);
+}
+
+.admin-meta {
+  color: var(--sofi-text-muted);
+}
+
+.admin-description {
+  color: var(--sofi-text-muted);
+
+  line-height: 1.8;
+}
+
+.status-badge {
+  background: var(--sofi-primary-soft);
+
+  padding: 0.35rem 0.75rem;
+
+  border-radius: 999px;
+}

@@ -73,6 +73,14 @@ export const routes: Routes = [
                 (m) => m.DashboardPageComponent,
               ),
           },
+          {
+            path: 'therapies',
+
+            loadComponent: () =>
+              import('@features/admin/manage-therapies-page/manage-therapies-page.component').then(
+                (m) => m.ManageTherapiesPageComponent,
+              ),
+          },
         ],
       },
     ],

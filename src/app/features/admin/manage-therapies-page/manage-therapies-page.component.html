@@ -1,0 +1,77 @@
+<div class="flex justify-content-between align-items-center mb-6">
+  <h1>Gestionar terapias</h1>
+
+  <p-button
+    label="Nueva terapia"
+    icon="pi pi-plus"
+    (onClick)="showCreateDialog = true"
+  />
+</div>
+
+<div class="grid">
+  @for (therapy of therapies; track therapy.id) {
+    <div class="col-12 lg:col-6 mb-4">
+      <div class="admin-card">
+        <div class="flex justify-content-between align-items-start mb-4">
+          <div>
+            <h3 class="mb-2">
+              {{ therapy.title }}
+            </h3>
+
+            <div class="admin-meta">
+              {{ therapy.duration }}
+              min ·
+
+              {{ therapy.price }}
+              €
+            </div>
+          </div>
+
+          <div class="status-badge">Activa</div>
+        </div>
+
+        <p class="admin-description">
+          {{ therapy.description }}
+        </p>
+
+        <div class="flex gap-3 mt-4">
+          <p-button label="Editar" severity="secondary" />
+
+          <p-button label="Eliminar" severity="danger" />
+        </div>
+      </div>
+    </div>
+  }
+</div>
+<p-dialog
+  header="Nueva terapia"
+  [(visible)]="showCreateDialog"
+  [modal]="true"
+  [style]="{
+    width: '32rem',
+  }"
+>
+  <div class="flex flex-column gap-4">
+    <div>
+      <label> Título </label>
+
+      <input pInputText class="w-full mt-2" [(ngModel)]="newTherapyTitle" />
+    </div>
+
+    <div>
+      <label> Precio </label>
+
+      <input pInputText class="w-full mt-2" [(ngModel)]="newTherapyPrice" />
+    </div>
+
+    <div class="flex justify-content-end gap-3 mt-3">
+      <p-button
+        label="Cancelar"
+        severity="secondary"
+        (onClick)="showCreateDialog = false"
+      />
+
+      <p-button label="Guardar" (onClick)="createTherapy()" />
+    </div>
+  </div>
+</p-dialog>
