@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
 
-import { InfoCardComponent } from '@shared/ui/info-card/info-card.component';
-
 import { TherapyService } from '@core/services/therapy.service';
+
+import { InfoCardComponent } from '@shared/ui/info-card/info-card.component';
+import { PageHeroComponent } from '@shared/ui/page-hero/page-hero.component';
 
 import { Therapy } from '@core/models/therapy.model';
 
@@ -11,7 +12,7 @@ import { Therapy } from '@core/models/therapy.model';
 
   standalone: true,
 
-  imports: [InfoCardComponent],
+  imports: [InfoCardComponent, PageHeroComponent],
 
   templateUrl: './therapies-page.component.html',
 

@@ -49,6 +49,8 @@
           <a routerLink="/therapies"> Terapias </a>
           <a routerLink="/workshops"> Talleres </a>
           <a routerLink="/articles"> Artículos </a>
+          <a routerLink="/contact"> Contactar </a>
+          <a routerLink="/about"> Sobre mí </a>
         </nav>
 
         <!-- MOBILE BUTTON -->
@@ -86,6 +88,10 @@
               <a routerLink="/articles" (click)="toggleMobileMenu()">
                 Artículos
               </a>
+              <a routerLink="/contact" (click)="toggleMobileMenu()">
+                Contactar
+              </a>
+              <a routerLink="/about"> Sobre mí </a>
             </nav>
           </div>
         }
@@ -96,8 +102,79 @@
   <main class="flex-1">
     <router-outlet />
   </main>
+  <!-- <footer class="footer-main px-4 py-5">
+    <div class="max-w-screen-xl mx-auto text-center">
+      <img
+        src="branding/logo-horizontal.svg"
+        alt="Sofía Reyes Psicóloga"
+        class="footer-logo mb-4"
+      />
 
-  <footer class="surface-card border-top-1 border-200 p-4 text-center">
-    © Web Sofi
+      <nav class="flex flex-wrap justify-content-center gap-4 mb-4">
+        <a routerLink="/">Inicio</a>
+
+        <a routerLink="/about"> Sobre mí </a>
+
+        <a routerLink="/therapies"> Terapias </a>
+
+        <a routerLink="/workshops"> Talleres </a>
+
+        <a routerLink="/contact"> Contacto </a>
+      </nav>
+
+      <div class="flex justify-content-center gap-4 mb-4">
+        <a href="#"> Instagram </a>
+
+        <a href="#"> LinkedIn </a>
+      </div>
+
+      <div class="footer-copy">© 2026 Sofía Reyes Psicóloga</div>
+    </div>
+  </footer> -->
+
+  <footer class="footer-main px-4 py-4">
+    <div class="max-w-screen-xl mx-auto grid align-items-center">
+      <!-- LEFT -->
+
+      <div class="col-12 md:col-3 text-center md:text-left">
+        <img
+          src="branding/logo-horizontal.svg"
+          alt="Sofía Reyes Psicóloga"
+          class="footer-logo"
+        />
+      </div>
+
+      <!-- CENTER -->
+
+      <div class="col-12 md:col-6 text-center">
+        <nav class="flex flex-wrap justify-content-center gap-3 mb-3">
+          <a routerLink="/">Inicio</a>
+
+          <a routerLink="/about"> Sobre mí </a>
+
+          <a routerLink="/therapies"> Terapias </a>
+
+          <a routerLink="/workshops"> Talleres </a>
+
+          <a routerLink="/contact"> Contacto </a>
+        </nav>
+
+        <div class="footer-copy">© 2026 Sofía Reyes Psicóloga</div>
+      </div>
+
+      <!-- RIGHT -->
+
+      <div class="col-12 md:col-3 text-center md:text-right">
+        <div class="footer-socials">
+          <a href="#">
+            <i class="pi pi-instagram"></i>
+          </a>
+
+          <a href="#">
+            <i class="pi pi-linkedin"></i>
+          </a>
+        </div>
+      </div>
+    </div>
   </footer>
 </div>

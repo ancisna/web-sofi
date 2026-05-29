@@ -32,6 +32,49 @@ export const routes: Routes = [
         path: 'workshops',
         component: WorkshopsPageComponent,
       },
+      {
+        path: 'workshops/:id',
+
+        loadComponent: () =>
+          import('@features/public/workshop-detail-page/workshop-detail-page.component').then(
+            (m) => m.WorkshopDetailPageComponent,
+          ),
+      },
+      {
+        path: 'about',
+
+        loadComponent: () =>
+          import('@features/public/about-page/about-page.component').then(
+            (m) => m.AboutPageComponent,
+          ),
+      },
+      {
+        path: 'contact',
+
+        loadComponent: () =>
+          import('@features/public/contact-page/contact-page.component').then(
+            (m) => m.ContactPageComponent,
+          ),
+      },
+      {
+        path: 'dashboard',
+
+        loadComponent: () =>
+          import('@layouts/admin-layout/admin-layout.component').then(
+            (m) => m.AdminLayoutComponent,
+          ),
+
+        children: [
+          {
+            path: '',
+
+            loadComponent: () =>
+              import('@features/admin/dashboard-page/dashboard-page.component').then(
+                (m) => m.DashboardPageComponent,
+              ),
+          },
+        ],
+      },
     ],
   },
 ];

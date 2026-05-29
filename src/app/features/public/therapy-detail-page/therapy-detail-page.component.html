@@ -23,6 +23,14 @@
       <p class="text-lg line-height-4 mb-6">
         {{ therapy.longDescription }}
       </p>
+    } @else {
+      <div class="text-center py-8">
+        <h2 class="mb-3">Terapia no encontrada</h2>
+
+        <p class="hero-text">
+          El contenido solicitado no existe o ya no está disponible.
+        </p>
+      </div>
     }
   </div>
 </section>

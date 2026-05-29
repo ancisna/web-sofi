@@ -1,11 +1,13 @@
 <section class="py-8 px-4 lg:px-8">
   <div class="max-w-screen-xl mx-auto">
-    <h1 class="mb-4">Terapias</h1>
-
-    <p class="mb-7 hero-text text-lg">
-      Espacios terapéuticos adaptados a diferentes necesidades emocionales y
-      vitales.
-    </p>
+    <page-hero
+      title="Terapias"
+      description="
+        Espacios terapéuticos
+        adaptados a diferentes
+        necesidades emocionales.
+    "
+    />
 
     <div class="grid">
       @for (therapy of therapies; track therapy.id) {

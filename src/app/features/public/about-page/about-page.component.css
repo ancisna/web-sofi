@@ -1,0 +1,61 @@
+.about-hero {
+  background: var(--sofi-background);
+}
+
+.eyebrow {
+  color: var(--sofi-primary);
+
+  font-weight: 600;
+}
+
+.hero-copy {
+  color: var(--sofi-text-muted);
+
+  line-height: 1.9;
+}
+
+.about-main-image {
+  width: 100%;
+
+  max-width: 460px;
+
+  aspect-ratio: 4/5;
+
+  object-fit: cover;
+
+  display: block;
+
+  margin-inline: auto;
+
+  border-radius: 40px;
+
+  box-shadow: var(--sofi-shadow);
+}
+
+.quote-card {
+  background: var(--sofi-primary-soft);
+
+  padding: 2rem;
+
+  border-radius: var(--sofi-radius);
+
+  line-height: 1.8;
+
+  font-style: italic;
+}
+
+.info-block {
+  background: var(--sofi-surface);
+
+  padding: 2rem;
+
+  border-radius: var(--sofi-radius);
+
+  box-shadow: var(--sofi-shadow);
+
+  height: 100%;
+}
+
+.cta-section {
+  background: var(--sofi-primary-soft);
+}

@@ -1,0 +1,23 @@
+.contact-card {
+  background: var(--sofi-surface);
+
+  padding: 2rem;
+
+  border-radius: var(--sofi-radius);
+
+  box-shadow: var(--sofi-shadow);
+}
+
+.contact-image {
+  width: 100%;
+
+  max-width: 520px;
+
+  display: block;
+
+  margin-inline: auto;
+
+  border-radius: var(--sofi-radius);
+
+  box-shadow: var(--sofi-shadow);
+}
