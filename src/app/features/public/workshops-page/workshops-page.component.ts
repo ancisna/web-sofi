@@ -1,6 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { CardWorkshopComponent } from '@shared/components/card-workshop/card-workshop.component';
 import { PageHeroComponent } from '@shared/ui/page-hero/page-hero.component';
+import { inject } from '@angular/core';
+
+import { WorkshopService } from '@core/services/workshop.service';
+
+import { Workshop } from '@core/models/workshop.model';
 
 @Component({
   selector: 'workshops-page',
@@ -10,19 +15,7 @@ import { PageHeroComponent } from '@shared/ui/page-hero/page-hero.component';
   styleUrl: './workshops-page.component.css',
 })
 export class WorkshopsPageComponent {
-  workshops = signal([
-    {
-      title: 'Gestión ansiedad',
-      date: '15 Octubre',
-      price: '35€',
-      description:
-        'Taller presencial sobre herramientas para gestionar ansiedad.',
-    },
-    {
-      title: 'Autoestima práctica',
-      date: '3 Noviembre',
-      price: '30€',
-      description: 'Dinámicas y ejercicios para fortalecer autoestima.',
-    },
-  ]);
+  private workshopService = inject(WorkshopService);
+
+  workshops: Workshop[] = this.workshopService.getAll();
 }

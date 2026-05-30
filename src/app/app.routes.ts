@@ -67,18 +67,33 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-
             loadComponent: () =>
               import('@features/admin/dashboard-page/dashboard-page.component').then(
                 (m) => m.DashboardPageComponent,
               ),
           },
+
           {
             path: 'therapies',
-
             loadComponent: () =>
               import('@features/admin/manage-therapies-page/manage-therapies-page.component').then(
                 (m) => m.ManageTherapiesPageComponent,
+              ),
+          },
+
+          {
+            path: 'therapies/new',
+            loadComponent: () =>
+              import('@features/admin/therapy-form-page/therapy-form-page.component').then(
+                (m) => m.TherapyFormPageComponent,
+              ),
+          },
+
+          {
+            path: 'therapies/:id/edit',
+            loadComponent: () =>
+              import('@features/admin/therapy-form-page/therapy-form-page.component').then(
+                (m) => m.TherapyFormPageComponent,
               ),
           },
         ],

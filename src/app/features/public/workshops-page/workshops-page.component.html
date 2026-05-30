@@ -13,12 +13,9 @@
   <div
     class="flex flex-column md:flex-row md:flex-wrap gap-4 justify-content-center"
   >
-    @for (workshop of workshops(); track workshop.title) {
+    @for (workshop of workshops; track workshop.title) {
       <div class="w-full md:w-20rem">
-        <card-workshop
-          [workshop]="workshop"
-          [link]="'/workshops/' + workshop.id"
-        />
+        <card-workshop [workshop]="workshop" />
       </div>
     }
   </div>

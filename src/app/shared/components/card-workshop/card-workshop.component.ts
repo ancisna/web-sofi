@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { Workshop } from '@core/models/workshop.model';
 
 @Component({
   selector: 'card-workshop',
@@ -8,13 +9,5 @@ import { Component, input } from '@angular/core';
   styleUrl: './card-workshop.component.css',
 })
 export class CardWorkshopComponent {
-  workshop = input.required<{
-    title: string;
-
-    date: string;
-
-    price: string;
-
-    description: string;
-  }>();
+  workshop = input.required<Workshop>();
 }

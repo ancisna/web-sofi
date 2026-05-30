@@ -1,20 +1,16 @@
 import { Component, inject } from '@angular/core';
 
 import { Button } from 'primeng/button';
-import { Dialog } from 'primeng/dialog';
-
-import { InputText } from 'primeng/inputtext';
-
-import { FormsModule } from '@angular/forms';
 
 import { TherapyService } from '@core/services/therapy.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'manage-therapies-page',
 
   standalone: true,
 
-  imports: [Button, Dialog, InputText, FormsModule],
+  imports: [Button, RouterLink],
 
   templateUrl: './manage-therapies-page.component.html',
 
@@ -29,35 +25,25 @@ export class ManageTherapiesPageComponent {
   newTherapyPrice = '';
 
   therapies = this.therapyService.getAll();
-  createTherapy() {
-    if (!this.newTherapyTitle.trim()) {
+  deleteTherapy(id: string) {
+    this.therapies = this.therapies.filter((therapy) => therapy.id !== id);
+  }
+
+  cloneTherapy(id: string) {
+    const original = this.therapies.find((therapy) => therapy.id === id);
+
+    if (!original) {
       return;
     }
 
-    this.therapies = [
-      ...this.therapies,
+    const cloned = {
+      ...original,
 
-      {
-        id: crypto.randomUUID(),
+      id: crypto.randomUUID(),
 
-        title: this.newTherapyTitle,
+      title: `${original.title} (Copia)`,
+    };
 
-        description: 'Nueva terapia creada desde dashboard.',
-
-        longDescription: 'Contenido temporal.',
-
-        duration: 60,
-
-        price: Number(this.newTherapyPrice),
-
-        active: true,
-      },
-    ];
-
-    this.showCreateDialog = false;
-
-    this.newTherapyTitle = '';
-
-    this.newTherapyPrice = '';
+    this.therapies = [cloned, ...this.therapies];
   }
 }

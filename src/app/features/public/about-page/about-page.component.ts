@@ -7,7 +7,7 @@ import { PageHeroComponent } from '@shared/ui/page-hero/page-hero.component';
 
   standalone: true,
 
-  imports: [PageHeroComponent],
+  imports: [],
 
   templateUrl: './about-page.component.html',
 
