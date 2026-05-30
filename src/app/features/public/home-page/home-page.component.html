@@ -22,9 +22,13 @@
       </p>
 
       <div class="flex flex-column sm:flex-row gap-3 mt-5">
-        <p-button label="Ver terapias" icon="pi pi-heart" />
+        <p-button label="Ver terapias" routerLink="/therapies" />
 
-        <p-button label="Talleres" severity="secondary" icon="pi pi-users" />
+        <p-button
+          label="Ver talleres"
+          severity="secondary"
+          routerLink="/workshops"
+        />
       </div>
       <div class="mt-6 text-sm hero-text">
         Terapia individual · Talleres presenciales · Acompañamiento emocional
@@ -74,6 +78,7 @@
             [badge]="'Taller'"
             [duration]="workshop.date"
             [price]="workshop.price + ' €'"
+            [link]="'/workshops/' + workshop.id"
           />
         </div>
       }

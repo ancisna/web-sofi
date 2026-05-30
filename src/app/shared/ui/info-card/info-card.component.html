@@ -1,31 +1,37 @@
-<div class="info-card h-full flex flex-column">
-  <h3 class="mb-3">
-    {{ title() }}
-  </h3>
+<div class="info-card">
   @if (badge()) {
-    <div class="mb-3 text-sm info-badge">
+    <div class="card-badge mb-3">
       {{ badge() }}
     </div>
   }
 
-  <p class="flex-1 hero-text line-height-3">
+  <h3 class="mb-3">
+    {{ title() }}
+  </h3>
+
+  @if (meta()) {
+    <div class="card-meta mb-2">
+      {{ meta() }}
+    </div>
+  }
+
+  @if (duration()) {
+    <div class="card-duration mb-3">
+      {{ duration() }}
+    </div>
+  }
+
+  <p class="mb-4">
     {{ description() }}
   </p>
 
-  @if (duration()) {
-    <div class="mb-2">⏱ {{ duration() }}</div>
-  }
-
   @if (price()) {
-    <div class="mb-4">
+    <div class="card-price mb-4">
       {{ price() }}
     </div>
   }
 
-  <p-button
-    label="Más información"
-    severity="secondary"
-    [link]="true"
-    [routerLink]="link()"
-  />
+  <a [routerLink]="link()">
+    <p-button label="Más información" severity="secondary" />
+  </a>
 </div>

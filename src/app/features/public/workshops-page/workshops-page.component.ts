@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { CardWorkshopComponent } from '@shared/components/card-workshop/card-workshop.component';
+import { InfoCardComponent } from '@shared/ui/info-card/info-card.component';
 import { PageHeroComponent } from '@shared/ui/page-hero/page-hero.component';
 import { inject } from '@angular/core';
 
@@ -10,7 +10,7 @@ import { Workshop } from '@core/models/workshop.model';
 @Component({
   selector: 'workshops-page',
   standalone: true,
-  imports: [CardWorkshopComponent, PageHeroComponent],
+  imports: [InfoCardComponent, PageHeroComponent],
   templateUrl: './workshops-page.component.html',
   styleUrl: './workshops-page.component.css',
 })

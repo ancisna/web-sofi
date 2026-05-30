@@ -15,7 +15,13 @@
   >
     @for (workshop of workshops; track workshop.title) {
       <div class="w-full md:w-20rem">
-        <card-workshop [workshop]="workshop" />
+        <info-card
+          [title]="workshop.title"
+          [description]="workshop.description"
+          [meta]="workshop.date"
+          [price]="workshop.price + ' €'"
+          [link]="'/workshops/' + workshop.id"
+        />
       </div>
     }
   </div>

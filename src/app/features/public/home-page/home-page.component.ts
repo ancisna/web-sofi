@@ -6,10 +6,11 @@ import { WorkshopService } from '@core/services/workshop.service';
 import { Workshop } from '@core/models/workshop.model';
 import { Therapy } from '@core/models/therapy.model';
 import { InfoCardComponent } from '@shared/ui/info-card/info-card.component';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'home-page',
   standalone: true,
-  imports: [Button, InfoCardComponent],
+  imports: [Button, InfoCardComponent, RouterLink],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })

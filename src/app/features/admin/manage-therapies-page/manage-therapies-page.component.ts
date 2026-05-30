@@ -1,9 +1,12 @@
 import { Component, inject } from '@angular/core';
 
+import { RouterLink } from '@angular/router';
+
 import { Button } from 'primeng/button';
 
 import { TherapyService } from '@core/services/therapy.service';
-import { RouterLink } from '@angular/router';
+
+import { Therapy } from '@core/models/therapy.model';
 
 @Component({
   selector: 'manage-therapies-page',
@@ -18,32 +21,18 @@ import { RouterLink } from '@angular/router';
 })
 export class ManageTherapiesPageComponent {
   private therapyService = inject(TherapyService);
-  showCreateDialog = false;
 
-  newTherapyTitle = '';
+  therapies: Therapy[] = this.therapyService.getAll();
 
-  newTherapyPrice = '';
+  deleteTherapy(id: string): void {
+    this.therapyService.delete(id);
 
-  therapies = this.therapyService.getAll();
-  deleteTherapy(id: string) {
-    this.therapies = this.therapies.filter((therapy) => therapy.id !== id);
+    this.therapies = this.therapyService.getAll();
   }
 
-  cloneTherapy(id: string) {
-    const original = this.therapies.find((therapy) => therapy.id === id);
+  cloneTherapy(id: string): void {
+    this.therapyService.clone(id);
 
-    if (!original) {
-      return;
-    }
-
-    const cloned = {
-      ...original,
-
-      id: crypto.randomUUID(),
-
-      title: `${original.title} (Copia)`,
-    };
-
-    this.therapies = [cloned, ...this.therapies];
+    this.therapies = this.therapyService.getAll();
   }
 }
