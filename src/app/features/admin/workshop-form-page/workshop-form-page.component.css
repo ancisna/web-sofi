@@ -1,0 +1,9 @@
+.admin-card {
+  background: var(--sofi-surface);
+
+  padding: 2rem;
+
+  border-radius: var(--sofi-radius);
+
+  box-shadow: var(--sofi-shadow);
+}

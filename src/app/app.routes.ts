@@ -11,27 +11,37 @@ import { WorkshopsPageComponent } from '@features/public/workshops-page/workshop
 export const routes: Routes = [
   {
     path: '',
+
     component: PublicLayoutComponent,
+
     children: [
       {
         path: '',
+
         component: HomePageComponent,
       },
+
       {
         path: 'therapies',
+
         component: TherapiesPageComponent,
       },
+
       {
         path: 'therapies/:id',
+
         loadComponent: () =>
           import('@features/public/therapy-detail-page/therapy-detail-page.component').then(
             (m) => m.TherapyDetailPageComponent,
           ),
       },
+
       {
         path: 'workshops',
+
         component: WorkshopsPageComponent,
       },
+
       {
         path: 'workshops/:id',
 
@@ -40,6 +50,7 @@ export const routes: Routes = [
             (m) => m.WorkshopDetailPageComponent,
           ),
       },
+
       {
         path: 'about',
 
@@ -48,6 +59,7 @@ export const routes: Routes = [
             (m) => m.AboutPageComponent,
           ),
       },
+
       {
         path: 'contact',
 
@@ -56,6 +68,7 @@ export const routes: Routes = [
             (m) => m.ContactPageComponent,
           ),
       },
+
       {
         path: 'dashboard',
 
@@ -67,6 +80,7 @@ export const routes: Routes = [
         children: [
           {
             path: '',
+
             loadComponent: () =>
               import('@features/admin/dashboard-page/dashboard-page.component').then(
                 (m) => m.DashboardPageComponent,
@@ -75,6 +89,7 @@ export const routes: Routes = [
 
           {
             path: 'therapies',
+
             loadComponent: () =>
               import('@features/admin/manage-therapies-page/manage-therapies-page.component').then(
                 (m) => m.ManageTherapiesPageComponent,
@@ -83,6 +98,7 @@ export const routes: Routes = [
 
           {
             path: 'therapies/new',
+
             loadComponent: () =>
               import('@features/admin/therapy-form-page/therapy-form-page.component').then(
                 (m) => m.TherapyFormPageComponent,
@@ -91,9 +107,36 @@ export const routes: Routes = [
 
           {
             path: 'therapies/:id/edit',
+
             loadComponent: () =>
               import('@features/admin/therapy-form-page/therapy-form-page.component').then(
                 (m) => m.TherapyFormPageComponent,
+              ),
+          },
+
+          {
+            path: 'workshops',
+
+            loadComponent: () =>
+              import('@features/admin/manage-workshops-page/manage-workshops-page.component').then(
+                (m) => m.ManageWorkshopsPageComponent,
+              ),
+          },
+          {
+            path: 'workshops/new',
+
+            loadComponent: () =>
+              import('@features/admin/workshop-form-page/workshop-form-page.component').then(
+                (m) => m.WorkshopFormPageComponent,
+              ),
+          },
+
+          {
+            path: 'workshops/:id/edit',
+
+            loadComponent: () =>
+              import('@features/admin/workshop-form-page/workshop-form-page.component').then(
+                (m) => m.WorkshopFormPageComponent,
               ),
           },
         ],

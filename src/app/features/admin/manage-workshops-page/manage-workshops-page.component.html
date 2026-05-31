@@ -1,1 +1,66 @@
-<p>manage-workshops-page works!</p>
+<div class="flex justify-content-between align-items-center mb-6">
+  <h1>Gestionar talleres</h1>
+
+  <a routerLink="/dashboard/workshops/new">
+    <p-button label="Nuevo taller" icon="pi pi-plus" />
+  </a>
+</div>
+
+<div class="grid">
+  @for (workshop of workshops; track workshop.id) {
+    <div class="col-12 lg:col-6 mb-4">
+      <div class="admin-card">
+        <div class="flex justify-content-between align-items-start mb-4">
+          <div>
+            <h3 class="mb-2">
+              {{ workshop.title }}
+            </h3>
+
+            <div class="admin-meta">
+              {{ workshop.date }}
+
+              ·
+
+              {{ workshop.price }}
+
+              €
+            </div>
+          </div>
+
+          <div class="status-badge">
+            @if (workshop.active) {
+              Activo
+
+            } @else {
+              Inactivo
+            }
+          </div>
+        </div>
+
+        <p class="admin-description">
+          {{ workshop.description }}
+        </p>
+
+        <div class="flex flex-wrap gap-3 mt-4">
+          <a [routerLink]="'/dashboard/workshops/' + workshop.id + '/edit'">
+            <p-button label="Editar" severity="secondary" />
+          </a>
+
+          <p-button
+            label="Clonar"
+            icon="pi pi-copy"
+            severity="contrast"
+            (onClick)="cloneWorkshop(workshop.id)"
+          />
+
+          <p-button
+            label="Borrar"
+            icon="pi pi-trash"
+            severity="danger"
+            (onClick)="deleteWorkshop(workshop.id)"
+          />
+        </div>
+      </div>
+    </div>
+  }
+</div>
