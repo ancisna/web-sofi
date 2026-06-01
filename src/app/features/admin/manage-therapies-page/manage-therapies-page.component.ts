@@ -7,7 +7,7 @@ import { Button } from 'primeng/button';
 import { TherapyService } from '@core/services/therapy.service';
 
 import { Therapy } from '@core/models/therapy.model';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'manage-therapies-page',
@@ -23,6 +23,7 @@ import { ConfirmationService } from 'primeng/api';
 export class ManageTherapiesPageComponent {
   private therapyService = inject(TherapyService);
   private confirmationService = inject(ConfirmationService);
+  private messageService = inject(MessageService);
 
   therapies: Therapy[] = this.therapyService.getAll();
 
@@ -36,6 +37,11 @@ export class ManageTherapiesPageComponent {
 
       accept: () => {
         this.therapyService.delete(id);
+        this.messageService.add({
+          severity: 'success',
+
+          summary: 'Terapia eliminada',
+        });
 
         this.therapies = this.therapyService.getAll();
       },

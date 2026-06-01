@@ -7,6 +7,7 @@ import { provideZoneChangeDetection } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 
 import { routes } from './app.routes';
 
@@ -21,5 +22,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
 
     ConfirmationService,
+    MessageService,
   ],
 };

@@ -6,54 +6,74 @@
   </a>
 </div>
 
-<div class="grid">
-  @for (therapy of therapies; track therapy.id) {
-    <div class="col-12 lg:col-6 mb-4">
-      <div class="admin-card">
-        <div class="flex justify-content-between align-items-start mb-4">
-          <div>
-            <h3 class="mb-2">
-              {{ therapy.title }}
-            </h3>
+@if (therapies.length === 0) {
+  <div class="empty-state">
+    <h2>No hay terapias todavía</h2>
 
-            <div class="admin-meta">
-              {{ therapy.duration }}
-              min ·
+    <p>Crea tu primera terapia para empezar.</p>
 
-              {{ therapy.price }}
-              €
+    <a routerLink="/dashboard/therapies/new">
+      <p-button label="Nueva terapia" icon="pi pi-plus" />
+    </a>
+  </div>
+
+} @else {
+  <div class="grid">
+    @for (therapy of therapies; track therapy.id) {
+      <div class="col-12 lg:col-6 mb-4">
+        <div class="admin-card">
+          <div class="flex justify-content-between align-items-start mb-4">
+            <div>
+              <h3 class="mb-2">
+                {{ therapy.title }}
+              </h3>
+
+              <div class="admin-meta">
+                {{ therapy.duration }}
+
+                min ·
+
+                {{ therapy.price }}
+
+                €
+              </div>
+            </div>
+
+            <div class="status-badge">
+              @if (therapy.active) {
+                Activa
+
+              } @else {
+                Inactiva
+              }
             </div>
           </div>
 
-          <div class="status-badge">
-            {{ therapy.active ? "Activa" : "Inactiva" }}
+          <p class="admin-description">
+            {{ therapy.description }}
+          </p>
+
+          <div class="flex flex-wrap gap-3 mt-4">
+            <a [routerLink]="'/dashboard/therapies/' + therapy.id + '/edit'">
+              <p-button label="Editar" severity="secondary" />
+            </a>
+
+            <p-button
+              label="Clonar"
+              icon="pi pi-copy"
+              severity="contrast"
+              (onClick)="cloneTherapy(therapy.id)"
+            />
+
+            <p-button
+              label="Borrar"
+              icon="pi pi-trash"
+              severity="danger"
+              (onClick)="deleteTherapy(therapy.id)"
+            />
           </div>
         </div>
-
-        <p class="admin-description">
-          {{ therapy.description }}
-        </p>
-
-        <div class="flex flex-wrap gap-3 mt-4">
-          <a [routerLink]="'/dashboard/therapies/' + therapy.id + '/edit'">
-            <p-button label="Editar" severity="secondary" />
-          </a>
-
-          <p-button
-            label="Clonar"
-            icon="pi pi-copy"
-            severity="contrast"
-            (onClick)="cloneTherapy(therapy.id)"
-          />
-
-          <p-button
-            label="Borrar"
-            icon="pi pi-trash"
-            severity="danger"
-            (onClick)="deleteTherapy(therapy.id)"
-          />
-        </div>
       </div>
-    </div>
-  }
-</div>
+    }
+  </div>
+}

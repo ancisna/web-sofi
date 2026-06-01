@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { Button } from 'primeng/button';
 
 import { InputText } from 'primeng/inputtext';
+import { MessageService } from 'primeng/api';
 
 import { Textarea } from 'primeng/textarea';
 import { ToggleSwitch } from 'primeng/toggleswitch';
@@ -30,6 +31,7 @@ export class TherapyFormPageComponent {
   private router = inject(Router);
 
   private therapyService = inject(TherapyService);
+  private messageService = inject(MessageService);
 
   id = this.route.snapshot.paramMap.get('id');
 
@@ -77,14 +79,31 @@ export class TherapyFormPageComponent {
           ...this.therapy,
         },
       );
+      this.messageService.add({
+        severity: 'success',
+
+        summary: 'Terapia actualizada',
+      });
     } else {
       this.therapyService.create({
         id: '',
 
         ...this.therapy,
       });
+      this.messageService.add({
+        severity: 'success',
+
+        summary: 'Terapia creada',
+      });
     }
 
     this.router.navigate(['/dashboard/therapies']);
+  }
+  isFormValid(): boolean {
+    return (
+      this.therapy.title.trim().length > 0 &&
+      this.therapy.description.trim().length > 0 &&
+      this.therapy.price > 0
+    );
   }
 }

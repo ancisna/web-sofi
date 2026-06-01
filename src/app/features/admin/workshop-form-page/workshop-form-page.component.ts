@@ -11,6 +11,7 @@ import { InputText } from 'primeng/inputtext';
 import { Textarea } from 'primeng/textarea';
 
 import { ToggleSwitch } from 'primeng/toggleswitch';
+import { MessageService } from 'primeng/api';
 
 import { WorkshopService } from '@core/services/workshop.service';
 
@@ -31,6 +32,7 @@ export class WorkshopFormPageComponent {
   private router = inject(Router);
 
   private workshopService = inject(WorkshopService);
+  private messageService = inject(MessageService);
 
   id = this.route.snapshot.paramMap.get('id');
 
@@ -83,14 +85,32 @@ export class WorkshopFormPageComponent {
           ...this.workshop,
         },
       );
+      this.messageService.add({
+        severity: 'success',
+
+        summary: 'Taller actualizado',
+      });
     } else {
       this.workshopService.create({
         id: '',
 
         ...this.workshop,
       });
+      this.messageService.add({
+        severity: 'success',
+
+        summary: 'Taller creado',
+      });
     }
 
     this.router.navigate(['/dashboard/workshops']);
+  }
+  isFormValid(): boolean {
+    return (
+      this.workshop.title.trim().length > 0 &&
+      this.workshop.description.trim().length > 0 &&
+      this.workshop.date.trim().length > 0 &&
+      this.workshop.price > 0
+    );
   }
 }

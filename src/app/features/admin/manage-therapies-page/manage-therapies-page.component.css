@@ -25,3 +25,20 @@
 
   border-radius: 999px;
 }
+.empty-state {
+  text-align: center;
+
+  padding: 4rem 2rem;
+
+  background: var(--sofi-surface);
+
+  border-radius: var(--sofi-radius);
+
+  box-shadow: var(--sofi-shadow);
+}
+
+.empty-state p {
+  margin-bottom: 2rem;
+
+  color: var(--sofi-text-muted);
+}

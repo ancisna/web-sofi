@@ -7,7 +7,7 @@ import { Button } from 'primeng/button';
 import { WorkshopService } from '@core/services/workshop.service';
 
 import { Workshop } from '@core/models/workshop.model';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'manage-workshops-page',
@@ -23,6 +23,7 @@ import { ConfirmationService } from 'primeng/api';
 export class ManageWorkshopsPageComponent {
   private workshopService = inject(WorkshopService);
   private confirmationService = inject(ConfirmationService);
+  private messageService = inject(MessageService);
 
   workshops: Workshop[] = this.workshopService.getAll();
 
@@ -36,6 +37,11 @@ export class ManageWorkshopsPageComponent {
 
       accept: () => {
         this.workshopService.delete(id);
+        this.messageService.add({
+          severity: 'success',
+
+          summary: 'Taller eliminado',
+        });
 
         this.workshops = this.workshopService.getAll();
       },

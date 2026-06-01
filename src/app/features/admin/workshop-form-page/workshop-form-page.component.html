@@ -1,7 +1,6 @@
 <h1 class="mb-5">
   @if (isEditMode) {
     Editar taller
-
   } @else {
     Nuevo taller
   }
@@ -64,6 +63,94 @@
 
   <div class="flex gap-3 mt-6">
     <p-button label="Guardar" (onClick)="save()" />
+
+    <a routerLink="/dashboard/workshops">
+      <p-button label="Cancelar" severity="secondary" />
+    </a>
+  </div>
+</div>
+<h1 class="mb-5">
+  @if (isEditMode) {
+    Editar taller
+
+  } @else {
+    Nuevo taller
+  }
+</h1>
+
+<div class="admin-card">
+  <div class="grid">
+    <div class="col-12">
+      <label> Título </label>
+
+      <input pInputText class="w-full mt-2" [(ngModel)]="workshop.title" />
+
+      @if (!workshop.title.trim()) {
+        <small class="field-error"> El título es obligatorio. </small>
+      }
+    </div>
+
+    <div class="col-12">
+      <label> Descripción corta </label>
+
+      <input
+        pInputText
+        class="w-full mt-2"
+        [(ngModel)]="workshop.description"
+      />
+
+      @if (!workshop.description.trim()) {
+        <small class="field-error"> La descripción es obligatoria. </small>
+      }
+    </div>
+
+    <div class="col-12">
+      <label> Descripción larga </label>
+
+      <textarea
+        pTextarea
+        rows="8"
+        class="w-full mt-2"
+        [(ngModel)]="workshop.longDescription"
+      ></textarea>
+    </div>
+
+    <div class="col-6">
+      <label> Fecha </label>
+
+      <input pInputText class="w-full mt-2" [(ngModel)]="workshop.date" />
+
+      @if (!workshop.date.trim()) {
+        <small class="field-error"> La fecha es obligatoria. </small>
+      }
+    </div>
+
+    <div class="col-6">
+      <label> Precio </label>
+
+      <input
+        pInputText
+        type="number"
+        class="w-full mt-2"
+        [(ngModel)]="workshop.price"
+      />
+
+      @if (workshop.price <= 0) {
+        <small class="field-error"> Introduce un precio válido. </small>
+      }
+    </div>
+
+    <div class="col-12 mt-4">
+      <div class="flex gap-3 align-items-center">
+        <label> Activo </label>
+
+        <p-toggleswitch [(ngModel)]="workshop.active" />
+      </div>
+    </div>
+  </div>
+
+  <div class="flex gap-3 mt-6">
+    <p-button label="Guardar" [disabled]="!isFormValid()" (onClick)="save()" />
 
     <a routerLink="/dashboard/workshops">
       <p-button label="Cancelar" severity="secondary" />
