@@ -68,7 +68,6 @@ export const routes: Routes = [
             (m) => m.ContactPageComponent,
           ),
       },
-
       {
         path: 'dashboard',
 
@@ -142,5 +141,13 @@ export const routes: Routes = [
         ],
       },
     ],
+  },
+  {
+    path: '**',
+
+    loadComponent: () =>
+      import('@features/public/not-found-page/not-found-page.component').then(
+        (m) => m.NotFoundPageComponent,
+      ),
   },
 ];

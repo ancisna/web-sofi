@@ -19,3 +19,6 @@
 .hero-text {
   color: var(--sofi-text-muted);
 }
+.button-link {
+  text-decoration: none;
+}
