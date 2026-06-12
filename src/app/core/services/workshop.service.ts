@@ -1,98 +1,73 @@
 import { Injectable } from '@angular/core';
-
+import { supabase } from '../supabase/supabase.client';
 import { Workshop } from '@core/models/workshop.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class WorkshopService {
-  private workshops: Workshop[] = [
-    {
-      id: '1',
-
-      title: 'Gestión emocional',
-
-      description: 'Herramientas para comprender y regular emociones.',
-
-      longDescription:
-        'Taller presencial orientado a explorar emociones, autocuidado y herramientas prácticas para la vida cotidiana.',
-
-      date: '15 junio',
-
-      price: 35,
-
-      active: true,
-    },
-
-    {
-      id: '2',
-
-      title: 'Autoestima y límites',
-
-      description: 'Explorar relaciones saludables y autocuidado.',
-
-      longDescription:
-        'Un espacio grupal para revisar autoestima, límites personales y dinámicas relacionales.',
-
-      date: '22 junio',
-
-      price: 40,
-
-      active: true,
-    },
-  ];
-
-  getAll(): Workshop[] {
-    return this.workshops;
+  async getAll(): Promise<Workshop[]> {
+    const { data } = await supabase
+      .from('workshops')
+      .select('*')
+      .order('created_at');
+    return (data ?? []).map(this.mapRow);
   }
 
-  getFeatured(): Workshop[] {
-    return this.workshops.slice(0, 2);
+  async getFeatured(): Promise<Workshop[]> {
+    const { data } = await supabase
+      .from('workshops')
+      .select('*')
+      .eq('active', true)
+      .limit(2);
+    return (data ?? []).map(this.mapRow);
   }
 
-  getById(id: string): Workshop | undefined {
-    return this.workshops.find((workshop) => workshop.id === id);
+  async getById(id: string): Promise<Workshop | undefined> {
+    const { data } = await supabase
+      .from('workshops')
+      .select('*')
+      .eq('id', id)
+      .single();
+    return data ? this.mapRow(data) : undefined;
   }
 
-  create(workshop: Workshop): void {
-    this.workshops = [
-      {
-        ...workshop,
-
-        id: crypto.randomUUID(),
-      },
-
-      ...this.workshops,
-    ];
+  async create(workshop: Omit<Workshop, 'id'>): Promise<void> {
+    await supabase.from('workshops').insert(this.toRow(workshop));
   }
 
-  update(id: string, updated: Workshop): void {
-    this.workshops = this.workshops.map((workshop) =>
-      workshop.id === id
-        ? {
-            ...updated,
-
-            id,
-          }
-        : workshop,
-    );
+  async update(id: string, workshop: Partial<Workshop>): Promise<void> {
+    await supabase.from('workshops').update(this.toRow(workshop)).eq('id', id);
   }
 
-  delete(id: string): void {
-    this.workshops = this.workshops.filter((workshop) => workshop.id !== id);
+  async delete(id: string): Promise<void> {
+    await supabase.from('workshops').delete().eq('id', id);
   }
 
-  clone(id: string): void {
-    const original = this.getById(id);
+  async clone(id: string): Promise<void> {
+    const original = await this.getById(id);
+    if (!original) return;
+    await this.create({ ...original, title: `${original.title} (Copia)` });
+  }
 
-    if (!original) {
-      return;
-    }
+  private mapRow(row: any): Workshop {
+    return {
+      id: row.id,
+      title: row.title,
+      description: row.description,
+      longDescription: row.long_description,
+      date: row.date,
+      price: row.price,
+      active: row.active,
+    };
+  }
 
-    this.create({
-      ...original,
-
-      title: `${original.title} (Copia)`,
-    });
+  private toRow(w: Partial<Workshop>): any {
+    return {
+      title: w.title,
+      description: w.description,
+      long_description: w.longDescription,
+      date: w.date,
+      price: w.price,
+      active: w.active,
+    };
   }
 }

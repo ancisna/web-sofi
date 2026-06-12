@@ -1,10 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { InfoCardComponent } from '@shared/ui/info-card/info-card.component';
 import { PageHeroComponent } from '@shared/ui/page-hero/page-hero.component';
-import { inject } from '@angular/core';
-
 import { WorkshopService } from '@core/services/workshop.service';
-
 import { Workshop } from '@core/models/workshop.model';
 
 @Component({
@@ -14,8 +11,11 @@ import { Workshop } from '@core/models/workshop.model';
   templateUrl: './workshops-page.component.html',
   styleUrl: './workshops-page.component.css',
 })
-export class WorkshopsPageComponent {
+export class WorkshopsPageComponent implements OnInit {
   private workshopService = inject(WorkshopService);
+  workshops: Workshop[] = [];
 
-  workshops: Workshop[] = this.workshopService.getAll();
+  async ngOnInit() {
+    this.workshops = await this.workshopService.getAll();
+  }
 }

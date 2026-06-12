@@ -1,0 +1,231 @@
+export const environment = {
+  production: false,
+
+  supabaseUrl: 'https://tnbkahxuqozfafuxomla.supabase.co',
+
+  supabaseKey: 'sb_publishable_2_L_wpwLZc8rPlofmvR8Fw_Pdjg0XUu'
+};import { Component, inject } from '@angular/core';
+
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+
+import { FormsModule } from '@angular/forms';
+
+import { Button } from 'primeng/button';
+
+import { InputText } from 'primeng/inputtext';
+import { MessageService } from 'primeng/api';
+
+import { Textarea } from 'primeng/textarea';
+import { ToggleSwitch } from 'primeng/toggleswitch';
+
+import { TherapyService } from '@core/services/therapy.service';
+
+@Component({
+  selector: 'therapy-form-page',
+
+  standalone: true,
+
+  imports: [FormsModule, Button, InputText, Textarea, RouterLink],
+
+  templateUrl: './therapy-form-page.component.html',
+
+  styleUrl: './therapy-form-page.component.css',
+})
+export class TherapyFormPageComponent {
+  private route = inject(ActivatedRoute);
+
+  private router = inject(Router);
+
+  private therapyService = inject(TherapyService);
+  private messageService = inject(MessageService);
+
+  id = this.route.snapshot.paramMap.get('id');
+
+  isEditMode = !!this.id;
+
+  therapy = {
+    title: '',
+    description: '',
+    longDescription: '',
+    duration: 60,
+    price: 65,
+    active: true,
+  };
+
+  constructor() {
+    if (this.isEditMode && this.id) {
+      const existingTherapy = this.therapyService.getById(this.id);
+
+      if (existingTherapy) {
+        this.therapy = {
+          title: existingTherapy.title,
+
+          description: existingTherapy.description,
+
+          longDescription: existingTherapy.longDescription,
+
+          duration: existingTherapy.duration,
+
+          price: existingTherapy.price ?? 0,
+
+          active: existingTherapy.active,
+        };
+      }
+    }
+  }
+
+  save(): void {
+    if (this.isEditMode && this.id) {
+      this.therapyService.update(
+        this.id,
+
+        {
+          id: this.id,
+
+          ...this.therapy,
+        },
+      );
+      this.messageService.add({
+        severity: 'success',
+
+        summary: 'Terapia actualizada',
+      });
+    } else {
+      this.therapyService.create({
+        id: '',
+
+        ...this.therapy,
+      });
+      this.messageService.add({
+        severity: 'success',
+
+        summary: 'Terapia creada',
+      });
+    }
+
+    this.router.navigate(['/dashboard/therapies']);
+  }
+  isFormValid(): boolean {
+    return (
+      this.therapy.title.trim().length > 0 &&
+      this.therapy.description.trim().length > 0 &&
+      this.therapy.price > 0
+    );
+  }
+}
+import { Component, inject } from '@angular/core';
+
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+
+import { FormsModule } from '@angular/forms';
+
+import { Button } from 'primeng/button';
+
+import { InputText } from 'primeng/inputtext';
+
+import { Textarea } from 'primeng/textarea';
+
+import { ToggleSwitch } from 'primeng/toggleswitch';
+import { MessageService } from 'primeng/api';
+
+import { WorkshopService } from '@core/services/workshop.service';
+
+@Component({
+  selector: 'workshop-form-page',
+
+  standalone: true,
+
+  imports: [FormsModule, Button, InputText, Textarea, ToggleSwitch, RouterLink],
+
+  templateUrl: './workshop-form-page.component.html',
+
+  styleUrl: './workshop-form-page.component.css',
+})
+export class WorkshopFormPageComponent {
+  private route = inject(ActivatedRoute);
+
+  private router = inject(Router);
+
+  private workshopService = inject(WorkshopService);
+  private messageService = inject(MessageService);
+
+  id = this.route.snapshot.paramMap.get('id');
+
+  isEditMode = !!this.id;
+
+  workshop = {
+    title: '',
+
+    description: '',
+
+    longDescription: '',
+
+    date: '',
+
+    price: 35,
+
+    active: true,
+  };
+
+  constructor() {
+    if (this.isEditMode && this.id) {
+      const existingWorkshop = this.workshopService.getById(this.id);
+
+      if (existingWorkshop) {
+        this.workshop = {
+          title: existingWorkshop.title,
+
+          description: existingWorkshop.description,
+
+          longDescription: existingWorkshop.longDescription,
+
+          date: existingWorkshop.date,
+
+          price: existingWorkshop.price ?? 0,
+
+          active: existingWorkshop.active,
+        };
+      }
+    }
+  }
+
+  save(): void {
+    if (this.isEditMode && this.id) {
+      this.workshopService.update(
+        this.id,
+
+        {
+          id: this.id,
+
+          ...this.workshop,
+        },
+      );
+      this.messageService.add({
+        severity: 'success',
+
+        summary: 'Taller actualizado',
+      });
+    } else {
+      this.workshopService.create({
+        id: '',
+
+        ...this.workshop,
+      });
+      this.messageService.add({
+        severity: 'success',
+
+        summary: 'Taller creado',
+      });
+    }
+
+    this.router.navigate(['/dashboard/workshops']);
+  }
+  isFormValid(): boolean {
+    return (
+      this.workshop.title.trim().length > 0 &&
+      this.workshop.description.trim().length > 0 &&
+      this.workshop.date.trim().length > 0 &&
+      this.workshop.price > 0
+    );
+  }
+}

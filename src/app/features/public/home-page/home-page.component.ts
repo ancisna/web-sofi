@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Button } from 'primeng/button';
+import { RouterLink } from '@angular/router';
+import { InfoCardComponent } from '@shared/ui/info-card/info-card.component';
 import { TherapyService } from '@core/services/therapy.service';
 import { WorkshopService } from '@core/services/workshop.service';
-
-import { Workshop } from '@core/models/workshop.model';
 import { Therapy } from '@core/models/therapy.model';
-import { InfoCardComponent } from '@shared/ui/info-card/info-card.component';
-import { RouterLink } from '@angular/router';
+import { Workshop } from '@core/models/workshop.model';
+
 @Component({
   selector: 'home-page',
   standalone: true,
@@ -14,9 +14,15 @@ import { RouterLink } from '@angular/router';
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit {
   private therapyService = inject(TherapyService);
   private workshopService = inject(WorkshopService);
-  workshops: Workshop[] = this.workshopService.getFeatured();
-  therapies: Therapy[] = this.therapyService.getFeatured();
+
+  therapies: Therapy[] = [];
+  workshops: Workshop[] = [];
+
+  async ngOnInit() {
+    this.therapies = await this.therapyService.getFeatured();
+    this.workshops = await this.workshopService.getFeatured();
+  }
 }
