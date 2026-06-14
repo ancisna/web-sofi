@@ -16,6 +16,13 @@
           <i class="pi pi-phone"></i>
           <span>688 955 546</span>
         </div>
+
+        @if (auth.user()) {
+          <div class="topbar-separator"></div>
+          <span class="topbar-logout" (click)="logout()">
+            <i class="pi pi-sign-out"></i> Cerrar sesión
+          </span>
+        }
       </div>
     </div>
 
@@ -51,6 +58,9 @@
           <a routerLink="/articles"> Artículos </a>
           <a routerLink="/contact"> Contactar </a>
           <a routerLink="/about"> Sobre mí </a>
+          <a routerLink="/login" title="Acceso privado">
+            <i class="pi pi-lock text-color-secondary"></i>
+          </a>
         </nav>
 
         <!-- MOBILE BUTTON -->
@@ -91,7 +101,10 @@
               <a routerLink="/contact" (click)="toggleMobileMenu()">
                 Contactar
               </a>
-              <a routerLink="/about"> Sobre mí </a>
+              <a routerLink="/about" (click)="toggleMobileMenu()"> Sobre mí </a>
+              <a routerLink="/login" (click)="toggleMobileMenu()">
+                <i class="pi pi-lock"></i> Acceso privado
+              </a>
             </nav>
           </div>
         }

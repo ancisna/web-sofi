@@ -17,7 +17,7 @@ export class WorkshopService {
       .from('workshops')
       .select('*')
       .eq('active', true)
-      .limit(2);
+      .limit(4);
     return (data ?? []).map(this.mapRow);
   }
 

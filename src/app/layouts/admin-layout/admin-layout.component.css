@@ -1,27 +1,43 @@
 .admin-shell {
   display: grid;
-
-  grid-template-columns:
-    260px
-    1fr;
-
+  grid-template-columns: 240px 1fr;
   min-height: 100vh;
 }
 
 .admin-sidebar {
   background: var(--sofi-primary-soft);
-
-  padding: 2rem;
+  padding: 2rem 1.5rem;
 }
 
 .admin-nav {
   display: flex;
-
   flex-direction: column;
+  gap: 0.25rem;
+}
 
-  gap: 1rem;
+.admin-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background 0.15s;
+}
+
+.admin-nav a:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.admin-nav a.active {
+  background: var(--sofi-primary);
+  color: #fff;
+  font-weight: 600;
 }
 
 .admin-content {
-  padding: 2rem;
+  padding: 2.5rem;
+  background: var(--surface-ground);
 }

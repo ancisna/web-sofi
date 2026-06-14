@@ -6,6 +6,7 @@ import { TherapyService } from '@core/services/therapy.service';
 import { WorkshopService } from '@core/services/workshop.service';
 import { Therapy } from '@core/models/therapy.model';
 import { Workshop } from '@core/models/workshop.model';
+import { supabase } from '@core/supabase/supabase.client';
 
 @Component({
   selector: 'home-page',
@@ -22,7 +23,15 @@ export class HomePageComponent implements OnInit {
   workshops: Workshop[] = [];
 
   async ngOnInit() {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    console.log('SESSION:', session?.user?.email ?? 'anonymous');
+
     this.therapies = await this.therapyService.getFeatured();
     this.workshops = await this.workshopService.getFeatured();
+
+    console.log('THERAPIES:', this.therapies);
+    console.log('WORKSHOPS:', this.workshops);
   }
 }

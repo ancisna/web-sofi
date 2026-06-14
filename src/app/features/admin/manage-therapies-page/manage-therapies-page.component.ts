@@ -1,15 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Button } from 'primeng/button';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { Toast } from 'primeng/toast';
 import { TherapyService } from '@core/services/therapy.service';
 import { Therapy } from '@core/models/therapy.model';
-import { ConfirmationService } from 'primeng/api';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'manage-therapies-page',
   standalone: true,
-  imports: [Button, RouterLink],
+  imports: [Button, RouterLink, ConfirmDialog, Toast],
   templateUrl: './manage-therapies-page.component.html',
   styleUrl: './manage-therapies-page.component.css',
 })
@@ -32,10 +33,7 @@ export class ManageTherapiesPageComponent implements OnInit {
       accept: async () => {
         await this.therapyService.delete(id);
         this.therapies = await this.therapyService.getAll();
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Terapia eliminada',
-        });
+        this.messageService.add({ severity: 'success', summary: 'Terapia eliminada' });
       },
     });
   }
@@ -43,9 +41,6 @@ export class ManageTherapiesPageComponent implements OnInit {
   async cloneTherapy(id: string): Promise<void> {
     await this.therapyService.clone(id);
     this.therapies = await this.therapyService.getAll();
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Terapia clonada',
-    });
+    this.messageService.add({ severity: 'success', summary: 'Terapia clonada' });
   }
 }

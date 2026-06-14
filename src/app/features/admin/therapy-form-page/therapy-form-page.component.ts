@@ -3,15 +3,18 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
+import { InputNumber } from 'primeng/inputnumber';
 import { Textarea } from 'primeng/textarea';
 import { ToggleSwitch } from 'primeng/toggleswitch';
+import { Divider } from 'primeng/divider';
+import { Toast } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TherapyService } from '@core/services/therapy.service';
 
 @Component({
   selector: 'therapy-form-page',
   standalone: true,
-  imports: [FormsModule, Button, InputText, Textarea, ToggleSwitch, RouterLink],
+  imports: [FormsModule, Button, InputText, InputNumber, Textarea, ToggleSwitch, Divider, Toast, RouterLink],
   templateUrl: './therapy-form-page.component.html',
   styleUrl: './therapy-form-page.component.css',
 })
@@ -23,6 +26,7 @@ export class TherapyFormPageComponent implements OnInit {
 
   id = this.route.snapshot.paramMap.get('id');
   isEditMode = !!this.id;
+  saving = false;
 
   therapy = {
     title: '',
@@ -53,24 +57,25 @@ export class TherapyFormPageComponent implements OnInit {
     return (
       this.therapy.title.trim().length > 0 &&
       this.therapy.description.trim().length > 0 &&
-      this.therapy.price > 0
+      this.therapy.price > 0 &&
+      this.therapy.duration > 0
     );
   }
 
   async save(): Promise<void> {
-    if (this.isEditMode && this.id) {
-      await this.therapyService.update(this.id, this.therapy);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Terapia actualizada',
-      });
-    } else {
-      await this.therapyService.create(this.therapy);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Terapia creada',
-      });
+    if (!this.isFormValid()) return;
+    this.saving = true;
+    try {
+      if (this.isEditMode && this.id) {
+        await this.therapyService.update(this.id, this.therapy);
+        this.messageService.add({ severity: 'success', summary: 'Terapia actualizada' });
+      } else {
+        await this.therapyService.create(this.therapy);
+        this.messageService.add({ severity: 'success', summary: 'Terapia creada' });
+      }
+      setTimeout(() => this.router.navigate(['/dashboard/therapies']), 1000);
+    } finally {
+      this.saving = false;
     }
-    this.router.navigate(['/dashboard/therapies']);
   }
 }

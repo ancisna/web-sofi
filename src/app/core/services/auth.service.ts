@@ -6,24 +6,24 @@ import { supabase } from '../supabase/supabase.client';
 import { User } from '@supabase/supabase-js';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   user = signal<User | null>(null);
   profile = signal<Profile | null>(null);
   loading = signal(true);
+  private initialized = false;
 
   constructor() {
-
     this.initialize();
-
   }
 
   async initialize() {
     // Sesión actual
+    if (this.initialized) return;
+    this.initialized = true;
     const {
-      data: { session }
+      data: { session },
     } = await supabase.auth.getSession();
 
     this.user.set(session?.user ?? null);
@@ -36,33 +36,25 @@ export class AuthService {
     supabase.auth.onAuthStateChange((event, session) => {
       this.user.set(session?.user ?? null);
       if (session?.user) {
-      this.loadProfile(session.user.id);
-      }
-      else {
+        this.loadProfile(session.user.id);
+      } else {
         this.profile.set(null);
       }
     });
 
     this.loading.set(false);
-
   }
 
   // REGISTER
 
-  async signUp(
-    email: string,
-    password: string
-  ) {
-
+  async signUp(email: string, password: string) {
     return await supabase.auth.signUp({
       email,
-      password
+      password,
     });
-
   }
 
   async loadProfile(userId: string) {
-
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
@@ -74,33 +66,22 @@ export class AuthService {
     console.log('PROFILE ERROR:', error);
 
     if (data) {
-
       this.profile.set(data);
-
     }
-
   }
 
   // LOGIN
 
-  async signIn(
-    email: string,
-    password: string
-  ) {
-
+  async signIn(email: string, password: string) {
     return await supabase.auth.signInWithPassword({
       email,
-      password
+      password,
     });
-
   }
 
   // LOGOUT
 
   async signOut() {
-
     return await supabase.auth.signOut();
-
   }
-
 }

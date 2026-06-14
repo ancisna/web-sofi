@@ -1,0 +1,50 @@
+<div class="flex align-items-center justify-content-center min-h-screen">
+  <p-card styleClass="w-full md:w-4">
+    <ng-template pTemplate="header">
+      <div class="text-center pt-4 px-4">
+        <h2 class="text-2xl font-semibold m-0">Acceso administración</h2>
+        <p class="text-color-secondary mt-2">Sofía Reyes — Panel privado</p>
+      </div>
+    </ng-template>
+
+    <div class="flex flex-column gap-3">
+      @if (error()) {
+        <p-message severity="error" [text]="error()" />
+      }
+
+      <div class="flex flex-column gap-1">
+        <label for="email" class="font-medium">Email</label>
+        <input
+          pInputText
+          id="email"
+          type="email"
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event)"
+          placeholder="correo@ejemplo.com"
+          class="w-full"
+        />
+      </div>
+
+      <div class="flex flex-column gap-1">
+        <label for="password" class="font-medium">Contraseña</label>
+        <input
+          pInputText
+          id="password"
+          type="password"
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event)"
+          placeholder="••••••••"
+          class="w-full"
+        />
+      </div>
+
+      <p-button
+        label="Entrar"
+        icon="pi pi-sign-in"
+        styleClass="w-full"
+        [loading]="loading()"
+        (onClick)="onSubmit()"
+      />
+    </div>
+  </p-card>
+</div>

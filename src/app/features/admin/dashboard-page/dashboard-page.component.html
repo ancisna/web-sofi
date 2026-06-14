@@ -1,3 +1,58 @@
-<h1 class="mb-4">Dashboard</h1>
+<div>
+  <h1 class="text-3xl font-semibold mb-1">
+    Bienvenida{{ auth.profile()?.full_name ? ', ' + auth.profile()!.full_name : '' }} 👋
+  </h1>
+  <p class="text-color-secondary mb-5">Panel de administración · Sofía Reyes Psicóloga</p>
 
-<p>Bienvenida al panel de administración.</p>
+  <div class="grid">
+    <div class="col-12 md:col-6 lg:col-4">
+      <p-card styleClass="h-full">
+        <div class="flex flex-column gap-3">
+          <div class="flex align-items-center gap-3">
+            <div class="dashboard-icon bg-pink-100">
+              <i class="pi pi-heart text-pink-500 text-2xl"></i>
+            </div>
+            <div>
+              <div class="text-lg font-semibold">Terapias</div>
+              <div class="text-color-secondary text-sm">Gestiona tus servicios</div>
+            </div>
+          </div>
+          <p-button
+            label="Gestionar terapias"
+            icon="pi pi-arrow-right"
+            iconPos="right"
+            severity="secondary"
+            [outlined]="true"
+            styleClass="w-full"
+            routerLink="/dashboard/therapies"
+          />
+        </div>
+      </p-card>
+    </div>
+
+    <div class="col-12 md:col-6 lg:col-4">
+      <p-card styleClass="h-full">
+        <div class="flex flex-column gap-3">
+          <div class="flex align-items-center gap-3">
+            <div class="dashboard-icon bg-blue-100">
+              <i class="pi pi-users text-blue-500 text-2xl"></i>
+            </div>
+            <div>
+              <div class="text-lg font-semibold">Talleres</div>
+              <div class="text-color-secondary text-sm">Gestiona tus talleres</div>
+            </div>
+          </div>
+          <p-button
+            label="Gestionar talleres"
+            icon="pi pi-arrow-right"
+            iconPos="right"
+            severity="secondary"
+            [outlined]="true"
+            styleClass="w-full"
+            routerLink="/dashboard/workshops"
+          />
+        </div>
+      </p-card>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Button } from 'primeng/button';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { Toast } from 'primeng/toast';
 import { WorkshopService } from '@core/services/workshop.service';
 import { Workshop } from '@core/models/workshop.model';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -8,7 +10,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 @Component({
   selector: 'manage-workshops-page',
   standalone: true,
-  imports: [Button, RouterLink],
+  imports: [Button, RouterLink, ConfirmDialog, Toast],
   templateUrl: './manage-workshops-page.component.html',
   styleUrl: './manage-workshops-page.component.css',
 })
@@ -31,10 +33,7 @@ export class ManageWorkshopsPageComponent implements OnInit {
       accept: async () => {
         await this.workshopService.delete(id);
         this.workshops = await this.workshopService.getAll();
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Taller eliminado',
-        });
+        this.messageService.add({ severity: 'success', summary: 'Taller eliminado' });
       },
     });
   }

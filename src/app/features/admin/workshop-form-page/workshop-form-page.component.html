@@ -1,159 +1,86 @@
-<h1 class="mb-5">
-  @if (isEditMode) {
-    Editar taller
-  } @else {
-    Nuevo taller
-  }
-</h1>
+<p-toast />
 
-<div class="admin-card">
-  <div class="grid">
-    <div class="col-12">
-      <label> Título </label>
-
-      <input pInputText class="w-full mt-2" [(ngModel)]="workshop.title" />
-    </div>
-
-    <div class="col-12">
-      <label> Descripción corta </label>
-
-      <input
-        pInputText
-        class="w-full mt-2"
-        [(ngModel)]="workshop.description"
-      />
-    </div>
-
-    <div class="col-12">
-      <label> Descripción larga </label>
-
-      <textarea
-        pTextarea
-        rows="8"
-        class="w-full mt-2"
-        [(ngModel)]="workshop.longDescription"
-      ></textarea>
-    </div>
-
-    <div class="col-6">
-      <label> Fecha </label>
-
-      <input pInputText class="w-full mt-2" [(ngModel)]="workshop.date" />
-    </div>
-
-    <div class="col-6">
-      <label> Precio </label>
-
-      <input
-        pInputText
-        type="number"
-        class="w-full mt-2"
-        [(ngModel)]="workshop.price"
-      />
-    </div>
-
-    <div class="col-12 mt-4">
-      <div class="flex gap-3 align-items-center">
-        <label> Activo </label>
-
-        <p-toggleswitch [(ngModel)]="workshop.active" />
-      </div>
-    </div>
-  </div>
-
-  <div class="flex gap-3 mt-6">
-    <p-button label="Guardar" (onClick)="save()" />
-
-    <a routerLink="/dashboard/workshops">
-      <p-button label="Cancelar" severity="secondary" />
-    </a>
-  </div>
+<div class="form-header mb-5">
+  <a routerLink="/dashboard/workshops" class="back-link">
+    <i class="pi pi-arrow-left"></i> Talleres
+  </a>
+  <h1 class="mt-2 mb-0">{{ isEditMode ? 'Editar taller' : 'Nuevo taller' }}</h1>
 </div>
-<h1 class="mb-5">
-  @if (isEditMode) {
-    Editar taller
 
-  } @else {
-    Nuevo taller
-  }
-</h1>
+<div class="form-layout">
+  <!-- MAIN -->
+  <div class="form-main">
 
-<div class="admin-card">
-  <div class="grid">
-    <div class="col-12">
-      <label> Título </label>
+    <div class="admin-card mb-4">
+      <h3 class="section-title">Información básica</h3>
+      <p-divider />
 
-      <input pInputText class="w-full mt-2" [(ngModel)]="workshop.title" />
+      <div class="field">
+        <label for="title">Título <span class="required">*</span></label>
+        <input pInputText id="title" class="w-full" [(ngModel)]="workshop.title" placeholder="Ej. Taller de mindfulness" />
+        @if (!workshop.title.trim()) {
+          <small class="field-error">El título es obligatorio.</small>
+        }
+      </div>
 
-      @if (!workshop.title.trim()) {
-        <small class="field-error"> El título es obligatorio. </small>
-      }
+      <div class="field">
+        <label for="description">Descripción corta <span class="required">*</span></label>
+        <input pInputText id="description" class="w-full" [(ngModel)]="workshop.description" placeholder="Resumen breve que aparece en la tarjeta" />
+        @if (!workshop.description.trim()) {
+          <small class="field-error">La descripción es obligatoria.</small>
+        }
+      </div>
+
+      <div class="field mb-0">
+        <label for="longDescription">Descripción completa</label>
+        <textarea pTextarea id="longDescription" rows="8" class="w-full" [(ngModel)]="workshop.longDescription" placeholder="Describe en detalle el taller..."></textarea>
+      </div>
     </div>
 
-    <div class="col-12">
-      <label> Descripción corta </label>
+    <div class="admin-card">
+      <h3 class="section-title">Detalles</h3>
+      <p-divider />
 
-      <input
-        pInputText
-        class="w-full mt-2"
-        [(ngModel)]="workshop.description"
-      />
+      <div class="field-row">
+        <div class="field">
+          <label for="date">Fecha <span class="required">*</span></label>
+          <p-datepicker inputId="date" [(ngModel)]="dateValue" dateFormat="dd/mm/yy" [showIcon]="true" styleClass="w-full" inputStyleClass="w-full" />
+          @if (!dateValue) {
+            <small class="field-error">La fecha es obligatoria.</small>
+          }
+        </div>
 
-      @if (!workshop.description.trim()) {
-        <small class="field-error"> La descripción es obligatoria. </small>
-      }
-    </div>
-
-    <div class="col-12">
-      <label> Descripción larga </label>
-
-      <textarea
-        pTextarea
-        rows="8"
-        class="w-full mt-2"
-        [(ngModel)]="workshop.longDescription"
-      ></textarea>
-    </div>
-
-    <div class="col-6">
-      <label> Fecha </label>
-
-      <input pInputText class="w-full mt-2" [(ngModel)]="workshop.date" />
-
-      @if (!workshop.date.trim()) {
-        <small class="field-error"> La fecha es obligatoria. </small>
-      }
-    </div>
-
-    <div class="col-6">
-      <label> Precio </label>
-
-      <input
-        pInputText
-        type="number"
-        class="w-full mt-2"
-        [(ngModel)]="workshop.price"
-      />
-
-      @if (workshop.price <= 0) {
-        <small class="field-error"> Introduce un precio válido. </small>
-      }
-    </div>
-
-    <div class="col-12 mt-4">
-      <div class="flex gap-3 align-items-center">
-        <label> Activo </label>
-
-        <p-toggleswitch [(ngModel)]="workshop.active" />
+        <div class="field">
+          <label for="price">Precio <span class="required">*</span></label>
+          <p-inputnumber inputId="price" [(ngModel)]="workshop.price" [min]="0" mode="currency" currency="EUR" locale="es-ES" styleClass="w-full" inputStyleClass="w-full" />
+          @if (workshop.price <= 0) {
+            <small class="field-error">Introduce un precio válido.</small>
+          }
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="flex gap-3 mt-6">
-    <p-button label="Guardar" [disabled]="!isFormValid()" (onClick)="save()" />
+  <!-- SIDEBAR -->
+  <div class="form-sidebar">
+    <div class="admin-card">
+      <h3 class="section-title">Publicación</h3>
+      <p-divider />
 
-    <a routerLink="/dashboard/workshops">
-      <p-button label="Cancelar" severity="secondary" />
-    </a>
+      <div class="flex align-items-center justify-content-between">
+        <div>
+          <div class="font-medium">Taller activo</div>
+          <div class="text-color-secondary text-sm mt-1">Visible en la web pública</div>
+        </div>
+        <p-toggleswitch [(ngModel)]="workshop.active" />
+      </div>
+
+      <p-divider />
+
+      <div class="flex flex-column gap-2">
+        <p-button label="{{ isEditMode ? 'Guardar cambios' : 'Crear taller' }}" icon="pi pi-check" styleClass="w-full" [disabled]="!isFormValid()" [loading]="saving" (onClick)="save()" />
+        <p-button label="Cancelar" severity="secondary" styleClass="w-full" routerLink="/dashboard/workshops" />
+      </div>
+    </div>
   </div>
 </div>
