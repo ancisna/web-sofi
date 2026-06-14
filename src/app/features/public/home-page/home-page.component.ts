@@ -7,11 +7,12 @@ import { WorkshopService } from '@core/services/workshop.service';
 import { Therapy } from '@core/models/therapy.model';
 import { Workshop } from '@core/models/workshop.model';
 import { supabase } from '@core/supabase/supabase.client';
+import { DateEsPipe } from '@shared/pipes/date-es.pipe';
 
 @Component({
   selector: 'home-page',
   standalone: true,
-  imports: [Button, InfoCardComponent, RouterLink],
+  imports: [Button, InfoCardComponent, RouterLink, DateEsPipe],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })

@@ -1,5 +1,4 @@
 <p-toast />
-<p-confirmdialog />
 
 <div class="flex justify-content-between align-items-center mb-6">
   <h1>Gestionar talleres</h1>
@@ -31,7 +30,7 @@
               </h3>
 
               <div class="admin-meta">
-                {{ workshop.date }}
+                {{ workshop.date | dateEs }}
 
                 ·
 
@@ -41,12 +40,11 @@
               </div>
             </div>
 
-            <div class="status-badge">
-              @if (workshop.active) {
-                Activo
-              } @else {
-                Inactivo
-              }
+            <div class="flex align-items-center gap-2">
+              <span class="status-label" [class.active]="workshop.active" [class.inactive]="!workshop.active">
+                {{ workshop.active ? 'Activo' : 'Inactivo' }}
+              </span>
+              <p-toggleswitch [(ngModel)]="workshop.active" (onChange)="toggleActive(workshop)" />
             </div>
           </div>
 
@@ -70,7 +68,7 @@
               label="Borrar"
               icon="pi pi-trash"
               severity="danger"
-              (onClick)="deleteWorkshop(workshop.id)"
+              (onClick)="deleteWorkshop(workshop)"
             />
           </div>
         </div>

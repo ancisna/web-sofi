@@ -1,12 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 import { TherapyService } from '@core/services/therapy.service';
 import { Therapy } from '@core/models/therapy.model';
 
 @Component({
   selector: 'therapy-detail-page',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, ButtonModule],
   templateUrl: './therapy-detail-page.component.html',
   styleUrl: './therapy-detail-page.component.css',
 })

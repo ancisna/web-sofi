@@ -18,12 +18,21 @@
   line-height: 1.8;
 }
 
-.status-badge {
-  background: var(--sofi-primary-soft);
-
+.status-label {
   padding: 0.35rem 0.75rem;
-
   border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status-badge.active {
+  background: #dcf5e7;
+  color: #1e7c45;
+}
+
+.status-badge.inactive {
+  background: #ebebeb;
+  color: #888;
 }
 .empty-state {
   text-align: center;

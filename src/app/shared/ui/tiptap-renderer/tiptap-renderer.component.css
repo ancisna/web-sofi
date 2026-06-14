@@ -1,0 +1,48 @@
+.tiptap-rendered {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--sofi-text);
+}
+
+.tiptap-rendered h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 2rem 0 0.75rem;
+}
+
+.tiptap-rendered h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.tiptap-rendered p {
+  margin-bottom: 1rem;
+}
+
+.tiptap-rendered ul,
+.tiptap-rendered ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.tiptap-rendered li {
+  margin-bottom: 0.4rem;
+}
+
+.tiptap-rendered blockquote {
+  border-left: 3px solid var(--sofi-primary);
+  padding-left: 1.25rem;
+  color: var(--sofi-text-muted);
+  font-style: italic;
+  margin: 1.5rem 0;
+}
+
+.tiptap-rendered a {
+  color: var(--sofi-primary);
+  text-decoration: underline;
+}
+
+.tiptap-rendered strong {
+  font-weight: 700;
+}

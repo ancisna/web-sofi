@@ -1,0 +1,69 @@
+<section class="py-8 px-4 lg:px-8">
+  <div class="max-w-screen-md mx-auto">
+
+    <a routerLink="/articles" class="back-link">
+      <i class="pi pi-arrow-left"></i> Todos los artículos
+    </a>
+
+    @if (article) {
+
+      @if (article.category) {
+        <span class="article-category mt-5" [style.background]="article.category.color || 'var(--sofi-primary-soft)'">
+          {{ article.category.name }}
+        </span>
+      }
+
+      <h1 class="mt-3 mb-3">{{ article.title }}</h1>
+
+      <div class="article-meta mb-6">
+        {{ article.publishedAt | dateEs }}
+      </div>
+
+      @if (article.coverImage) {
+        <img [src]="article.coverImage" [alt]="article.title" class="article-cover mb-8" />
+      }
+
+      <app-tiptap-renderer [content]="article.content" />
+
+      <!-- CTA -->
+      <div class="article-cta mt-10">
+        <h3 class="mb-2">¿Resuena contigo este tema?</h3>
+        <p class="mb-4">Puedo acompañarte en este proceso desde un espacio terapéutico cercano y profesional.</p>
+        <div class="flex flex-wrap gap-3">
+          <p-button label="Ver terapias" icon="pi pi-heart" routerLink="/therapies" />
+          <p-button label="Ver talleres" severity="secondary" icon="pi pi-users" routerLink="/workshops" />
+          <p-button label="Contactar" severity="secondary" icon="pi pi-envelope" routerLink="/contact" />
+        </div>
+      </div>
+
+      <!-- ARTÍCULOS RELACIONADOS -->
+      @if (related.length > 0) {
+        <div class="mt-10">
+          <h3 class="mb-4">Artículos relacionados</h3>
+          <div class="grid">
+            @for (rel of related; track rel.id) {
+              <div class="col-12 md:col-4">
+                <a [routerLink]="'/articles/' + rel.slug" class="related-card">
+                  @if (rel.coverImage) {
+                    <img [src]="rel.coverImage" [alt]="rel.title" class="related-image" />
+                  } @else {
+                    <div class="related-image related-image--placeholder"></div>
+                  }
+                  <div class="related-title">{{ rel.title }}</div>
+                </a>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+    } @else {
+      <div class="text-center py-8 mt-5">
+        <h2 class="mb-3">Artículo no encontrado</h2>
+        <p class="mb-5" style="color: var(--sofi-text-muted)">El contenido solicitado no existe o ya no está disponible.</p>
+        <p-button label="Ver todos los artículos" severity="secondary" routerLink="/articles" />
+      </div>
+    }
+
+  </div>
+</section>

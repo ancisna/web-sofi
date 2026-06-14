@@ -1,5 +1,4 @@
 <p-toast />
-<p-confirmdialog />
 
 <div class="flex justify-content-between align-items-center mb-6">
   <h1>Gestionar terapias</h1>
@@ -42,13 +41,11 @@
               </div>
             </div>
 
-            <div class="status-badge">
-              @if (therapy.active) {
-                Activa
-
-              } @else {
-                Inactiva
-              }
+            <div class="flex align-items-center gap-2">
+              <span class="status-label" [class.active]="therapy.active" [class.inactive]="!therapy.active">
+                {{ therapy.active ? 'Activa' : 'Inactiva' }}
+              </span>
+              <p-toggleswitch [(ngModel)]="therapy.active" (onChange)="toggleActive(therapy)" />
             </div>
           </div>
 
@@ -72,7 +69,7 @@
               label="Borrar"
               icon="pi pi-trash"
               severity="danger"
-              (onClick)="deleteTherapy(therapy.id)"
+              (onClick)="deleteTherapy(therapy)"
             />
           </div>
         </div>

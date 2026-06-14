@@ -1,12 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 import { WorkshopService } from '@core/services/workshop.service';
+import { DateEsPipe } from '@shared/pipes/date-es.pipe';
 import { Workshop } from '@core/models/workshop.model';
 
 @Component({
   selector: 'workshop-detail-page',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, ButtonModule, DateEsPipe],
   templateUrl: './workshop-detail-page.component.html',
   styleUrl: './workshop-detail-page.component.css',
 })

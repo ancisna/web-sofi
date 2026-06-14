@@ -1,0 +1,73 @@
+<p-toast />
+
+<div class="flex justify-content-between align-items-center mb-6">
+  <h1>Gestionar artículos</h1>
+  <a routerLink="/dashboard/articles/new">
+    <p-button label="Nuevo artículo" icon="pi pi-plus" />
+  </a>
+</div>
+
+@if (articles.length === 0) {
+  <div class="empty-state">
+    <h2>No hay artículos todavía</h2>
+    <p>Crea tu primer artículo para empezar.</p>
+    <a routerLink="/dashboard/articles/new">
+      <p-button label="Nuevo artículo" icon="pi pi-plus" />
+    </a>
+  </div>
+} @else {
+  <div class="grid">
+    @for (article of articles; track article.id) {
+      <div class="col-12 lg:col-6 mb-4">
+        <div class="admin-card">
+          <div class="flex justify-content-between align-items-start mb-3">
+            <div class="flex-1 pr-3">
+              <h3 class="mb-1">{{ article.title }}</h3>
+              @if (article.category) {
+                <span class="article-category-badge">{{ article.category.name }}</span>
+              }
+            </div>
+            <div class="flex align-items-center gap-2 flex-shrink-0">
+              <span class="status-label" [class.published]="article.status === 'published'" [class.draft]="article.status === 'draft'">
+                {{ article.status === 'published' ? 'Publicado' : 'Borrador' }}
+              </span>
+              <p-toggleswitch
+                [ngModel]="article.status === 'published'"
+                (onChange)="togglePublish(article)"
+              />
+            </div>
+          </div>
+
+          @if (article.excerpt) {
+            <p class="admin-description mb-3">{{ article.excerpt }}</p>
+          }
+
+          <div class="admin-meta mb-4">
+            @if (article.publishedAt) {
+              <span><i class="pi pi-calendar mr-1"></i>{{ article.publishedAt | dateEs }}</span>
+            } @else {
+              <span class="text-muted">Sin publicar aún</span>
+            }
+          </div>
+
+          <div class="flex flex-wrap gap-3">
+            <a [routerLink]="'/dashboard/articles/' + article.id + '/edit'">
+              <p-button label="Editar" severity="secondary" icon="pi pi-pencil" />
+            </a>
+            @if (article.status === 'published') {
+              <a [routerLink]="'/articles/' + article.slug" target="_blank">
+                <p-button label="Ver" severity="contrast" icon="pi pi-external-link" />
+              </a>
+            }
+            <p-button
+              label="Borrar"
+              icon="pi pi-trash"
+              severity="danger"
+              (onClick)="deleteArticle(article)"
+            />
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}

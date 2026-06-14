@@ -1,0 +1,114 @@
+<p-toast />
+
+<div class="form-header mb-5">
+  <a routerLink="/dashboard/articles" class="back-link">
+    <i class="pi pi-arrow-left"></i> Artículos
+  </a>
+  <h1 class="mt-2 mb-0">{{ isEditMode ? 'Editar artículo' : 'Nuevo artículo' }}</h1>
+</div>
+
+<div class="form-layout">
+  <!-- MAIN -->
+  <div class="form-main">
+
+    <!-- BÁSICO -->
+    <div class="admin-card mb-4">
+      <h3 class="section-title">Información básica</h3>
+      <p-divider />
+
+      <div class="field">
+        <label for="title">Título <span class="required">*</span></label>
+        <input pInputText id="title" class="w-full" [(ngModel)]="form.title" (blur)="!isEditMode && generateSlug()" placeholder="Título del artículo" />
+        @if (!form.title.trim()) {
+          <small class="field-error">El título es obligatorio.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="slug">Slug (URL) <span class="required">*</span></label>
+        <div class="flex gap-2">
+          <input pInputText id="slug" class="flex-1" [(ngModel)]="form.slug" placeholder="titulo-del-articulo" />
+          <p-button icon="pi pi-refresh" severity="secondary" pTooltip="Regenerar desde título" (onClick)="generateSlug()" />
+        </div>
+        @if (!form.slug.trim()) {
+          <small class="field-error">El slug es obligatorio.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="excerpt">Extracto</label>
+        <textarea pTextarea id="excerpt" rows="3" class="w-full" [(ngModel)]="form.excerpt" placeholder="Breve descripción que aparece en la lista de artículos"></textarea>
+      </div>
+
+      <div class="field mb-0">
+        <label for="coverImage">URL imagen de portada</label>
+        <input pInputText id="coverImage" class="w-full" [(ngModel)]="form.coverImage" placeholder="https://..." />
+      </div>
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="admin-card mb-4">
+      <h3 class="section-title">Contenido</h3>
+      <p-divider />
+      <app-tiptap-editor [(ngModel)]="form.content" />
+    </div>
+
+    <!-- SEO -->
+    <div class="admin-card">
+      <h3 class="section-title">SEO</h3>
+      <p-divider />
+
+      <div class="field">
+        <label for="seoTitle">Título SEO</label>
+        <input pInputText id="seoTitle" class="w-full" [(ngModel)]="form.seoTitle" placeholder="Título para buscadores (máx. 60 caracteres)" />
+        <small class="field-hint">{{ form.seoTitle.length }}/60</small>
+      </div>
+
+      <div class="field mb-0">
+        <label for="seoDescription">Descripción SEO</label>
+        <textarea pTextarea id="seoDescription" rows="3" class="w-full" [(ngModel)]="form.seoDescription" placeholder="Descripción para buscadores (máx. 160 caracteres)"></textarea>
+        <small class="field-hint">{{ form.seoDescription.length }}/160</small>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="form-sidebar">
+    <div class="admin-card mb-4">
+      <h3 class="section-title">Publicación</h3>
+      <p-divider />
+
+      <div class="flex flex-column gap-2">
+        <p-button
+          label="{{ isEditMode ? 'Guardar cambios' : 'Crear artículo' }}"
+          icon="pi pi-check"
+          styleClass="w-full"
+          [disabled]="!isFormValid()"
+          [loading]="saving"
+          (onClick)="save()"
+        />
+        <p-button label="Cancelar" severity="secondary" styleClass="w-full" routerLink="/dashboard/articles" />
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <h3 class="section-title">Categoría</h3>
+      <p-divider />
+
+      <div class="field mb-0">
+        <label for="category">Categoría</label>
+        <p-select
+          inputId="category"
+          [options]="categories"
+          optionLabel="name"
+          optionValue="id"
+          [(ngModel)]="form.categoryId"
+          placeholder="Sin categoría"
+          [showClear]="true"
+          styleClass="w-full"
+        />
+      </div>
+    </div>
+  </div>
+</div>

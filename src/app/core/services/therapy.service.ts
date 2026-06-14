@@ -12,6 +12,15 @@ export class TherapyService {
     return (data ?? []).map(this.mapRow);
   }
 
+  async getAllActive(): Promise<Therapy[]> {
+    const { data } = await supabase
+      .from('therapies')
+      .select('*')
+      .eq('active', true)
+      .order('created_at');
+    return (data ?? []).map(this.mapRow);
+  }
+
   async getFeatured(): Promise<Therapy[]> {
     const { data } = await supabase
       .from('therapies')

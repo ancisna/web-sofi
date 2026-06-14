@@ -16,6 +16,6 @@ export class TherapiesPageComponent implements OnInit {
   therapies: Therapy[] = [];
 
   async ngOnInit() {
-    this.therapies = await this.therapyService.getAll();
+    this.therapies = await this.therapyService.getAllActive();
   }
 }

@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-
-import { PageHeroComponent } from '@shared/ui/page-hero/page-hero.component';
+import { RouterLink } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'about-page',
-
   standalone: true,
-
-  imports: [],
+  imports: [RouterLink, ButtonModule],
 
   templateUrl: './about-page.component.html',
 

@@ -1,0 +1,41 @@
+<div class="tiptap-wrapper">
+  <!-- TOOLBAR -->
+  <div class="tiptap-toolbar">
+    <button type="button" class="tool-btn tool-btn--b" [class.active]="is('bold')" (click)="editor.chain().focus().toggleBold().run()" title="Negrita">B</button>
+    <button type="button" class="tool-btn tool-btn--i" [class.active]="is('italic')" (click)="editor.chain().focus().toggleItalic().run()" title="Cursiva">I</button>
+    <button type="button" class="tool-btn tool-btn--u" [class.active]="is('underline')" (click)="editor.chain().focus().toggleUnderline().run()" title="Subrayado">U</button>
+
+    <div class="tool-separator"></div>
+
+    <button type="button" class="tool-btn" [class.active]="is('heading', {level: 2})" (click)="editor.chain().focus().toggleHeading({level: 2}).run()" title="Título H2">
+      H2
+    </button>
+    <button type="button" class="tool-btn" [class.active]="is('heading', {level: 3})" (click)="editor.chain().focus().toggleHeading({level: 3}).run()" title="Título H3">
+      H3
+    </button>
+
+    <div class="tool-separator"></div>
+
+    <button type="button" class="tool-btn" [class.active]="is('bulletList')" (click)="editor.chain().focus().toggleBulletList().run()" title="Lista">
+      <i class="pi pi-list"></i>
+    </button>
+    <button type="button" class="tool-btn" [class.active]="is('orderedList')" (click)="editor.chain().focus().toggleOrderedList().run()" title="Lista numerada">
+      <i class="pi pi-sort-amount-down"></i>
+    </button>
+    <button type="button" class="tool-btn" [class.active]="is('blockquote')" (click)="editor.chain().focus().toggleBlockquote().run()" title="Cita">
+      <i class="pi pi-comment"></i>
+    </button>
+
+    <div class="tool-separator"></div>
+
+    <button type="button" class="tool-btn" (click)="editor.chain().focus().undo().run()" title="Deshacer">
+      <i class="pi pi-undo"></i>
+    </button>
+    <button type="button" class="tool-btn" (click)="editor.chain().focus().redo().run()" title="Rehacer">
+      <i class="pi pi-refresh"></i>
+    </button>
+  </div>
+
+  <!-- EDITOR -->
+  <div #editorEl class="tiptap-content"></div>
+</div>

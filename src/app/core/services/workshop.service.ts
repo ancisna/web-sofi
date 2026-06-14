@@ -12,6 +12,15 @@ export class WorkshopService {
     return (data ?? []).map(this.mapRow);
   }
 
+  async getAllActive(): Promise<Workshop[]> {
+    const { data } = await supabase
+      .from('workshops')
+      .select('*')
+      .eq('active', true)
+      .order('created_at');
+    return (data ?? []).map(this.mapRow);
+  }
+
   async getFeatured(): Promise<Workshop[]> {
     const { data } = await supabase
       .from('workshops')

@@ -1,28 +1,23 @@
-<section class="p-4 md:p-6">
-  <div class="text-center mb-6">
+<section class="py-8 px-4 lg:px-8">
+  <div class="max-w-screen-xl mx-auto">
     <page-hero
       title="Talleres"
-      description="
-        Talleres presenciales
-        orientados al bienestar,
-        crecimiento personal
-        y acompañamiento emocional.
-    "
+      description="Talleres presenciales orientados al bienestar, crecimiento personal y acompañamiento emocional."
     />
-  </div>
-  <div
-    class="flex flex-column md:flex-row md:flex-wrap gap-4 justify-content-center"
-  >
-    @for (workshop of workshops; track workshop.title) {
-      <div class="w-full md:w-20rem">
-        <info-card
-          [title]="workshop.title"
-          [description]="workshop.description"
-          [meta]="workshop.date"
-          [price]="workshop.price + ' €'"
-          [link]="'/workshops/' + workshop.id"
-        />
-      </div>
-    }
+
+    <div class="grid">
+      @for (workshop of workshops; track workshop.id) {
+        <div class="col-12 md:col-6 lg:col-4 mb-4">
+          <info-card
+            [title]="workshop.title"
+            [description]="workshop.description"
+            [badge]="'Taller'"
+            [meta]="workshop.date | dateEs"
+            [price]="workshop.price + ' €'"
+            [link]="'/workshops/' + workshop.id"
+          />
+        </div>
+      }
+    </div>
   </div>
 </section>

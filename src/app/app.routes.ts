@@ -37,6 +37,20 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'articles',
+        loadComponent: () =>
+          import('@features/public/articles-page/articles-page.component').then(
+            (m) => m.ArticlesPageComponent,
+          ),
+      },
+      {
+        path: 'articles/:slug',
+        loadComponent: () =>
+          import('@features/public/article-detail-page/article-detail-page.component').then(
+            (m) => m.ArticleDetailPageComponent,
+          ),
+      },
+      {
         path: 'about',
         loadComponent: () =>
           import('@features/public/about-page/about-page.component').then(
@@ -105,6 +119,27 @@ export const routes: Routes = [
             loadComponent: () =>
               import('@features/admin/workshop-form-page/workshop-form-page.component').then(
                 (m) => m.WorkshopFormPageComponent,
+              ),
+          },
+          {
+            path: 'articles',
+            loadComponent: () =>
+              import('@features/admin/manage-articles-page/manage-articles-page.component').then(
+                (m) => m.ManageArticlesPageComponent,
+              ),
+          },
+          {
+            path: 'articles/new',
+            loadComponent: () =>
+              import('@features/admin/article-form-page/article-form-page.component').then(
+                (m) => m.ArticleFormPageComponent,
+              ),
+          },
+          {
+            path: 'articles/:id/edit',
+            loadComponent: () =>
+              import('@features/admin/article-form-page/article-form-page.component').then(
+                (m) => m.ArticleFormPageComponent,
               ),
           },
         ],

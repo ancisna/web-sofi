@@ -1,27 +1,34 @@
 <section class="py-8 px-4 lg:px-8">
   <div class="max-w-screen-lg mx-auto">
+
+    <a routerLink="/workshops" class="back-link">
+      <i class="pi pi-arrow-left"></i> Todos los talleres
+    </a>
+
     @if (workshop) {
-      <div class="hero-eyebrow mb-3 text-sm">Taller</div>
+      <div class="detail-eyebrow mt-5">Taller</div>
+      <h1 class="mb-4">{{ workshop.title }}</h1>
 
-      <h1 class="mb-4">
-        {{ workshop.title }}
-      </h1>
-
-      <div class="flex gap-4 mb-5 hero-text">
-        <div>
-          📅
-          {{ workshop.date }}
-        </div>
-
-        <div>
-          {{ workshop.price }}
-          €
-        </div>
+      <div class="flex flex-wrap gap-4 mb-6 detail-meta">
+        <span><i class="pi pi-calendar mr-1"></i>{{ workshop.date | dateEs }}</span>
+        <span><i class="pi pi-tag mr-1"></i>{{ workshop.price }} €</span>
       </div>
 
-      <p class="text-lg line-height-4 mb-6">
-        {{ workshop.longDescription }}
-      </p>
+      <p class="detail-body mb-8">{{ workshop.longDescription }}</p>
+
+      <div class="detail-cta">
+        <h3 class="mb-2">¿Te apuntas?</h3>
+        <p class="mb-4">Contacta para reservar tu plaza o consultar disponibilidad.</p>
+        <p-button label="Contactar" icon="pi pi-envelope" routerLink="/contact" />
+      </div>
+
+    } @else {
+      <div class="text-center py-8 mt-5">
+        <h2 class="mb-3">Taller no encontrado</h2>
+        <p class="mb-5" style="color: var(--sofi-text-muted)">El contenido solicitado no existe o ya no está disponible.</p>
+        <p-button label="Ver todos los talleres" severity="secondary" routerLink="/workshops" />
+      </div>
     }
+
   </div>
 </section>

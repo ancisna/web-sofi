@@ -23,7 +23,6 @@
 
       <div class="flex flex-column sm:flex-row gap-3 mt-5">
         <p-button
-          class="p-button"
           label="Ver terapias"
           routerLink="/therapies"
         />
@@ -80,7 +79,7 @@
             [title]="workshop.title"
             [description]="workshop.description"
             [badge]="'Taller'"
-            [duration]="workshop.date"
+            [duration]="workshop.date | dateEs"
             [price]="workshop.price + ' €'"
             [link]="'/workshops/' + workshop.id"
           />

@@ -1,0 +1,47 @@
+<page-hero
+  title="Artículos"
+  description="Reflexiones, herramientas y recursos para tu bienestar emocional."
+/>
+
+<section class="px-4 pb-10 lg:px-8">
+  <div class="max-w-screen-xl mx-auto">
+
+    @if (articles.length === 0) {
+      <div class="empty-state">
+        <p>Próximamente nuevos artículos.</p>
+      </div>
+    } @else {
+      <div class="grid">
+        @for (article of articles; track article.id) {
+          <div class="col-12 md:col-6 lg:col-4 mb-4">
+            <a [routerLink]="'/articles/' + article.slug" class="article-card">
+              @if (article.coverImage) {
+                <div class="article-image">
+                  <img [src]="article.coverImage" [alt]="article.title" />
+                </div>
+              } @else {
+                <div class="article-image article-image--placeholder"></div>
+              }
+
+              <div class="article-body">
+                @if (article.category) {
+                  <span class="article-category" [style.background]="article.category.color || 'var(--sofi-primary-soft)'">
+                    {{ article.category.name }}
+                  </span>
+                }
+                <h3 class="article-title">{{ article.title }}</h3>
+                @if (article.excerpt) {
+                  <p class="article-excerpt">{{ article.excerpt }}</p>
+                }
+                <div class="article-meta">
+                  {{ article.publishedAt | dateEs }}
+                </div>
+              </div>
+            </a>
+          </div>
+        }
+      </div>
+    }
+
+  </div>
+</section>
