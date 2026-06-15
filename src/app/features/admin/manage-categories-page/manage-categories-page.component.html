@@ -1,0 +1,74 @@
+<p-toast />
+
+<div class="flex justify-content-between align-items-center mb-6">
+  <h1>Categorías de artículos</h1>
+  @if (!showForm) {
+    <p-button label="Nueva categoría" icon="pi pi-plus" (onClick)="openNew()" />
+  }
+</div>
+
+<!-- FORMULARIO -->
+@if (showForm) {
+  <div class="admin-card mb-5">
+    <h3 class="section-title">{{ editingId ? 'Editar categoría' : 'Nueva categoría' }}</h3>
+    <p-divider />
+
+    <div class="form-grid">
+      <div class="field">
+        <label>Nombre <span class="required">*</span></label>
+        <input pInputText class="w-full" [(ngModel)]="form.name" (input)="generateSlug()" placeholder="Ej. Ansiedad" />
+        @if (form.slug) {
+          <small class="slug-preview">URL: /{{ form.slug }}</small>
+        }
+      </div>
+
+      <div class="field">
+        <label>Color del badge</label>
+        <div class="flex align-items-center gap-3">
+          <input type="color" [(ngModel)]="form.color" class="color-picker" />
+          <span class="category-badge-preview" [style.background]="form.color">{{ form.name || 'Vista previa' }}</span>
+        </div>
+      </div>
+
+      <div class="field col-span-2">
+        <label>Descripción</label>
+        <textarea pTextarea rows="2" class="w-full" [(ngModel)]="form.description" placeholder="Descripción opcional de la categoría"></textarea>
+      </div>
+    </div>
+
+    <div class="flex gap-3 mt-2">
+      <p-button
+        [label]="editingId ? 'Guardar cambios' : 'Crear categoría'"
+        icon="pi pi-check"
+        [disabled]="!form.name.trim() || !form.slug.trim()"
+        [loading]="saving"
+        (onClick)="save()"
+      />
+      <p-button label="Cancelar" severity="secondary" (onClick)="cancelForm()" />
+    </div>
+  </div>
+}
+
+<!-- LISTA -->
+@if (categories.length === 0 && !showForm) {
+  <div class="empty-state">
+    <p>No hay categorías todavía. Crea la primera para poder asignarla a los artículos.</p>
+    <p-button label="Nueva categoría" icon="pi pi-plus" (onClick)="openNew()" />
+  </div>
+} @else {
+  <div class="categories-list">
+    @for (cat of categories; track cat.id) {
+      <div class="category-row">
+        <span class="category-badge" [style.background]="cat.color || 'var(--sofi-primary-soft)'">{{ cat.name }}</span>
+        <span class="category-slug">/{{ cat.slug }}</span>
+        @if (cat.description) {
+          <span class="category-desc">{{ cat.description }}</span>
+        }
+        <div class="category-actions ml-auto">
+          <p-button icon="pi pi-pencil" severity="secondary" [text]="true" [rounded]="true" (onClick)="openEdit(cat)" />
+          <p-button icon="pi pi-trash" severity="danger" [text]="true" [rounded]="true" (onClick)="deleteCategory(cat)" />
+        </div>
+      </div>
+    }
+  </div>
+}

@@ -33,7 +33,7 @@ export class AuthService {
 
     // Escuchar cambios auth
 
-    supabase.auth.onAuthStateChange((event, session) => {
+    supabase.auth.onAuthStateChange((_event, session) => {
       this.user.set(session?.user ?? null);
       if (session?.user) {
         this.loadProfile(session.user.id);
@@ -55,15 +55,11 @@ export class AuthService {
   }
 
   async loadProfile(userId: string) {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', userId)
       .single();
-
-    console.log('PROFILE:', data);
-
-    console.log('PROFILE ERROR:', error);
 
     if (data) {
       this.profile.set(data);

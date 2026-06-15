@@ -6,13 +6,28 @@
 <section class="px-4 pb-10 lg:px-8">
   <div class="max-w-screen-xl mx-auto">
 
-    @if (articles.length === 0) {
+    @if (activeCategoryName()) {
+      <div class="filter-bar mb-5">
+        <span class="filter-label">Filtrando por:</span>
+        <span class="filter-chip">
+          {{ activeCategoryName() }}
+          <button class="filter-clear" (click)="clearFilter()" title="Quitar filtro">✕</button>
+        </span>
+      </div>
+    }
+
+    @if (articles().length === 0) {
       <div class="empty-state">
-        <p>Próximamente nuevos artículos.</p>
+        @if (activeCategoryName()) {
+          <p>No hay artículos en esta categoría.</p>
+          <button class="clear-link" (click)="clearFilter()">Ver todos los artículos</button>
+        } @else {
+          <p>Próximamente nuevos artículos.</p>
+        }
       </div>
     } @else {
       <div class="grid">
-        @for (article of articles; track article.id) {
+        @for (article of articles(); track article.id) {
           <div class="col-12 md:col-6 lg:col-4 mb-4">
             <a [routerLink]="'/articles/' + article.slug" class="article-card">
               @if (article.coverImage) {
@@ -25,7 +40,11 @@
 
               <div class="article-body">
                 @if (article.category) {
-                  <span class="article-category" [style.background]="article.category.color || 'var(--sofi-primary-soft)'">
+                  <span
+                    class="article-category"
+                    [style.background]="article.category.color || 'var(--sofi-primary-soft)'"
+                    (click)="filterByCategory($event, article.category.id)"
+                  >
                     {{ article.category.name }}
                   </span>
                 }

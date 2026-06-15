@@ -1,0 +1,147 @@
+.admin-card {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1.5px solid var(--sofi-primary);
+}
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+:host ::ng-deep .p-divider-horizontal {
+  margin: 0.75rem 0 1.25rem !important;
+}
+
+:host ::ng-deep .p-divider-horizontal::before {
+  border-top: 1px solid var(--sofi-primary) !important;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.col-span-2 {
+  grid-column: span 2;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.field label {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--sofi-text);
+}
+
+:host ::ng-deep .admin-card input.p-inputtext,
+:host ::ng-deep .admin-card textarea.p-textarea {
+  background: #ffffff;
+  border: 1px solid var(--sofi-primary);
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  font-size: 0.875rem;
+}
+
+.required {
+  color: #d32f2f;
+}
+
+.slug-preview {
+  font-size: 0.78rem;
+  color: var(--sofi-text-muted);
+  font-family: monospace;
+}
+
+.color-picker {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--sofi-primary);
+  border-radius: 8px;
+  padding: 0.15rem;
+  cursor: pointer;
+  background: #fff;
+}
+
+.category-badge-preview {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Lista */
+.categories-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.category-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--sofi-surface);
+  border-radius: 10px;
+  padding: 0.85rem 1.25rem;
+  box-shadow: var(--sofi-shadow);
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.category-slug {
+  font-size: 0.8rem;
+  color: var(--sofi-text-muted);
+  font-family: monospace;
+}
+
+.category-desc {
+  font-size: 0.85rem;
+  color: var(--sofi-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 300px;
+}
+
+.category-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--sofi-surface);
+  border-radius: var(--sofi-radius);
+  box-shadow: var(--sofi-shadow);
+}
+
+.empty-state p {
+  color: var(--sofi-text-muted);
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .col-span-2 {
+    grid-column: span 1;
+  }
+}

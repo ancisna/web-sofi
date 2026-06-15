@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
+import { inject } from '@angular/core';
 import { authGuard } from './guards/auth.guard';
 import { PublicLayoutComponent } from '@layouts/public-layout/public-layout.component';
 import { HomePageComponent } from '@features/public/home-page/home-page.component';
 import { TherapiesPageComponent } from '@features/public/therapies-page/therapies-page.component';
 import { WorkshopsPageComponent } from '@features/public/workshops-page/workshops-page.component';
+import { ArticleService } from '@core/services/article.service';
 
 export const routes: Routes = [
   {
@@ -42,6 +44,7 @@ export const routes: Routes = [
           import('@features/public/articles-page/articles-page.component').then(
             (m) => m.ArticlesPageComponent,
           ),
+        resolve: { articles: () => inject(ArticleService).getPublished() },
       },
       {
         path: 'articles/:slug',
@@ -140,6 +143,13 @@ export const routes: Routes = [
             loadComponent: () =>
               import('@features/admin/article-form-page/article-form-page.component').then(
                 (m) => m.ArticleFormPageComponent,
+              ),
+          },
+          {
+            path: 'categories',
+            loadComponent: () =>
+              import('@features/admin/manage-categories-page/manage-categories-page.component').then(
+                (m) => m.ManageCategoriesPageComponent,
               ),
           },
         ],
