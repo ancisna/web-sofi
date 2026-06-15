@@ -1,15 +1,32 @@
 .contact-card {
   background: var(--sofi-surface);
-  padding: 2rem;
   border-radius: var(--sofi-radius);
   box-shadow: var(--sofi-shadow);
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  max-height: 360px;
+}
+
+.contact-content {
+  padding: 2.5rem;
+  flex: 1;
 }
 
 .contact-image {
-  width: 100%;
-  max-width: 520px;
+  width: 45%;
+  object-fit: cover;
   display: block;
-  margin-inline: auto;
-  border-radius: var(--sofi-radius);
-  box-shadow: var(--sofi-shadow);
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .contact-card {
+    flex-direction: column;
+  }
+
+  .contact-image {
+    width: 100%;
+    height: 260px;
+  }
 }

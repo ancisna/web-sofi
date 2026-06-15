@@ -59,12 +59,12 @@
   font-size: 0.95rem;
   line-height: 1.8;
   color: var(--sofi-text);
+  cursor: text;
 }
 
-/* TipTap content styles */
 .tiptap-content :global(.ProseMirror) {
   outline: none;
-  min-height: 280px;
+  min-height: 260px;
 }
 
 .tiptap-content :global(.ProseMirror p.is-editor-empty:first-child::before) {

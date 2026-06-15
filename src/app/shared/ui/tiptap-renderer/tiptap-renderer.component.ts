@@ -21,9 +21,9 @@ export class TiptapRendererComponent implements OnChanges {
     try {
       this.html = generateHTML(this.content, [
         StarterKit,
-        Underline,
+        Underline.configure(),
         TextAlign.configure({ types: ['heading', 'paragraph'] }),
-        Link,
+        Link.configure(),
       ]);
     } catch {
       this.html = '';

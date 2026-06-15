@@ -28,7 +28,7 @@ export class TiptapEditorComponent implements OnInit, OnDestroy, ControlValueAcc
       element: this.editorEl.nativeElement,
       extensions: [
         StarterKit,
-        Underline,
+        Underline.configure(),
         TextAlign.configure({ types: ['heading', 'paragraph'] }),
         Link.configure({ openOnClick: false }),
         Placeholder.configure({ placeholder: this.placeholder }),
@@ -52,6 +52,10 @@ export class TiptapEditorComponent implements OnInit, OnDestroy, ControlValueAcc
 
   registerOnChange(fn: any): void { this.onChange = fn; }
   registerOnTouched(fn: any): void { this.onTouched = fn; }
+
+  focusEditor(): void {
+    this.editor?.commands.focus();
+  }
 
   is(type: string, attrs?: Record<string, any>): boolean {
     return this.editor?.isActive(type, attrs) ?? false;

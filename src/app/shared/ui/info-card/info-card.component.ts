@@ -17,16 +17,11 @@ import { Button } from 'primeng/button';
 })
 export class InfoCardComponent {
   title = input.required<string>();
-
   description = input.required<string>();
-
   badge = input<string>();
-
   meta = input<string>();
-
   duration = input<string>();
-
   price = input<string>();
-
   link = input<string>();
+  image = input<string | null>();
 }

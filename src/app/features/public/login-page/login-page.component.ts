@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -19,7 +19,7 @@ import { AuthService } from '@core/services/auth.service';
   ],
   templateUrl: './login-page.component.html',
 })
-export class LoginPageComponent {
+export class LoginPageComponent implements OnInit {
   private auth = inject(AuthService);
   private router = inject(Router);
 
@@ -27,6 +27,20 @@ export class LoginPageComponent {
   password = signal('');
   loading = signal(false);
   error = signal('');
+
+  async ngOnInit() {
+    // Wait for auth state to be determined
+    if (this.auth.loading()) {
+      await new Promise<void>(resolve => {
+        const id = setInterval(() => {
+          if (!this.auth.loading()) { clearInterval(id); resolve(); }
+        }, 30);
+      });
+    }
+    if (this.auth.user()) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
 
   async onSubmit() {
     this.loading.set(true);
