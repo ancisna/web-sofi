@@ -1,7 +1,7 @@
 <div class="admin-shell">
   <!-- SIDEBAR -->
   <aside class="admin-sidebar">
-    <nav class="admin-nav">
+    <nav class="admin-nav" aria-label="Panel de administración">
       <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <i class="pi pi-home"></i> Inicio
       </a>
@@ -21,7 +21,7 @@
   </aside>
 
   <!-- CONTENT -->
-  <main class="admin-content">
+  <main class="admin-content" id="main-content" tabindex="-1">
     <router-outlet />
   </main>
 </div>

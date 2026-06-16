@@ -5,7 +5,7 @@
   display: flex;
   align-items: stretch;
   overflow: hidden;
-  max-height: 360px;
+  max-height: 300px;
 }
 
 .contact-content {

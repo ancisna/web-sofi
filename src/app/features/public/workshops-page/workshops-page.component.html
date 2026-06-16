@@ -13,7 +13,10 @@
             [description]="workshop.description"
             [badge]="'Taller'"
             [meta]="workshop.date | dateEs"
+            [timeRange]="timeRange(workshop.startTime, workshop.endTime)"
             [price]="workshop.price + ' €'"
+            [modality]="modalityLabel(workshop.modality)"
+            [location]="workshop.modality === 'presencial' ? (workshop.location ?? '') : ''"
             [link]="'/workshops/' + workshop.id"
           />
         </div>

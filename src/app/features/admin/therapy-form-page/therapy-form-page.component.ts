@@ -6,15 +6,17 @@ import { InputText } from 'primeng/inputtext';
 import { InputNumber } from 'primeng/inputnumber';
 import { Textarea } from 'primeng/textarea';
 import { ToggleSwitch } from 'primeng/toggleswitch';
+import { Select } from 'primeng/select';
 import { Divider } from 'primeng/divider';
 import { Toast } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TherapyService } from '@core/services/therapy.service';
+import { TherapyModality } from '@core/models/therapy.model';
 
 @Component({
   selector: 'therapy-form-page',
   standalone: true,
-  imports: [FormsModule, Button, InputText, InputNumber, Textarea, ToggleSwitch, Divider, Toast, RouterLink],
+  imports: [FormsModule, Button, InputText, InputNumber, Textarea, ToggleSwitch, Select, Divider, Toast, RouterLink],
   templateUrl: './therapy-form-page.component.html',
   styleUrl: './therapy-form-page.component.css',
 })
@@ -28,13 +30,28 @@ export class TherapyFormPageComponent implements OnInit {
   isEditMode = !!this.id;
   saving = false;
 
-  therapy = {
+  modalityOptions: { label: string; value: TherapyModality }[] = [
+    { label: 'Presencial', value: 'presencial' },
+    { label: 'Online', value: 'online' },
+    { label: 'Otra', value: 'otra' },
+  ];
+
+  therapy: {
+    title: string;
+    description: string;
+    longDescription: string;
+    duration: number;
+    price: number;
+    active: boolean;
+    modality: TherapyModality | undefined;
+  } = {
     title: '',
     description: '',
     longDescription: '',
     duration: 60,
     price: 65,
     active: true,
+    modality: undefined,
   };
 
   async ngOnInit() {
@@ -48,6 +65,7 @@ export class TherapyFormPageComponent implements OnInit {
           duration: existing.duration,
           price: existing.price ?? 0,
           active: existing.active,
+          modality: existing.modality,
         };
       }
     }

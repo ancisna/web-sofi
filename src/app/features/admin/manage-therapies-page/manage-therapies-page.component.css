@@ -10,6 +10,34 @@
 
 .admin-meta {
   color: var(--sofi-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+.modality-badge {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.modality-online {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.modality-presencial {
+  background: #dcf5e7;
+  color: #1e7c45;
+}
+
+.modality-otra {
+  background: #f3f4f6;
+  color: #6b7280;
 }
 
 .admin-description {

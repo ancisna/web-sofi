@@ -1,4 +1,5 @@
 <p-toast />
+<p-confirmdialog />
 
 <div class="form-header mb-5">
   <a routerLink="/dashboard/workshops" class="back-link">
@@ -41,6 +42,7 @@
       <h3 class="section-title">Detalles</h3>
       <p-divider />
 
+      <!-- Fecha y precio -->
       <div class="field-row">
         <div class="field">
           <label for="date">Fecha <span class="required">*</span></label>
@@ -57,6 +59,54 @@
             <small class="field-error">Introduce un precio válido.</small>
           }
         </div>
+      </div>
+
+      <!-- Hora de inicio y fin -->
+      <div class="field-row">
+        <div class="field">
+          <label for="startTime">Hora de inicio</label>
+          <input type="time" id="startTime" class="time-input" [(ngModel)]="workshop.startTime" name="startTime" />
+        </div>
+
+        <div class="field">
+          <label for="endTime">Hora de fin</label>
+          <input type="time" id="endTime" class="time-input" [(ngModel)]="workshop.endTime" name="endTime" />
+          @if (workshop.startTime && workshop.endTime && !isTimeValid()) {
+            <small class="field-error">La hora de fin debe ser posterior a la de inicio.</small>
+          }
+        </div>
+      </div>
+
+      <!-- Modalidad -->
+      <div class="field">
+        <label for="modality">Modalidad</label>
+        <p-select
+          inputId="modality"
+          [(ngModel)]="workshop.modality"
+          [options]="modalityOptions"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Selecciona una modalidad"
+          styleClass="w-full"
+        />
+      </div>
+
+      <!-- Lugar (solo presencial) -->
+      <div class="field mb-0">
+        <label for="location">
+          Lugar
+          @if (workshop.modality !== 'presencial') {
+            <span class="field-hint">(disponible cuando la modalidad es presencial)</span>
+          }
+        </label>
+        <input
+          pInputText
+          id="location"
+          class="w-full"
+          [(ngModel)]="workshop.location"
+          placeholder="Ej. Centro Cultural La Almudena, Madrid"
+          [disabled]="workshop.modality !== 'presencial'"
+        />
       </div>
     </div>
   </div>

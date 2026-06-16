@@ -70,6 +70,10 @@ export class ArticleService {
     await supabase.from('articles').delete().eq('id', id);
   }
 
+  async incrementViews(id: string): Promise<void> {
+    await supabase.rpc('increment_article_views', { article_id: id });
+  }
+
   async getRelated(categoryId: string, excludeId: string, limit = 3): Promise<Article[]> {
     const { data } = await supabase
       .from('articles')
@@ -98,6 +102,7 @@ export class ArticleService {
       updatedAt: row.updated_at,
       categoryId: row.category_id,
       category: row.category ?? undefined,
+      views: row.views ?? 0,
     };
   }
 

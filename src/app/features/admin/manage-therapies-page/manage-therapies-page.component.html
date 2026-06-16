@@ -31,13 +31,12 @@
               </h3>
 
               <div class="admin-meta">
-                {{ therapy.duration }}
-
-                min ·
-
-                {{ therapy.price }}
-
-                €
+                {{ therapy.duration }} min · {{ therapy.price }} €
+                @if (therapy.modality) {
+                  <span class="modality-badge modality-{{ therapy.modality }}">
+                    {{ therapy.modality === 'online' ? 'Online' : therapy.modality === 'presencial' ? 'Presencial' : 'Otra' }}
+                  </span>
+                }
               </div>
             </div>
 

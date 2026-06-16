@@ -27,6 +27,15 @@
       @if (price()) {
         <span class="card-price">{{ price() }}</span>
       }
+      @if (timeRange()) {
+        <span><i class="pi pi-clock" aria-hidden="true"></i>{{ timeRange() }}</span>
+      }
+      @if (modality()) {
+        <span class="card-modality"><i class="pi pi-tag" aria-hidden="true"></i>{{ modality() }}</span>
+      }
+      @if (location()) {
+        <span class="card-location"><i class="pi pi-map-marker" aria-hidden="true"></i>{{ location() }}</span>
+      }
     </div>
   </div>
 

@@ -1,40 +1,66 @@
-<div class="tiptap-wrapper">
+<div class="tiptap-wrapper" role="group" aria-label="Editor de texto">
   <!-- TOOLBAR -->
-  <div class="tiptap-toolbar">
-    <button type="button" class="tool-btn tool-btn--b" [class.active]="is('bold')" (click)="editor.chain().focus().toggleBold().run()" title="Negrita">B</button>
-    <button type="button" class="tool-btn tool-btn--i" [class.active]="is('italic')" (click)="editor.chain().focus().toggleItalic().run()" title="Cursiva">I</button>
-    <button type="button" class="tool-btn tool-btn--u" [class.active]="is('underline')" (click)="editor.chain().focus().toggleUnderline().run()" title="Subrayado">U</button>
+  <div class="tiptap-toolbar" role="toolbar" aria-label="Herramientas de formato">
+    <button type="button" class="tool-btn tool-btn--b" [class.active]="is('bold')" (click)="editor.chain().focus().toggleBold().run()" aria-label="Negrita" [attr.aria-pressed]="is('bold')">B</button>
+    <button type="button" class="tool-btn tool-btn--i" [class.active]="is('italic')" (click)="editor.chain().focus().toggleItalic().run()" aria-label="Cursiva" [attr.aria-pressed]="is('italic')">I</button>
+    <button type="button" class="tool-btn tool-btn--u" [class.active]="is('underline')" (click)="editor.chain().focus().toggleUnderline().run()" aria-label="Subrayado" [attr.aria-pressed]="is('underline')">U</button>
 
-    <div class="tool-separator"></div>
+    <div class="tool-separator" aria-hidden="true"></div>
 
-    <button type="button" class="tool-btn" [class.active]="is('heading', {level: 2})" (click)="editor.chain().focus().toggleHeading({level: 2}).run()" title="Título H2">
-      H2
-    </button>
-    <button type="button" class="tool-btn" [class.active]="is('heading', {level: 3})" (click)="editor.chain().focus().toggleHeading({level: 3}).run()" title="Título H3">
-      H3
-    </button>
+    <button type="button" class="tool-btn" [class.active]="is('heading', {level: 2})" (click)="editor.chain().focus().toggleHeading({level: 2}).run()" aria-label="Título nivel 2" [attr.aria-pressed]="is('heading', {level: 2})">H2</button>
+    <button type="button" class="tool-btn" [class.active]="is('heading', {level: 3})" (click)="editor.chain().focus().toggleHeading({level: 3}).run()" aria-label="Título nivel 3" [attr.aria-pressed]="is('heading', {level: 3})">H3</button>
 
-    <div class="tool-separator"></div>
+    <div class="tool-separator" aria-hidden="true"></div>
 
-    <button type="button" class="tool-btn" [class.active]="is('bulletList')" (click)="editor.chain().focus().toggleBulletList().run()" title="Lista">
-      <i class="pi pi-list"></i>
+    <button type="button" class="tool-btn" [class.active]="is('bulletList')" (click)="editor.chain().focus().toggleBulletList().run()" aria-label="Lista de viñetas" [attr.aria-pressed]="is('bulletList')">
+      <i class="pi pi-list" aria-hidden="true"></i>
     </button>
-    <button type="button" class="tool-btn" [class.active]="is('orderedList')" (click)="editor.chain().focus().toggleOrderedList().run()" title="Lista numerada">
-      <i class="pi pi-sort-amount-down"></i>
+    <button type="button" class="tool-btn" [class.active]="is('orderedList')" (click)="editor.chain().focus().toggleOrderedList().run()" aria-label="Lista numerada" [attr.aria-pressed]="is('orderedList')">
+      <i class="pi pi-sort-amount-down" aria-hidden="true"></i>
     </button>
-    <button type="button" class="tool-btn" [class.active]="is('blockquote')" (click)="editor.chain().focus().toggleBlockquote().run()" title="Cita">
-      <i class="pi pi-comment"></i>
+    <button type="button" class="tool-btn" [class.active]="is('blockquote')" (click)="editor.chain().focus().toggleBlockquote().run()" aria-label="Cita" [attr.aria-pressed]="is('blockquote')">
+      <i class="pi pi-comment" aria-hidden="true"></i>
     </button>
 
-    <div class="tool-separator"></div>
+    <div class="tool-separator" aria-hidden="true"></div>
 
-    <button type="button" class="tool-btn" (click)="editor.chain().focus().undo().run()" title="Deshacer">
-      <i class="pi pi-undo"></i>
+    <button type="button" class="tool-btn" [class.active]="showImageInput()" (click)="toggleImageInput()" aria-label="Insertar imagen" [attr.aria-expanded]="showImageInput()">
+      <i class="pi pi-image" aria-hidden="true"></i>
     </button>
-    <button type="button" class="tool-btn" (click)="editor.chain().focus().redo().run()" title="Rehacer">
-      <i class="pi pi-refresh"></i>
+
+    <div class="tool-separator" aria-hidden="true"></div>
+
+    <button type="button" class="tool-btn" (click)="editor.chain().focus().undo().run()" aria-label="Deshacer">
+      <i class="pi pi-undo" aria-hidden="true"></i>
+    </button>
+    <button type="button" class="tool-btn" (click)="editor.chain().focus().redo().run()" aria-label="Rehacer">
+      <i class="pi pi-refresh" aria-hidden="true"></i>
     </button>
   </div>
+
+  <!-- IMAGE INPUT PANEL -->
+  @if (showImageInput()) {
+    <div class="image-input-panel" role="group" aria-label="Insertar imagen por URL">
+      <i class="pi pi-link" aria-hidden="true"></i>
+      <input
+        type="url"
+        class="image-url-input"
+        placeholder="https://ejemplo.com/imagen.jpg"
+        [ngModel]="imageUrlDraft()"
+        (ngModelChange)="imageUrlDraft.set($event)"
+        (keydown.enter)="insertImage()"
+        (keydown.escape)="toggleImageInput()"
+        aria-label="URL de la imagen"
+        autofocus
+      />
+      <button type="button" class="image-insert-btn" (click)="insertImage()" aria-label="Confirmar imagen">
+        <i class="pi pi-check" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="image-cancel-btn" (click)="toggleImageInput()" aria-label="Cancelar">
+        <i class="pi pi-times" aria-hidden="true"></i>
+      </button>
+    </div>
+  }
 
   <!-- EDITOR -->
   <div #editorEl class="tiptap-content" (click)="focusEditor()"></div>

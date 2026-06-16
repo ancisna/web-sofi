@@ -4,6 +4,7 @@ import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
 import Link from '@tiptap/extension-link';
+import Image from '@tiptap/extension-image';
 
 @Component({
   selector: 'app-tiptap-renderer',
@@ -24,6 +25,7 @@ export class TiptapRendererComponent implements OnChanges {
         Underline.configure(),
         TextAlign.configure({ types: ['heading', 'paragraph'] }),
         Link.configure(),
+        Image.configure(),
       ]);
     } catch {
       this.html = '';

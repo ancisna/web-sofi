@@ -23,8 +23,11 @@ export class ArticleDetailPageComponent implements OnInit {
   async ngOnInit() {
     const slug = this.route.snapshot.paramMap.get('slug') ?? '';
     this.article = await this.articleService.getBySlug(slug);
-    if (this.article?.categoryId) {
-      this.related = await this.articleService.getRelated(this.article.categoryId, this.article.id);
+    if (this.article) {
+      this.articleService.incrementViews(this.article.id);
+      if (this.article.categoryId) {
+        this.related = await this.articleService.getRelated(this.article.categoryId, this.article.id);
+      }
     }
   }
 }

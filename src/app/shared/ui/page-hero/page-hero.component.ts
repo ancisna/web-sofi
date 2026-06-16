@@ -13,6 +13,6 @@ import { Component, input } from '@angular/core';
 })
 export class PageHeroComponent {
   title = input.required<string>();
-
   description = input<string>();
+  compact = input(false);
 }

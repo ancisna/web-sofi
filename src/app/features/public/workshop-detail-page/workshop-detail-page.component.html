@@ -11,7 +11,19 @@
 
       <div class="flex flex-wrap gap-4 mb-6 detail-meta">
         <span><i class="pi pi-calendar mr-1"></i>{{ workshop.date | dateEs }}</span>
-        <span><i class="pi pi-tag mr-1"></i>{{ workshop.price }} €</span>
+        @if (workshop.startTime) {
+          <span>
+            <i class="pi pi-clock mr-1"></i>
+            {{ workshop.startTime }}@if (workshop.endTime) { – {{ workshop.endTime }} }
+          </span>
+        }
+        @if (workshop.modality) {
+          <span><i class="pi pi-tag mr-1"></i>{{ workshop.modality === 'online' ? 'Online' : 'Presencial' }}</span>
+        }
+        @if (workshop.modality === 'presencial' && workshop.location) {
+          <span><i class="pi pi-map-marker mr-1"></i>{{ workshop.location }}</span>
+        }
+        <span><i class="pi pi-euro mr-1"></i>{{ workshop.price }} €</span>
       </div>
 
       <p class="detail-body mb-8">{{ workshop.longDescription }}</p>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { supabase } from '../supabase/supabase.client';
-import { Therapy } from '@core/models/therapy.model';
+import { Therapy, TherapyModality } from '@core/models/therapy.model';
 
 @Injectable({ providedIn: 'root' })
 export class TherapyService {
@@ -66,6 +66,7 @@ export class TherapyService {
       duration: row.duration,
       price: row.price,
       active: row.active,
+      modality: (row.modality as TherapyModality) ?? undefined,
     };
   }
 
@@ -77,6 +78,7 @@ export class TherapyService {
       duration: t.duration,
       price: t.price,
       active: t.active,
+      modality: t.modality ?? null,
     };
   }
 }

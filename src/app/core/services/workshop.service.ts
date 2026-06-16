@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { supabase } from '../supabase/supabase.client';
-import { Workshop } from '@core/models/workshop.model';
+import { Workshop, WorkshopModality } from '@core/models/workshop.model';
 
 @Injectable({ providedIn: 'root' })
 export class WorkshopService {
@@ -66,6 +66,10 @@ export class WorkshopService {
       date: row.date,
       price: row.price,
       active: row.active,
+      modality: (row.modality as WorkshopModality) ?? undefined,
+      startTime: row.start_time ?? undefined,
+      endTime: row.end_time ?? undefined,
+      location: row.location ?? undefined,
     };
   }
 
@@ -77,6 +81,10 @@ export class WorkshopService {
       date: w.date,
       price: w.price,
       active: w.active,
+      modality: w.modality ?? null,
+      start_time: w.startTime ?? null,
+      end_time: w.endTime ?? null,
+      location: w.location ?? null,
     };
   }
 }

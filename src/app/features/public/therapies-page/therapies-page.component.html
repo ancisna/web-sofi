@@ -18,6 +18,7 @@
             [badge]="'Terapia'"
             [duration]="therapy.duration + ' min'"
             [price]="therapy.price + ' €'"
+            [modality]="modalityLabel(therapy.modality)"
             [link]="'/therapies/' + therapy.id"
           />
         </div>

@@ -1,5 +1,5 @@
 <div class="flex flex-column min-h-screen">
-  <header>
+  <header class="sticky-header">
     <!-- CONTACT BAR -->
     <div
       class="bg-sofi-primary-soft px-3 py-2"
@@ -19,9 +19,9 @@
 
         @if (auth.user()) {
           <div class="topbar-separator"></div>
-          <span class="topbar-logout" (click)="logout()">
-            <i class="pi pi-sign-out"></i> Cerrar sesión
-          </span>
+          <button class="topbar-logout" type="button" (click)="logout()">
+            <i class="pi pi-sign-out" aria-hidden="true"></i> Cerrar sesión
+          </button>
         }
       </div>
     </div>
@@ -51,15 +51,15 @@
 
         <!-- DESKTOP MENU -->
 
-        <nav class="hidden lg:flex gap-5 align-items-center">
+        <nav aria-label="Navegación principal" class="hidden lg:flex gap-5 align-items-center">
           <a routerLink="/">Inicio</a>
-          <a routerLink="/therapies"> Terapias </a>
-          <a routerLink="/workshops"> Talleres </a>
-          <a routerLink="/articles"> Artículos </a>
-          <a routerLink="/contact"> Contactar </a>
-          <a routerLink="/about"> Sobre mí </a>
-          <a routerLink="/login" title="Acceso privado">
-            <i class="pi pi-lock text-color-secondary"></i>
+          <a routerLink="/therapies">Terapias</a>
+          <a routerLink="/workshops">Talleres</a>
+          <a routerLink="/articles">Artículos</a>
+          <a routerLink="/contact">Contactar</a>
+          <a routerLink="/about">Sobre mí</a>
+          <a routerLink="/login" aria-label="Acceso privado al panel de administración">
+            <i class="pi pi-lock text-color-secondary" aria-hidden="true"></i>
           </a>
         </nav>
 
@@ -71,6 +71,8 @@
           [rounded]="true"
           [text]="true"
           class="lg:hidden"
+          aria-label="Abrir menú de navegación"
+          [attr.aria-expanded]="mobileMenuOpen()"
           (onClick)="toggleMobileMenu()"
         />
         @if (mobileMenuOpen()) {
@@ -79,31 +81,22 @@
           >
             <button
               class="absolute top-0 right-0 m-2 border-none bg-transparent cursor-pointer"
+              type="button"
+              aria-label="Cerrar menú"
               (click)="toggleMobileMenu()"
             >
-              ✕
+              <i class="pi pi-times" aria-hidden="true"></i>
             </button>
 
-            <nav class="flex flex-column gap-3 pt-4">
-              <a routerLink="/" (click)="toggleMobileMenu()"> Inicio </a>
-
-              <a routerLink="/therapies" (click)="toggleMobileMenu()">
-                Terapias
-              </a>
-
-              <a routerLink="/workshops" (click)="toggleMobileMenu()">
-                Talleres
-              </a>
-
-              <a routerLink="/articles" (click)="toggleMobileMenu()">
-                Artículos
-              </a>
-              <a routerLink="/contact" (click)="toggleMobileMenu()">
-                Contactar
-              </a>
-              <a routerLink="/about" (click)="toggleMobileMenu()"> Sobre mí </a>
+            <nav aria-label="Navegación móvil" class="flex flex-column gap-3 pt-4">
+              <a routerLink="/" (click)="toggleMobileMenu()">Inicio</a>
+              <a routerLink="/therapies" (click)="toggleMobileMenu()">Terapias</a>
+              <a routerLink="/workshops" (click)="toggleMobileMenu()">Talleres</a>
+              <a routerLink="/articles" (click)="toggleMobileMenu()">Artículos</a>
+              <a routerLink="/contact" (click)="toggleMobileMenu()">Contactar</a>
+              <a routerLink="/about" (click)="toggleMobileMenu()">Sobre mí</a>
               <a routerLink="/login" (click)="toggleMobileMenu()">
-                <i class="pi pi-lock"></i> Acceso privado
+                <i class="pi pi-lock" aria-hidden="true"></i> Acceso privado
               </a>
             </nav>
           </div>
@@ -112,7 +105,7 @@
     </div>
   </header>
 
-  <main class="flex-1">
+  <main class="flex-1 flex flex-column" id="main-content" tabindex="-1">
     <router-outlet />
   </main>
   <!-- <footer class="footer-main px-4 py-5">
@@ -160,16 +153,12 @@
       <!-- CENTER -->
 
       <div class="col-12 md:col-6 text-center">
-        <nav class="flex flex-wrap justify-content-center gap-3 mb-3">
+        <nav aria-label="Navegación del pie de página" class="flex flex-wrap justify-content-center gap-3 mb-3">
           <a routerLink="/">Inicio</a>
-
-          <a routerLink="/about"> Sobre mí </a>
-
-          <a routerLink="/therapies"> Terapias </a>
-
-          <a routerLink="/workshops"> Talleres </a>
-
-          <a routerLink="/contact"> Contacto </a>
+          <a routerLink="/about">Sobre mí</a>
+          <a routerLink="/therapies">Terapias</a>
+          <a routerLink="/workshops">Talleres</a>
+          <a routerLink="/contact">Contacto</a>
         </nav>
 
         <div class="footer-copy">© 2026 Sofía Reyes Psicóloga</div>
@@ -179,12 +168,11 @@
 
       <div class="col-12 md:col-3 text-center md:text-right">
         <div class="footer-socials">
-          <a href="#">
-            <i class="pi pi-instagram"></i>
+          <a href="#" aria-label="Instagram de Sofía Reyes Psicóloga">
+            <i class="pi pi-instagram" aria-hidden="true"></i>
           </a>
-
-          <a href="#">
-            <i class="pi pi-linkedin"></i>
+          <a href="#" aria-label="LinkedIn de Sofía Reyes Psicóloga">
+            <i class="pi pi-linkedin" aria-hidden="true"></i>
           </a>
         </div>
       </div>

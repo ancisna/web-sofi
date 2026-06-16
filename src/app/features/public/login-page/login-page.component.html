@@ -9,7 +9,7 @@
 
     <div class="flex flex-column gap-3">
       @if (error()) {
-        <p-message severity="error" [text]="error()" />
+        <p-message id="login-error" severity="error" [text]="error()" role="alert" aria-live="assertive" />
       }
 
       <div class="flex flex-column gap-1">
@@ -18,10 +18,12 @@
           pInputText
           id="email"
           type="email"
+          autocomplete="email"
           [ngModel]="email()"
           (ngModelChange)="email.set($event)"
           placeholder="correo@ejemplo.com"
           class="w-full"
+          [attr.aria-describedby]="error() ? 'login-error' : null"
         />
       </div>
 
@@ -31,10 +33,12 @@
           pInputText
           id="password"
           type="password"
+          autocomplete="current-password"
           [ngModel]="password()"
           (ngModelChange)="password.set($event)"
           placeholder="••••••••"
           class="w-full"
+          [attr.aria-describedby]="error() ? 'login-error' : null"
         />
       </div>
 

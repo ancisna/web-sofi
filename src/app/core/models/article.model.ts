@@ -18,4 +18,5 @@ export interface Article {
   updatedAt: string;
   categoryId: string | null;
   category?: ArticleCategory;
+  views: number;
 }

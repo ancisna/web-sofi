@@ -55,6 +55,19 @@
           }
         </div>
       </div>
+
+      <div class="field mb-0">
+        <label for="modality">Modalidad</label>
+        <p-select
+          inputId="modality"
+          [(ngModel)]="therapy.modality"
+          [options]="modalityOptions"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Selecciona una modalidad"
+          styleClass="w-full"
+        />
+      </div>
     </div>
   </div>
 

@@ -91,3 +91,27 @@
   font-weight: 700;
   color: var(--sofi-text);
 }
+
+.card-modality {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: var(--sofi-primary-soft);
+  color: var(--sofi-text);
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.card-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.78rem;
+  color: var(--sofi-text-muted);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

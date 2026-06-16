@@ -22,6 +22,9 @@ export class InfoCardComponent {
   meta = input<string>();
   duration = input<string>();
   price = input<string>();
+  modality = input<string>();
+  timeRange = input<string>();
+  location = input<string>();
   link = input<string>();
   image = input<string | null>();
 }

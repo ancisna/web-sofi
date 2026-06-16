@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PageHeroComponent } from '@shared/ui/page-hero/page-hero.component';
 import { Article } from '@core/models/article.model';
@@ -19,6 +19,19 @@ export class ArticlesPageComponent implements OnInit {
   articles = signal<Article[]>([]);
   activeCategoryId = signal<string | null>(null);
   activeCategoryName = signal<string | null>(null);
+
+  recent = computed(() => {
+    if (this.activeCategoryId()) return this.articles();
+    return this.articles().slice(0, 3);
+  });
+
+  mostRead = computed(() => {
+    if (this.activeCategoryId()) return [];
+    const recentIds = new Set(this.recent().map(a => a.id));
+    return [...this.allArticles]
+      .filter(a => !recentIds.has(a.id))
+      .sort((a, b) => b.views - a.views || new Date(b.publishedAt ?? '').getTime() - new Date(a.publishedAt ?? '').getTime());
+  });
 
   ngOnInit() {
     this.allArticles = this.route.snapshot.data['articles'] ?? [];

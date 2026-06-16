@@ -11,7 +11,9 @@
         <span class="filter-label">Filtrando por:</span>
         <span class="filter-chip">
           {{ activeCategoryName() }}
-          <button class="filter-clear" (click)="clearFilter()" title="Quitar filtro">✕</button>
+          <button class="filter-clear" type="button" (click)="clearFilter()" aria-label="Quitar filtro">
+            <i class="pi pi-times" aria-hidden="true"></i>
+          </button>
         </span>
       </div>
     }
@@ -26,8 +28,13 @@
         }
       </div>
     } @else {
-      <div class="grid">
-        @for (article of articles(); track article.id) {
+
+      <!-- ARTÍCULOS RECIENTES -->
+      @if (!activeCategoryId()) {
+        <h2 class="section-heading">Más recientes</h2>
+      }
+      <div class="grid mb-6">
+        @for (article of recent(); track article.id) {
           <div class="col-12 md:col-6 lg:col-4 mb-4">
             <a [routerLink]="'/articles/' + article.slug" class="article-card">
               @if (article.coverImage) {
@@ -37,16 +44,17 @@
               } @else {
                 <div class="article-image article-image--placeholder"></div>
               }
-
               <div class="article-body">
                 @if (article.category) {
-                  <span
+                  <button
+                    type="button"
                     class="article-category"
                     [style.background]="article.category.color || 'var(--sofi-primary-soft)'"
+                    [attr.aria-label]="'Filtrar por ' + article.category.name"
                     (click)="filterByCategory($event, article.category.id)"
                   >
                     {{ article.category.name }}
-                  </span>
+                  </button>
                 }
                 <h3 class="article-title">{{ article.title }}</h3>
                 @if (article.excerpt) {
@@ -60,6 +68,48 @@
           </div>
         }
       </div>
+
+      <!-- MÁS LEÍDOS -->
+      @if (mostRead().length > 0 && !activeCategoryId()) {
+        <h2 class="section-heading">Más leídos</h2>
+        <div class="grid">
+          @for (article of mostRead(); track article.id) {
+            <div class="col-12 md:col-6 lg:col-4 mb-4">
+              <a [routerLink]="'/articles/' + article.slug" class="article-card">
+                @if (article.coverImage) {
+                  <div class="article-image">
+                    <img [src]="article.coverImage" [alt]="article.title" />
+                  </div>
+                } @else {
+                  <div class="article-image article-image--placeholder"></div>
+                }
+                <div class="article-body">
+                  @if (article.category) {
+                    <button
+                      type="button"
+                      class="article-category"
+                      [style.background]="article.category.color || 'var(--sofi-primary-soft)'"
+                      [attr.aria-label]="'Filtrar por ' + article.category.name"
+                      (click)="filterByCategory($event, article.category.id)"
+                    >
+                      {{ article.category.name }}
+                    </button>
+                  }
+                  <h3 class="article-title">{{ article.title }}</h3>
+                  @if (article.excerpt) {
+                    <p class="article-excerpt">{{ article.excerpt }}</p>
+                  }
+                  <div class="article-meta article-meta--views">
+                    <i class="pi pi-eye" aria-hidden="true"></i>
+                    {{ article.views }} {{ article.views === 1 ? 'lectura' : 'lecturas' }}
+                  </div>
+                </div>
+              </a>
+            </div>
+          }
+        </div>
+      }
+
     }
 
   </div>

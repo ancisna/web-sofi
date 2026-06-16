@@ -62,6 +62,7 @@
             [badge]="'Terapia'"
             [duration]="therapy.duration + ' min'"
             [price]="therapy.price + ' €'"
+            [modality]="modalityLabel(therapy.modality)"
             [link]="'/therapies/' + therapy.id"
           />
         </div>
@@ -79,8 +80,11 @@
             [title]="workshop.title"
             [description]="workshop.description"
             [badge]="'Taller'"
-            [duration]="workshop.date | dateEs"
+            [meta]="workshop.date | dateEs"
+            [timeRange]="timeRange(workshop.startTime, workshop.endTime)"
             [price]="workshop.price + ' €'"
+            [modality]="workshopModalityLabel(workshop.modality)"
+            [location]="workshop.modality === 'presencial' ? (workshop.location ?? '') : ''"
             [link]="'/workshops/' + workshop.id"
           />
         </div>

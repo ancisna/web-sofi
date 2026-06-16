@@ -23,24 +23,19 @@
     @for (workshop of workshops; track workshop.id) {
       <div class="col-12 lg:col-6 mb-4">
         <div class="admin-card">
-          <div class="flex justify-content-between align-items-start mb-4">
-            <div>
-              <h3 class="mb-2">
-                {{ workshop.title }}
-              </h3>
 
-              <div class="admin-meta">
-                {{ workshop.date | dateEs }}
-
-                ·
-
-                {{ workshop.price }}
-
-                €
-              </div>
+          <!-- Cabecera: título + precio + modalidad + estado -->
+          <div class="card-header mb-3">
+            <div class="card-title-group">
+              <h3 class="card-title">{{ workshop.title }}</h3>
+              <span class="card-price">{{ workshop.price }} €</span>
             </div>
-
-            <div class="flex align-items-center gap-2">
+            <div class="card-controls">
+              @if (workshop.modality) {
+                <span class="modality-badge modality-{{ workshop.modality }}">
+                  {{ workshop.modality === 'online' ? 'Online' : 'Presencial' }}
+                </span>
+              }
               <span class="status-label" [class.active]="workshop.active" [class.inactive]="!workshop.active">
                 {{ workshop.active ? 'Activo' : 'Inactivo' }}
               </span>
@@ -48,29 +43,34 @@
             </div>
           </div>
 
-          <p class="admin-description">
-            {{ workshop.description }}
-          </p>
+          <!-- Fecha, hora, lugar en columna -->
+          <div class="admin-meta mb-3">
+            <div class="meta-row">
+              <i class="pi pi-calendar"></i> {{ workshop.date | dateEs }}
+            </div>
+            @if (workshop.startTime) {
+              <div class="meta-row">
+                <i class="pi pi-clock"></i>
+                {{ workshop.startTime }}@if (workshop.endTime) { – {{ workshop.endTime }} }
+              </div>
+            }
+            @if (workshop.modality === 'presencial' && workshop.location) {
+              <div class="meta-row">
+                <i class="pi pi-map-marker"></i> {{ workshop.location }}
+              </div>
+            }
+          </div>
 
-          <div class="flex flex-wrap gap-3 mt-4">
+          <p class="admin-description mb-4">{{ workshop.description }}</p>
+
+          <div class="flex flex-wrap gap-3">
             <a [routerLink]="'/dashboard/workshops/' + workshop.id + '/edit'">
               <p-button label="Editar" severity="secondary" />
             </a>
-
-            <p-button
-              label="Clonar"
-              icon="pi pi-copy"
-              severity="contrast"
-              (onClick)="cloneWorkshop(workshop.id)"
-            />
-
-            <p-button
-              label="Borrar"
-              icon="pi pi-trash"
-              severity="danger"
-              (onClick)="deleteWorkshop(workshop)"
-            />
+            <p-button label="Clonar" icon="pi pi-copy" severity="contrast" (onClick)="cloneWorkshop(workshop.id)" />
+            <p-button label="Borrar" icon="pi pi-trash" severity="danger" (onClick)="deleteWorkshop(workshop)" />
           </div>
+
         </div>
       </div>
     }
