@@ -9,9 +9,19 @@
   }
 
   <div class="card-body">
-    @if (badge()) {
-      <span class="card-badge">{{ badge() }}</span>
-    }
+    <div class="card-top-row">
+      <div class="card-top-left">
+        @if (badge()) {
+          <span class="card-badge">{{ badge() }}</span>
+        }
+        @if (modality()) {
+          <span class="card-modality"><i class="pi pi-tag" aria-hidden="true"></i>{{ modality() }}</span>
+        }
+      </div>
+      @if (price()) {
+        <span class="card-price">{{ price() }}</span>
+      }
+    </div>
 
     <h3 class="card-title">{{ title() }}</h3>
 
@@ -19,24 +29,28 @@
 
     <div class="card-meta">
       @if (meta()) {
-        <span><i class="pi pi-calendar "></i>{{ meta() }}</span>
+        <span><i class="pi pi-calendar"></i>{{ meta() }}</span>
       }
       @if (duration()) {
-        <span><i class="pi pi-clock "></i>{{ duration() }}</span>
-      }
-      @if (price()) {
-        <span class="card-price">{{ price() }}</span>
+        <span><i class="pi pi-clock"></i>{{ duration() }}</span>
       }
       @if (timeRange()) {
         <span><i class="pi pi-clock" aria-hidden="true"></i>{{ timeRange() }}</span>
-      }
-      @if (modality()) {
-        <span class="card-modality"><i class="pi pi-tag" aria-hidden="true"></i>{{ modality() }}</span>
       }
       @if (location()) {
         <span class="card-location"><i class="pi pi-map-marker" aria-hidden="true"></i>{{ location() }}</span>
       }
     </div>
+
+    @if (bonusSessions() && bonusPrice()) {
+      <div class="card-bonus">
+        <span class="bonus-badge">
+          <i class="pi pi-gift" aria-hidden="true"></i>
+          Bono · {{ bonusSessions() }} sesiones
+        </span>
+        <span class="bonus-price">{{ bonusPrice() }} €</span>
+      </div>
+    }
   </div>
 
 </a>

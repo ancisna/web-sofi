@@ -44,6 +44,8 @@ export class TherapyFormPageComponent implements OnInit {
     price: number;
     active: boolean;
     modality: TherapyModality | undefined;
+    bonusSessions: number | undefined;
+    bonusPrice: number | undefined;
   } = {
     title: '',
     description: '',
@@ -52,6 +54,8 @@ export class TherapyFormPageComponent implements OnInit {
     price: 65,
     active: true,
     modality: undefined,
+    bonusSessions: undefined,
+    bonusPrice: undefined,
   };
 
   async ngOnInit() {
@@ -66,6 +70,8 @@ export class TherapyFormPageComponent implements OnInit {
           price: existing.price ?? 0,
           active: existing.active,
           modality: existing.modality,
+          bonusSessions: existing.bonusSessions,
+          bonusPrice: existing.bonusPrice,
         };
       }
     }

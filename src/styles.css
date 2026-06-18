@@ -7,7 +7,7 @@
 
   --sofi-primary: #e0b7c5;
   --sofi-primary-soft: #f8edf2;
-  --sofi-background: #fcfafb;
+  --sofi-background: #ffffff;
   --sofi-surface: #ffffff;
   --sofi-text: #4d474a;
   --sofi-text-muted: #82797d;
@@ -80,7 +80,7 @@ body {
   margin: 0;
   font-family: var(--font-body);
   color: var(--sofi-text);
-  background: var(--sofi-background);
+  background: #ffffff !important;
 }
 
 h1,

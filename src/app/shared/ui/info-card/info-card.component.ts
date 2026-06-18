@@ -2,14 +2,12 @@ import { Component, input } from '@angular/core';
 
 import { RouterLink } from '@angular/router';
 
-import { Button } from 'primeng/button';
-
 @Component({
   selector: 'info-card',
 
   standalone: true,
 
-  imports: [Button, RouterLink],
+  imports: [RouterLink],
 
   templateUrl: './info-card.component.html',
 
@@ -27,4 +25,6 @@ export class InfoCardComponent {
   location = input<string>();
   link = input<string>();
   image = input<string | null>();
+  bonusSessions = input<number>();
+  bonusPrice = input<number>();
 }

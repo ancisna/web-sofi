@@ -6,4 +6,6 @@ export interface Therapy extends ContentCard {
   duration: number;
   longDescription: string;
   modality?: TherapyModality;
+  bonusSessions?: number;
+  bonusPrice?: number;
 }

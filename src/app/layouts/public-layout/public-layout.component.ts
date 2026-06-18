@@ -1,12 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Button } from 'primeng/button';
 import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'public-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, Button],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, Button],
   templateUrl: './public-layout.component.html',
   styleUrl: './public-layout.component.css',
 })

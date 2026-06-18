@@ -67,6 +67,8 @@ export class TherapyService {
       price: row.price,
       active: row.active,
       modality: (row.modality as TherapyModality) ?? undefined,
+      bonusSessions: row.bonus_sessions ?? undefined,
+      bonusPrice: row.bonus_price ?? undefined,
     };
   }
 
@@ -79,6 +81,8 @@ export class TherapyService {
       price: t.price,
       active: t.active,
       modality: t.modality ?? null,
+      bonus_sessions: t.bonusSessions ?? null,
+      bonus_price: t.bonusPrice ?? null,
     };
   }
 }

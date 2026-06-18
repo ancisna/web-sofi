@@ -27,37 +27,31 @@
     </div>
 
     <!-- NAVBAR -->
-    <div class="navbar-main px-4 py-3 border-bottom-1 border-200 surface-sofi">
+    <div class="navbar-main px-4 py-2 border-bottom-1 border-200">
       <div
         class="flex relative justify-content-between align-items-center max-w-screen-xl mx-auto"
       >
         <!-- LOGO -->
 
         <div class="flex align-items-center gap-3">
-          <div
-            class="text-3xl font-semibold logo-brand text-sofi-primary"
-            style="color: var(--sofi-primary)"
-          >
-            <!-- Web Sofi -->
-            <div class="flex align-items-center gap-3">
-              <img
-                src="branding/logo-horizontal.svg"
-                alt="Sofía Reyes Psicóloga"
-                class="logo-navbar"
-              />
-            </div>
-          </div>
+          <a routerLink="/" aria-label="Ir a la página de inicio">
+            <img
+              src="branding/logo-horizontal.svg"
+              alt="Sofía Reyes Psicóloga"
+              class="logo-navbar"
+            />
+          </a>
         </div>
 
         <!-- DESKTOP MENU -->
 
         <nav aria-label="Navegación principal" class="hidden lg:flex gap-5 align-items-center">
-          <a routerLink="/">Inicio</a>
-          <a routerLink="/therapies">Terapias</a>
-          <a routerLink="/workshops">Talleres</a>
-          <a routerLink="/articles">Artículos</a>
-          <a routerLink="/contact">Contactar</a>
-          <a routerLink="/about">Sobre mí</a>
+          <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">Inicio</a>
+          <a routerLink="/therapies" routerLinkActive="active-link">Terapias</a>
+          <a routerLink="/workshops" routerLinkActive="active-link">Talleres</a>
+          <a routerLink="/articles" routerLinkActive="active-link">Artículos</a>
+          <a routerLink="/contact" routerLinkActive="active-link">Contactar</a>
+          <a routerLink="/about" routerLinkActive="active-link">Sobre mí</a>
           <a routerLink="/login" aria-label="Acceso privado al panel de administración">
             <i class="pi pi-lock text-color-secondary" aria-hidden="true"></i>
           </a>
@@ -89,13 +83,13 @@
             </button>
 
             <nav aria-label="Navegación móvil" class="flex flex-column gap-3 pt-4">
-              <a routerLink="/" (click)="toggleMobileMenu()">Inicio</a>
-              <a routerLink="/therapies" (click)="toggleMobileMenu()">Terapias</a>
-              <a routerLink="/workshops" (click)="toggleMobileMenu()">Talleres</a>
-              <a routerLink="/articles" (click)="toggleMobileMenu()">Artículos</a>
-              <a routerLink="/contact" (click)="toggleMobileMenu()">Contactar</a>
-              <a routerLink="/about" (click)="toggleMobileMenu()">Sobre mí</a>
-              <a routerLink="/login" (click)="toggleMobileMenu()">
+              <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}" (click)="toggleMobileMenu()">Inicio</a>
+              <a routerLink="/therapies" routerLinkActive="active-link" (click)="toggleMobileMenu()">Terapias</a>
+              <a routerLink="/workshops" routerLinkActive="active-link" (click)="toggleMobileMenu()">Talleres</a>
+              <a routerLink="/articles" routerLinkActive="active-link" (click)="toggleMobileMenu()">Artículos</a>
+              <a routerLink="/contact" routerLinkActive="active-link" (click)="toggleMobileMenu()">Contactar</a>
+              <a routerLink="/about" routerLinkActive="active-link" (click)="toggleMobileMenu()">Sobre mí</a>
+              <a routerLink="/login" routerLinkActive="active-link" (click)="toggleMobileMenu()">
                 <i class="pi pi-lock" aria-hidden="true"></i> Acceso privado
               </a>
             </nav>
@@ -143,11 +137,13 @@
       <!-- LEFT -->
 
       <div class="col-12 md:col-3 text-center md:text-left">
-        <img
-          src="branding/logo-horizontal.svg"
-          alt="Sofía Reyes Psicóloga"
-          class="footer-logo"
-        />
+        <a routerLink="/" aria-label="Ir a la página de inicio">
+          <img
+            src="branding/logo-horizontal.svg"
+            alt="Sofía Reyes Psicóloga"
+            class="footer-logo"
+          />
+        </a>
       </div>
 
       <!-- CENTER -->

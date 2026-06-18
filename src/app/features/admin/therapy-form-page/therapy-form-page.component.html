@@ -69,6 +69,24 @@
         />
       </div>
     </div>
+
+    <div class="admin-card">
+      <h3 class="section-title">Bono de sesiones</h3>
+      <p-divider />
+      <p class="field-hint mb-3">Opcional. Si lo rellenas aparecerá una oferta de bono en la tarjeta de esta terapia.</p>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="bonusSessions">Número de sesiones</label>
+          <p-inputnumber inputId="bonusSessions" [(ngModel)]="therapy.bonusSessions" [min]="2" [max]="20" [step]="1" placeholder="Ej. 5" styleClass="w-full" inputStyleClass="w-full" />
+        </div>
+
+        <div class="field mb-0">
+          <label for="bonusPrice">Precio del bono</label>
+          <p-inputnumber inputId="bonusPrice" [(ngModel)]="therapy.bonusPrice" [min]="0" mode="currency" currency="EUR" locale="es-ES" styleClass="w-full" inputStyleClass="w-full" />
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- SIDEBAR -->

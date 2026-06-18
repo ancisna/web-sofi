@@ -41,15 +41,29 @@
   flex: 1;
 }
 
+.card-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.1rem;
+}
+
+.card-top-left {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
 .card-badge {
   display: inline-block;
   padding: 0.2rem 0.65rem;
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 600;
-  background: var(--sofi-primary-soft);
+  background: var(--sofi-primary);
   color: var(--sofi-text);
-  align-self: flex-start;
 }
 
 .card-title {
@@ -88,16 +102,19 @@
 }
 
 .card-price {
+  font-size: 0.95rem;
   font-weight: 700;
-  color: var(--sofi-text);
+  color: #1e7c45;
+  white-space: nowrap;
 }
 
 .card-modality {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  background: var(--sofi-primary-soft);
+  background: #ffffff;
   color: var(--sofi-text);
+  border: 1.5px solid var(--sofi-text);
   padding: 0.15rem 0.55rem;
   border-radius: 999px;
   font-size: 0.75rem;
@@ -113,5 +130,35 @@
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-bonus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--sofi-primary-soft);
+}
+
+.bonus-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: #ffffff;
+  color: var(--sofi-text);
+  border: 1.5px solid var(--sofi-text);
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.bonus-price {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1e7c45;
   white-space: nowrap;
 }
