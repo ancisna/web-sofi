@@ -10,20 +10,37 @@
     />
 
     <div class="grid">
-      @for (therapy of therapies; track therapy.id) {
-        <div class="col-12 md:col-6 lg:col-4 mb-4">
-          <info-card
-            [title]="therapy.title"
-            [description]="therapy.description"
-            [badge]="'Terapia'"
-            [duration]="therapy.duration + ' min'"
-            [price]="therapy.price + ' €'"
-            [modality]="modalityLabel(therapy.modality)"
-            [link]="'/therapies/' + therapy.id"
-            [bonusSessions]="5"
-            [bonusPrice]="275"
-          />
-        </div>
+      @if (loading) {
+        @for (i of [1,2,3,4,5,6]; track i) {
+          <div class="col-12 md:col-6 lg:col-4 mb-4">
+            <div class="skeleton-card">
+              <p-skeleton height="160px" styleClass="border-round-none" />
+              <div class="skeleton-body">
+                <p-skeleton width="4rem" height="1.2rem" styleClass="mb-3" />
+                <p-skeleton width="80%" height="1.4rem" styleClass="mb-2" />
+                <p-skeleton width="100%" height="0.9rem" styleClass="mb-1" />
+                <p-skeleton width="65%" height="0.9rem" styleClass="mb-3" />
+                <p-skeleton width="35%" height="0.9rem" />
+              </div>
+            </div>
+          </div>
+        }
+      } @else {
+        @for (therapy of therapies; track therapy.id) {
+          <div class="col-12 md:col-6 lg:col-4 mb-4">
+            <info-card
+              [title]="therapy.title"
+              [description]="therapy.description"
+              [badge]="'Terapia'"
+              [duration]="therapy.duration + ' min'"
+              [price]="therapy.price + ' €'"
+              [modality]="modalityLabel(therapy.modalities)"
+              [link]="'/therapies/' + therapy.id"
+              [bonusSessions]="therapy.bonusSessions"
+              [bonusPrice]="bonusPrice(therapy)"
+            />
+          </div>
+        }
       }
     </div>
   </div>

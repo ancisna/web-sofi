@@ -6,11 +6,12 @@
   /* BRAND COLORS */
 
   --sofi-primary: #e0b7c5;
+  --sofi-primary-dark: #7c3050;
   --sofi-primary-soft: #f8edf2;
   --sofi-background: #ffffff;
   --sofi-surface: #ffffff;
   --sofi-text: #4d474a;
-  --sofi-text-muted: #82797d;
+  --sofi-text-muted: #5c5558;
 
   /* RADIUS */
 
@@ -81,6 +82,25 @@ body {
   font-family: var(--font-body);
   color: var(--sofi-text);
   background: #ffffff !important;
+}
+
+.skeleton-card {
+  background: var(--sofi-surface);
+  border-radius: var(--sofi-radius);
+  box-shadow: var(--sofi-shadow);
+  overflow: hidden;
+  height: 100%;
+}
+
+.skeleton-body {
+  padding: 1.25rem;
+}
+
+.page-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 0;
 }
 
 h1,

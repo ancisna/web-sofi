@@ -34,6 +34,31 @@
       <p-card styleClass="h-full">
         <div class="flex flex-column gap-3">
           <div class="flex align-items-center gap-3">
+            <div class="dashboard-icon bg-purple-100">
+              <i class="pi pi-star text-purple-500 text-2xl"></i>
+            </div>
+            <div>
+              <div class="text-lg font-semibold">Constelaciones</div>
+              <div class="text-color-secondary text-sm">Gestiona tus constelaciones</div>
+            </div>
+          </div>
+          <p-button
+            label="Gestionar constelaciones"
+            icon="pi pi-arrow-right"
+            iconPos="right"
+            severity="secondary"
+            [outlined]="true"
+            styleClass="w-full"
+            routerLink="/dashboard/constellations"
+          />
+        </div>
+      </p-card>
+    </div>
+
+    <div class="col-12 md:col-6 lg:col-4">
+      <p-card styleClass="h-full">
+        <div class="flex flex-column gap-3">
+          <div class="flex align-items-center gap-3">
             <div class="dashboard-icon bg-blue-100">
               <i class="pi pi-users text-blue-500 text-2xl"></i>
             </div>

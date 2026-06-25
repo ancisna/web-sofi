@@ -6,20 +6,38 @@
     />
 
     <div class="grid">
-      @for (workshop of workshops; track workshop.id) {
-        <div class="col-12 md:col-6 lg:col-4 mb-4">
-          <info-card
-            [title]="workshop.title"
-            [description]="workshop.description"
-            [badge]="'Taller'"
-            [meta]="workshop.date | dateEs"
-            [timeRange]="timeRange(workshop.startTime, workshop.endTime)"
-            [price]="workshop.price + ' €'"
-            [modality]="modalityLabel(workshop.modality)"
-            [location]="workshop.modality === 'presencial' ? (workshop.location ?? '') : ''"
-            [link]="'/workshops/' + workshop.id"
-          />
-        </div>
+      @if (loading) {
+        @for (i of [1,2,3]; track i) {
+          <div class="col-12 md:col-6 lg:col-4 mb-4">
+            <div class="skeleton-card">
+              <p-skeleton height="160px" styleClass="border-round-none" />
+              <div class="skeleton-body">
+                <p-skeleton width="4rem" height="1.2rem" styleClass="mb-3" />
+                <p-skeleton width="75%" height="1.4rem" styleClass="mb-2" />
+                <p-skeleton width="50%" height="0.9rem" styleClass="mb-1" />
+                <p-skeleton width="100%" height="0.9rem" styleClass="mb-1" />
+                <p-skeleton width="65%" height="0.9rem" styleClass="mb-3" />
+                <p-skeleton width="35%" height="0.9rem" />
+              </div>
+            </div>
+          </div>
+        }
+      } @else {
+        @for (workshop of workshops; track workshop.id) {
+          <div class="col-12 md:col-6 lg:col-4 mb-4">
+            <info-card
+              [title]="workshop.title"
+              [description]="workshop.description"
+              [badge]="'Taller'"
+              [meta]="workshop.date | dateEs"
+              [timeRange]="timeRange(workshop.startTime, workshop.endTime)"
+              [price]="workshop.price + ' €'"
+              [modality]="modalityLabel(workshop.modality)"
+              [location]="workshop.modality === 'presencial' ? (workshop.location ?? '') : ''"
+              [link]="'/workshops/' + workshop.id"
+            />
+          </div>
+        }
       }
     </div>
   </div>

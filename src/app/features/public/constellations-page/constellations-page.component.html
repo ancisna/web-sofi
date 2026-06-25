@@ -1,0 +1,46 @@
+<section class="py-8 px-4 lg:px-8">
+  <div class="max-w-screen-xl mx-auto">
+    <page-hero
+      title="Constelaciones"
+      description="Un proceso de exploración sistémica para comprender y sanar dinámicas familiares y relacionales."
+    />
+
+    <div class="grid">
+      @if (loading) {
+        @for (i of [1,2,3]; track i) {
+          <div class="col-12 md:col-6 lg:col-4 mb-4">
+            <div class="skeleton-card">
+              <p-skeleton height="160px" styleClass="border-round-none" />
+              <div class="skeleton-body">
+                <p-skeleton width="5rem" height="1.2rem" styleClass="mb-3" />
+                <p-skeleton width="80%" height="1.4rem" styleClass="mb-2" />
+                <p-skeleton width="100%" height="0.9rem" styleClass="mb-1" />
+                <p-skeleton width="65%" height="0.9rem" styleClass="mb-3" />
+                <p-skeleton width="35%" height="0.9rem" />
+              </div>
+            </div>
+          </div>
+        }
+      } @else {
+        @for (constellation of constellations; track constellation.id) {
+          <div class="col-12 md:col-6 lg:col-4 mb-4">
+            <info-card
+              [title]="constellation.title"
+              [description]="constellation.description"
+              [badge]="'Constelación'"
+              [duration]="constellation.duration + ' min'"
+              [price]="constellation.price + ' €'"
+              [modality]="modalityLabel(constellation.modalities)"
+              [link]="'/constellations/' + constellation.id"
+            />
+          </div>
+        }
+        @if (constellations.length === 0) {
+          <div class="col-12 text-center py-6">
+            <p style="color: var(--sofi-text-muted)">Próximamente disponible.</p>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</section>

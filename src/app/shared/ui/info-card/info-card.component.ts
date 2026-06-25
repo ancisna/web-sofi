@@ -1,17 +1,13 @@
-import { Component, input } from '@angular/core';
-
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'info-card',
-
   standalone: true,
-
   imports: [RouterLink],
-
   templateUrl: './info-card.component.html',
-
   styleUrl: './info-card.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InfoCardComponent {
   title = input.required<string>();

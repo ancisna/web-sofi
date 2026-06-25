@@ -5,7 +5,21 @@
       <i class="pi pi-arrow-left"></i> Todos los talleres
     </a>
 
-    @if (workshop) {
+    @if (loading) {
+      <div class="mt-5">
+        <p-skeleton width="4rem" height="0.9rem" styleClass="mb-3" />
+        <p-skeleton width="60%" height="2.2rem" styleClass="mb-4" />
+        <div class="flex gap-4 mb-6">
+          <p-skeleton width="6rem" height="1rem" />
+          <p-skeleton width="5rem" height="1rem" />
+          <p-skeleton width="5rem" height="1rem" />
+        </div>
+        <p-skeleton width="100%" height="0.9rem" styleClass="mb-2" />
+        <p-skeleton width="100%" height="0.9rem" styleClass="mb-2" />
+        <p-skeleton width="90%" height="0.9rem" styleClass="mb-2" />
+        <p-skeleton width="75%" height="0.9rem" styleClass="mb-8" />
+      </div>
+    } @else if (workshop) {
       <div class="detail-eyebrow mt-5">Taller</div>
       <h1 class="mb-4">{{ workshop.title }}</h1>
 

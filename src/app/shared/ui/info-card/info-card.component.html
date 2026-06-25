@@ -14,8 +14,12 @@
         @if (badge()) {
           <span class="card-badge">{{ badge() }}</span>
         }
-        @if (modality()) {
-          <span class="card-modality"><i class="pi pi-tag" aria-hidden="true"></i>{{ modality() }}</span>
+        @for (pill of (modality() ?? '').split(' · '); track pill) {
+          @if (pill) {
+            <span class="card-modality" [class.card-modality--soon]="pill === 'Próximamente'">
+              <i class="pi pi-tag" aria-hidden="true"></i>{{ pill }}
+            </span>
+          }
         }
       </div>
       @if (price()) {

@@ -30,6 +30,14 @@ export class WorkshopService {
     return (data ?? []).map(this.mapRow);
   }
 
+  async hasActive(): Promise<boolean> {
+    const { count } = await supabase
+      .from('workshops')
+      .select('id', { count: 'exact', head: true })
+      .eq('active', true);
+    return (count ?? 0) > 0;
+  }
+
   async getById(id: string): Promise<Workshop | undefined> {
     const { data } = await supabase
       .from('workshops')
@@ -40,15 +48,18 @@ export class WorkshopService {
   }
 
   async create(workshop: Omit<Workshop, 'id'>): Promise<void> {
-    await supabase.from('workshops').insert(this.toRow(workshop));
+    const { error } = await supabase.from('workshops').insert(this.toRow(workshop));
+    if (error) throw error;
   }
 
   async update(id: string, workshop: Partial<Workshop>): Promise<void> {
-    await supabase.from('workshops').update(this.toRow(workshop)).eq('id', id);
+    const { error } = await supabase.from('workshops').update(this.toRow(workshop)).eq('id', id);
+    if (error) throw error;
   }
 
   async delete(id: string): Promise<void> {
-    await supabase.from('workshops').delete().eq('id', id);
+    const { error } = await supabase.from('workshops').delete().eq('id', id);
+    if (error) throw error;
   }
 
   async clone(id: string): Promise<void> {

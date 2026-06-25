@@ -1,0 +1,43 @@
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--sofi-text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.15s;
+}
+
+.back-link:hover {
+  color: var(--sofi-text);
+}
+
+.detail-eyebrow {
+  color: var(--sofi-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detail-meta {
+  color: var(--sofi-text-muted);
+  font-size: 0.95rem;
+}
+
+.detail-body {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: var(--sofi-text);
+  white-space: pre-wrap;
+}
+
+.detail-cta {
+  background: var(--sofi-primary-soft);
+  padding: 2rem;
+  border-radius: var(--sofi-radius);
+}
+
+.detail-cta p {
+  color: var(--sofi-text-muted);
+}

@@ -7,6 +7,12 @@
   <h1 class="mt-2 mb-0">{{ isEditMode ? 'Editar terapia' : 'Nueva terapia' }}</h1>
 </div>
 
+@if (loading) {
+  <div class="page-spinner">
+    <p-progress-spinner strokeWidth="4" animationDuration=".8s" />
+  </div>
+} @else {
+
 <div class="form-layout">
   <!-- MAIN -->
   <div class="form-main">
@@ -37,7 +43,7 @@
       </div>
     </div>
 
-    <div class="admin-card">
+    <div class="admin-card mb-4">
       <h3 class="section-title">Detalles</h3>
       <p-divider />
 
@@ -57,15 +63,15 @@
       </div>
 
       <div class="field mb-0">
-        <label for="modality">Modalidad</label>
-        <p-select
-          inputId="modality"
-          [(ngModel)]="therapy.modality"
+        <label>Modalidad</label>
+        <p-multiselect
+          [(ngModel)]="therapy.modalities"
           [options]="modalityOptions"
           optionLabel="label"
           optionValue="value"
-          placeholder="Selecciona una modalidad"
-          styleClass="w-full"
+          display="chip"
+          placeholder="Selecciona modalidades..."
+          styleClass="w-full modality-multiselect"
         />
       </div>
     </div>
@@ -73,19 +79,37 @@
     <div class="admin-card">
       <h3 class="section-title">Bono de sesiones</h3>
       <p-divider />
-      <p class="field-hint mb-3">Opcional. Si lo rellenas aparecerá una oferta de bono en la tarjeta de esta terapia.</p>
 
-      <div class="field-row">
-        <div class="field">
-          <label for="bonusSessions">Número de sesiones</label>
-          <p-inputnumber inputId="bonusSessions" [(ngModel)]="therapy.bonusSessions" [min]="2" [max]="20" [step]="1" placeholder="Ej. 5" styleClass="w-full" inputStyleClass="w-full" />
+      <div class="flex align-items-center justify-content-between mb-3">
+        <div>
+          <div class="font-medium">Convertible en bono</div>
+          <div class="text-color-secondary text-sm mt-1">Muestra una oferta de pack en la tarjeta</div>
         </div>
-
-        <div class="field mb-0">
-          <label for="bonusPrice">Precio del bono</label>
-          <p-inputnumber inputId="bonusPrice" [(ngModel)]="therapy.bonusPrice" [min]="0" mode="currency" currency="EUR" locale="es-ES" styleClass="w-full" inputStyleClass="w-full" />
-        </div>
+        <p-toggleswitch [(ngModel)]="therapy.bonusEnabled" />
       </div>
+
+      @if (therapy.bonusEnabled) {
+        <p-divider />
+        <div class="field-row">
+          <div class="field">
+            <label for="bonusSessions">Nº de sesiones del bono <span class="required">*</span></label>
+            <p-inputnumber inputId="bonusSessions" [(ngModel)]="therapy.bonusSessions" [min]="2" [max]="20" [step]="1" placeholder="Ej. 5" styleClass="w-full" inputStyleClass="w-full" />
+          </div>
+
+          <div class="field mb-0">
+            <label for="bonusDiscount">Descuento en euros</label>
+            <p-inputnumber inputId="bonusDiscount" [(ngModel)]="therapy.bonusDiscount" [min]="0" mode="currency" currency="EUR" locale="es-ES" placeholder="Ej. 50" styleClass="w-full" inputStyleClass="w-full" />
+          </div>
+        </div>
+
+        @if (computedBonusPrice !== undefined) {
+          <div class="bonus-preview">
+            <i class="pi pi-gift"></i>
+            Precio del bono: <strong>{{ computedBonusPrice }} €</strong>
+            <span class="bonus-preview-detail">({{ therapy.price }} € × {{ therapy.bonusSessions }} sesiones − {{ therapy.bonusDiscount ?? 0 }} € descuento)</span>
+          </div>
+        }
+      }
     </div>
   </div>
 
@@ -112,3 +136,5 @@
     </div>
   </div>
 </div>
+
+}

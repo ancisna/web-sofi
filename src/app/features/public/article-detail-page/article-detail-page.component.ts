@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
+import { Skeleton } from 'primeng/skeleton';
 import { ArticleService } from '@core/services/article.service';
 import { Article } from '@core/models/article.model';
 import { DateEsPipe } from '@shared/pipes/date-es.pipe';
@@ -9,7 +10,7 @@ import { TiptapRendererComponent } from '@shared/ui/tiptap-renderer/tiptap-rende
 @Component({
   selector: 'article-detail-page',
   standalone: true,
-  imports: [RouterLink, ButtonModule, DateEsPipe, TiptapRendererComponent],
+  imports: [RouterLink, ButtonModule, DateEsPipe, TiptapRendererComponent, Skeleton],
   templateUrl: './article-detail-page.component.html',
   styleUrl: './article-detail-page.component.css',
 })
@@ -19,6 +20,7 @@ export class ArticleDetailPageComponent implements OnInit {
 
   article: Article | undefined;
   related: Article[] = [];
+  loading = true;
 
   async ngOnInit() {
     const slug = this.route.snapshot.paramMap.get('slug') ?? '';
@@ -29,5 +31,6 @@ export class ArticleDetailPageComponent implements OnInit {
         this.related = await this.articleService.getRelated(this.article.categoryId, this.article.id);
       }
     }
+    this.loading = false;
   }
 }

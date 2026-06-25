@@ -22,23 +22,26 @@ export class ArticleCategoryService {
   }
 
   async create(category: { name: string; slug: string; description?: string; color?: string }): Promise<void> {
-    await supabase.from('article_categories').insert({
+    const { error } = await supabase.from('article_categories').insert({
       name: category.name,
       slug: category.slug,
       description: category.description || null,
       color: category.color || null,
     });
+    if (error) throw error;
   }
 
   async update(id: string, category: Partial<{ name: string; slug: string; description: string; color: string }>): Promise<void> {
-    await supabase.from('article_categories').update({
+    const { error } = await supabase.from('article_categories').update({
       ...category,
       updated_at: new Date().toISOString(),
     }).eq('id', id);
+    if (error) throw error;
   }
 
   async delete(id: string): Promise<void> {
-    await supabase.from('article_categories').delete().eq('id', id);
+    const { error } = await supabase.from('article_categories').delete().eq('id', id);
+    if (error) throw error;
   }
 
   private mapRow(row: any): ArticleCategory {

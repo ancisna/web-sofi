@@ -28,6 +28,20 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'constellations',
+        loadComponent: () =>
+          import('@features/public/constellations-page/constellations-page.component').then(
+            (m) => m.ConstellationsPageComponent,
+          ),
+      },
+      {
+        path: 'constellations/:id',
+        loadComponent: () =>
+          import('@features/public/constellation-detail-page/constellation-detail-page.component').then(
+            (m) => m.ConstellationDetailPageComponent,
+          ),
+      },
+      {
         path: 'workshops',
         component: WorkshopsPageComponent,
       },
@@ -143,6 +157,27 @@ export const routes: Routes = [
             loadComponent: () =>
               import('@features/admin/article-form-page/article-form-page.component').then(
                 (m) => m.ArticleFormPageComponent,
+              ),
+          },
+          {
+            path: 'constellations',
+            loadComponent: () =>
+              import('@features/admin/manage-constellations-page/manage-constellations-page.component').then(
+                (m) => m.ManageConstellationsPageComponent,
+              ),
+          },
+          {
+            path: 'constellations/new',
+            loadComponent: () =>
+              import('@features/admin/constellation-form-page/constellation-form-page.component').then(
+                (m) => m.ConstellationFormPageComponent,
+              ),
+          },
+          {
+            path: 'constellations/:id/edit',
+            loadComponent: () =>
+              import('@features/admin/constellation-form-page/constellation-form-page.component').then(
+                (m) => m.ConstellationFormPageComponent,
               ),
           },
           {

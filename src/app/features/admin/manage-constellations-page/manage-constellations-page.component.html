@@ -1,10 +1,9 @@
 <p-toast />
 
 <div class="flex justify-content-between align-items-center mb-6">
-  <h1>Gestionar terapias</h1>
-
-  <a routerLink="/dashboard/therapies/new">
-    <p-button label="Nueva terapia" icon="pi pi-plus" />
+  <h1>Gestionar constelaciones</h1>
+  <a routerLink="/dashboard/constellations/new">
+    <p-button label="Nueva constelación" icon="pi pi-plus" />
   </a>
 </div>
 
@@ -29,70 +28,63 @@
           </div>
           <div class="card-right" style="width:9rem">
             <p-skeleton width="5rem" height="1rem" styleClass="mb-2" />
-            <p-skeleton width="6rem" height="1.5rem" styleClass="mb-2" />
-            <p-skeleton width="5rem" height="1.5rem" />
+            <p-skeleton width="6rem" height="1.5rem" />
           </div>
         </div>
       </div>
     }
   </div>
-} @else if (therapies.length === 0) {
+} @else if (constellations.length === 0) {
   <div class="empty-state">
-    <h2>No hay terapias todavía</h2>
-    <p>Crea tu primera terapia para empezar.</p>
-    <a routerLink="/dashboard/therapies/new">
-      <p-button label="Nueva terapia" icon="pi pi-plus" />
+    <h2>No hay constelaciones todavía</h2>
+    <p>Crea tu primera constelación para empezar.</p>
+    <a routerLink="/dashboard/constellations/new">
+      <p-button label="Nueva constelación" icon="pi pi-plus" />
     </a>
   </div>
 } @else {
   <div class="grid">
-    @for (therapy of therapies; track therapy.id) {
+    @for (c of constellations; track c.id) {
       <div class="col-12 lg:col-6 mb-4">
         <div class="admin-card">
 
           <!-- Izquierda: contenido + botones -->
           <div class="card-left">
             <div>
-              <h3 class="mb-1" [pTooltip]="therapy.title" tooltipPosition="top">{{ therapy.title }}</h3>
-              <div class="admin-meta">{{ therapy.duration }} min · {{ therapy.price }} €</div>
-              <p class="admin-description" [pTooltip]="therapy.description" tooltipPosition="top">{{ therapy.description }}</p>
+              <h3 class="mb-1" [pTooltip]="c.title" tooltipPosition="top">{{ c.title }}</h3>
+              <div class="admin-meta">{{ c.duration }} min · {{ c.price }} €</div>
+              <p class="admin-description" [pTooltip]="c.description" tooltipPosition="top">{{ c.description }}</p>
             </div>
             <div class="card-actions">
-              <a [routerLink]="'/dashboard/therapies/' + therapy.id + '/edit'">
+              <a [routerLink]="'/dashboard/constellations/' + c.id + '/edit'">
                 <p-button label="Editar" severity="secondary" />
               </a>
-              <p-button label="Clonar" icon="pi pi-copy" severity="contrast" (onClick)="cloneTherapy(therapy.id)" />
-              <p-button label="Borrar" icon="pi pi-trash" severity="danger" (onClick)="deleteTherapy(therapy)" />
+              <p-button label="Clonar" icon="pi pi-copy" severity="contrast" (onClick)="cloneConstellation(c.id)" />
+              <p-button label="Borrar" icon="pi pi-trash" severity="danger" (onClick)="deleteConstellation(c)" />
             </div>
           </div>
 
-          <!-- Derecha: estado, bono, modalidades (altura completa) -->
+          <!-- Derecha: estado, modalidades -->
           <div class="card-right">
             <div class="flex align-items-center gap-2">
-              <span class="status-label" [class.active]="therapy.active" [class.inactive]="!therapy.active">
-                {{ therapy.active ? 'Activa' : 'Inactiva' }}
+              <span class="status-label" [class.active]="c.active" [class.inactive]="!c.active">
+                {{ c.active ? 'Activa' : 'Inactiva' }}
               </span>
               <span
-                [pTooltip]="therapy.active ? 'Desactivar terapia' : 'Activar terapia'"
+                [pTooltip]="c.active ? 'Desactivar constelación' : 'Activar constelación'"
                 tooltipPosition="top"
               >
                 <p-toggleswitch
-                  [(ngModel)]="therapy.active"
-                  (onChange)="toggleActive(therapy)"
-                  [ariaLabel]="(therapy.active ? 'Desactivar' : 'Activar') + ' ' + therapy.title"
+                  [(ngModel)]="c.active"
+                  (onChange)="toggleActive(c)"
+                  [ariaLabel]="(c.active ? 'Desactivar' : 'Activar') + ' ' + c.title"
                 />
               </span>
             </div>
 
-            @if (therapy.bonusEnabled) {
-              <span class="bonus-label">
-                <i class="pi pi-gift"></i> Bono activo
-              </span>
-            }
-
-            @if (therapy.modalities?.length) {
+            @if (c.modalities?.length) {
               <div class="modality-tags">
-                @for (m of therapy.modalities; track m) {
+                @for (m of c.modalities; track m) {
                   <span class="modality-badge modality-{{ m }}">
                     {{ modalityLabel(m) }}
                   </span>

@@ -22,6 +22,14 @@ export class ArticleService {
     return (data ?? []).map(this.mapRow);
   }
 
+  async hasPublished(): Promise<boolean> {
+    const { count } = await supabase
+      .from('articles')
+      .select('id', { count: 'exact', head: true })
+      .eq('status', 'published');
+    return (count ?? 0) > 0;
+  }
+
   async getBySlug(slug: string): Promise<Article | undefined> {
     const { data } = await supabase
       .from('articles')
@@ -42,32 +50,37 @@ export class ArticleService {
   }
 
   async create(article: Partial<Article>, authorId: string): Promise<void> {
-    await supabase.from('articles').insert(this.toRow(article, authorId));
+    const { error } = await supabase.from('articles').insert(this.toRow(article, authorId));
+    if (error) throw error;
   }
 
   async update(id: string, article: Partial<Article>): Promise<void> {
-    await supabase
+    const { error } = await supabase
       .from('articles')
       .update({ ...this.toRow(article), updated_at: new Date().toISOString() })
       .eq('id', id);
+    if (error) throw error;
   }
 
   async publish(id: string): Promise<void> {
-    await supabase
+    const { error } = await supabase
       .from('articles')
       .update({ status: 'published', published_at: new Date().toISOString(), updated_at: new Date().toISOString() })
       .eq('id', id);
+    if (error) throw error;
   }
 
   async unpublish(id: string): Promise<void> {
-    await supabase
+    const { error } = await supabase
       .from('articles')
       .update({ status: 'draft', published_at: null, updated_at: new Date().toISOString() })
       .eq('id', id);
+    if (error) throw error;
   }
 
   async delete(id: string): Promise<void> {
-    await supabase.from('articles').delete().eq('id', id);
+    const { error } = await supabase.from('articles').delete().eq('id', id);
+    if (error) throw error;
   }
 
   async incrementViews(id: string): Promise<void> {

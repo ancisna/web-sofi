@@ -89,7 +89,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.4rem 1rem;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: var(--sofi-text-muted);
   margin-top: auto;
   padding-top: 0.5rem;
@@ -104,7 +104,7 @@
 .card-price {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #1e7c45;
+  color: #166534;
   white-space: nowrap;
 }
 
@@ -112,20 +112,21 @@
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  background: #ffffff;
+  background: transparent;
   color: var(--sofi-text);
-  border: 1.5px solid var(--sofi-text);
+  border: 1.5px solid #767676;
   padding: 0.15rem 0.55rem;
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }
+
 
 .card-location {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   color: var(--sofi-text-muted);
   max-width: 100%;
   overflow: hidden;
@@ -159,6 +160,6 @@
 .bonus-price {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #1e7c45;
+  color: #166534;
   white-space: nowrap;
 }

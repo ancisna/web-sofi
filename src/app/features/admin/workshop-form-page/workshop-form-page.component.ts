@@ -11,6 +11,7 @@ import { DatePicker } from 'primeng/datepicker';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { Divider } from 'primeng/divider';
 import { Toast } from 'primeng/toast';
+import { ProgressSpinner } from 'primeng/progressspinner';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { WorkshopService } from '@core/services/workshop.service';
 import { WorkshopModality } from '@core/models/workshop.model';
@@ -18,7 +19,7 @@ import { WorkshopModality } from '@core/models/workshop.model';
 @Component({
   selector: 'workshop-form-page',
   standalone: true,
-  imports: [FormsModule, Button, InputText, InputNumber, Textarea, ToggleSwitch, Select, DatePicker, ConfirmDialog, Divider, Toast, RouterLink],
+  imports: [FormsModule, Button, InputText, InputNumber, Textarea, ToggleSwitch, Select, DatePicker, ConfirmDialog, Divider, Toast, ProgressSpinner, RouterLink],
   providers: [ConfirmationService],
   templateUrl: './workshop-form-page.component.html',
   styleUrl: './workshop-form-page.component.css',
@@ -33,6 +34,7 @@ export class WorkshopFormPageComponent implements OnInit {
   id = this.route.snapshot.paramMap.get('id');
   isEditMode = !!this.id;
   saving = false;
+  loading = this.isEditMode;
 
   modalityOptions: { label: string; value: WorkshopModality }[] = [
     { label: 'Presencial', value: 'presencial' },
@@ -80,6 +82,7 @@ export class WorkshopFormPageComponent implements OnInit {
         };
         this.dateValue = existing.date ? new Date(existing.date) : null;
       }
+      this.loading = false;
     }
   }
 

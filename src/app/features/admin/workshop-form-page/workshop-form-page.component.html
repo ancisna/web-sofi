@@ -8,6 +8,12 @@
   <h1 class="mt-2 mb-0">{{ isEditMode ? 'Editar taller' : 'Nuevo taller' }}</h1>
 </div>
 
+@if (loading) {
+  <div class="page-spinner">
+    <p-progress-spinner strokeWidth="4" animationDuration=".8s" />
+  </div>
+} @else {
+
 <div class="form-layout">
   <!-- MAIN -->
   <div class="form-main">
@@ -134,3 +140,5 @@
     </div>
   </div>
 </div>
+
+}

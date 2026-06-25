@@ -11,20 +11,20 @@ import { Toast } from 'primeng/toast';
 import { MultiSelect } from 'primeng/multiselect';
 import { ProgressSpinner } from 'primeng/progressspinner';
 import { MessageService } from 'primeng/api';
-import { TherapyService } from '@core/services/therapy.service';
-import { TherapyModality } from '@core/models/therapy.model';
+import { ConstellationService } from '@core/services/constellation.service';
+import { ConstellationModality } from '@core/models/constellation.model';
 
 @Component({
-  selector: 'therapy-form-page',
+  selector: 'constellation-form-page',
   standalone: true,
   imports: [FormsModule, Button, InputText, InputNumber, Textarea, ToggleSwitch, Divider, Toast, MultiSelect, ProgressSpinner, RouterLink],
-  templateUrl: './therapy-form-page.component.html',
-  styleUrl: './therapy-form-page.component.css',
+  templateUrl: './constellation-form-page.component.html',
+  styleUrl: './constellation-form-page.component.css',
 })
-export class TherapyFormPageComponent implements OnInit {
+export class ConstellationFormPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private therapyService = inject(TherapyService);
+  private constellationService = inject(ConstellationService);
   private messageService = inject(MessageService);
 
   id = this.route.snapshot.paramMap.get('id');
@@ -32,47 +32,36 @@ export class TherapyFormPageComponent implements OnInit {
   saving = false;
   loading = this.isEditMode;
 
-  modalityOptions: { label: string; value: TherapyModality }[] = [
+  modalityOptions: { label: string; value: ConstellationModality }[] = [
     { label: 'Presencial', value: 'presencial' },
     { label: 'Online', value: 'online' },
     { label: 'Otra', value: 'otra' },
     { label: 'Próximamente', value: 'proximamente' },
   ];
 
-  therapy: {
+  constellation: {
     title: string;
     description: string;
     longDescription: string;
     duration: number;
     price: number;
     active: boolean;
-    modalities: TherapyModality[];
-    bonusEnabled: boolean;
-    bonusSessions: number | undefined;
-    bonusDiscount: number | undefined;
+    modalities: ConstellationModality[];
   } = {
     title: '',
     description: '',
     longDescription: '',
-    duration: 60,
-    price: 65,
+    duration: 90,
+    price: 80,
     active: true,
     modalities: [],
-    bonusEnabled: false,
-    bonusSessions: undefined,
-    bonusDiscount: undefined,
   };
-
-  get computedBonusPrice(): number | undefined {
-    if (!this.therapy.bonusEnabled || !this.therapy.bonusSessions || !this.therapy.price) return undefined;
-    return Math.max(0, this.therapy.price * this.therapy.bonusSessions - (this.therapy.bonusDiscount ?? 0));
-  }
 
   async ngOnInit() {
     if (this.isEditMode && this.id) {
-      const existing = await this.therapyService.getById(this.id);
+      const existing = await this.constellationService.getById(this.id);
       if (existing) {
-        this.therapy = {
+        this.constellation = {
           title: existing.title,
           description: existing.description,
           longDescription: existing.longDescription,
@@ -80,9 +69,6 @@ export class TherapyFormPageComponent implements OnInit {
           price: existing.price ?? 0,
           active: existing.active,
           modalities: existing.modalities ?? [],
-          bonusEnabled: existing.bonusEnabled ?? false,
-          bonusSessions: existing.bonusSessions,
-          bonusDiscount: existing.bonusDiscount,
         };
       }
       this.loading = false;
@@ -91,10 +77,10 @@ export class TherapyFormPageComponent implements OnInit {
 
   isFormValid(): boolean {
     return (
-      this.therapy.title.trim().length > 0 &&
-      this.therapy.description.trim().length > 0 &&
-      this.therapy.price > 0 &&
-      this.therapy.duration > 0
+      this.constellation.title.trim().length > 0 &&
+      this.constellation.description.trim().length > 0 &&
+      this.constellation.price > 0 &&
+      this.constellation.duration > 0
     );
   }
 
@@ -103,13 +89,20 @@ export class TherapyFormPageComponent implements OnInit {
     this.saving = true;
     try {
       if (this.isEditMode && this.id) {
-        await this.therapyService.update(this.id, this.therapy);
-        this.messageService.add({ severity: 'success', summary: 'Terapia actualizada' });
+        await this.constellationService.update(this.id, this.constellation);
+        this.messageService.add({ severity: 'success', summary: 'Constelación actualizada' });
       } else {
-        await this.therapyService.create(this.therapy);
-        this.messageService.add({ severity: 'success', summary: 'Terapia creada' });
+        await this.constellationService.create(this.constellation);
+        this.messageService.add({ severity: 'success', summary: 'Constelación creada' });
       }
-      setTimeout(() => this.router.navigate(['/dashboard/therapies']), 1000);
+      setTimeout(() => this.router.navigate(['/dashboard/constellations']), 1000);
+    } catch (err: any) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error al guardar',
+        detail: err?.message ?? 'Error desconocido',
+        life: 8000,
+      });
     } finally {
       this.saving = false;
     }

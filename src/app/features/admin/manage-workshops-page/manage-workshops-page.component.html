@@ -8,12 +8,37 @@
   </a>
 </div>
 
-@if (workshops.length === 0) {
+@if (loading) {
+  <div class="grid">
+    @for (i of [1,2,3,4]; track i) {
+      <div class="col-12 lg:col-6 mb-4">
+        <div class="admin-card">
+          <div class="card-left" style="flex:1">
+            <div>
+              <p-skeleton width="70%" height="1.3rem" styleClass="mb-2" />
+              <p-skeleton width="55%" height="0.9rem" styleClass="mb-1" />
+              <p-skeleton width="35%" height="0.9rem" styleClass="mb-3" />
+              <p-skeleton width="100%" height="0.85rem" styleClass="mb-1" />
+              <p-skeleton width="80%" height="0.85rem" />
+            </div>
+            <div class="card-actions">
+              <p-skeleton width="5rem" height="2rem" />
+              <p-skeleton width="5rem" height="2rem" />
+              <p-skeleton width="4.5rem" height="2rem" />
+            </div>
+          </div>
+          <div class="card-right" style="width:9rem">
+            <p-skeleton width="5rem" height="1rem" styleClass="mb-2" />
+            <p-skeleton width="6rem" height="1.5rem" />
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+} @else if (workshops.length === 0) {
   <div class="empty-state">
     <h2>No hay talleres todavía</h2>
-
     <p>Crea tu primer taller para empezar.</p>
-
     <a routerLink="/dashboard/workshops/new">
       <p-button label="Nuevo taller" icon="pi pi-plus" />
     </a>
@@ -24,51 +49,54 @@
       <div class="col-12 lg:col-6 mb-4">
         <div class="admin-card">
 
-          <!-- Cabecera: título + precio + modalidad + estado -->
-          <div class="card-header mb-3">
-            <div class="card-title-group">
-              <h3 class="card-title">{{ workshop.title }}</h3>
-              <span class="card-price">{{ workshop.price }} €</span>
+          <!-- Izquierda: contenido + botones -->
+          <div class="card-left">
+            <div>
+              <h3 class="mb-1" [pTooltip]="workshop.title" tooltipPosition="top">{{ workshop.title }}</h3>
+              <div class="admin-meta">
+                <span><i class="pi pi-calendar" aria-hidden="true"></i> {{ workshop.date | dateEs }}</span>
+                @if (workshop.startTime) {
+                  <span><i class="pi pi-clock" aria-hidden="true"></i> {{ workshop.startTime }}@if (workshop.endTime) { – {{ workshop.endTime }} }</span>
+                }
+                <span>{{ workshop.price }} €</span>
+                @if (workshop.modality === 'presencial' && workshop.location) {
+                  <span><i class="pi pi-map-marker" aria-hidden="true"></i> {{ workshop.location }}</span>
+                }
+              </div>
+              <p class="admin-description" [pTooltip]="workshop.description" tooltipPosition="top">{{ workshop.description }}</p>
             </div>
-            <div class="card-controls">
-              @if (workshop.modality) {
-                <span class="modality-badge modality-{{ workshop.modality }}">
-                  {{ workshop.modality === 'online' ? 'Online' : 'Presencial' }}
-                </span>
-              }
+            <div class="card-actions">
+              <a [routerLink]="'/dashboard/workshops/' + workshop.id + '/edit'">
+                <p-button label="Editar" severity="secondary" />
+              </a>
+              <p-button label="Clonar" icon="pi pi-copy" severity="contrast" (onClick)="cloneWorkshop(workshop.id)" />
+              <p-button label="Borrar" icon="pi pi-trash" severity="danger" (onClick)="deleteWorkshop(workshop)" />
+            </div>
+          </div>
+
+          <!-- Derecha: estado, modalidad -->
+          <div class="card-right">
+            <div class="flex align-items-center gap-2">
               <span class="status-label" [class.active]="workshop.active" [class.inactive]="!workshop.active">
                 {{ workshop.active ? 'Activo' : 'Inactivo' }}
               </span>
-              <p-toggleswitch [(ngModel)]="workshop.active" (onChange)="toggleActive(workshop)" />
+              <span
+                [pTooltip]="workshop.active ? 'Desactivar taller' : 'Activar taller'"
+                tooltipPosition="top"
+              >
+                <p-toggleswitch
+                  [(ngModel)]="workshop.active"
+                  (onChange)="toggleActive(workshop)"
+                  [ariaLabel]="(workshop.active ? 'Desactivar' : 'Activar') + ' ' + workshop.title"
+                />
+              </span>
             </div>
-          </div>
 
-          <!-- Fecha, hora, lugar en columna -->
-          <div class="admin-meta mb-3">
-            <div class="meta-row">
-              <i class="pi pi-calendar"></i> {{ workshop.date | dateEs }}
-            </div>
-            @if (workshop.startTime) {
-              <div class="meta-row">
-                <i class="pi pi-clock"></i>
-                {{ workshop.startTime }}@if (workshop.endTime) { – {{ workshop.endTime }} }
-              </div>
+            @if (workshop.modality) {
+              <span class="modality-badge">
+                {{ workshop.modality === 'online' ? 'Online' : 'Presencial' }}
+              </span>
             }
-            @if (workshop.modality === 'presencial' && workshop.location) {
-              <div class="meta-row">
-                <i class="pi pi-map-marker"></i> {{ workshop.location }}
-              </div>
-            }
-          </div>
-
-          <p class="admin-description mb-4">{{ workshop.description }}</p>
-
-          <div class="flex flex-wrap gap-3">
-            <a [routerLink]="'/dashboard/workshops/' + workshop.id + '/edit'">
-              <p-button label="Editar" severity="secondary" />
-            </a>
-            <p-button label="Clonar" icon="pi pi-copy" severity="contrast" (onClick)="cloneWorkshop(workshop.id)" />
-            <p-button label="Borrar" icon="pi pi-trash" severity="danger" (onClick)="deleteWorkshop(workshop)" />
           </div>
 
         </div>

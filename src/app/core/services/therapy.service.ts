@@ -30,6 +30,14 @@ export class TherapyService {
     return (data ?? []).map(this.mapRow);
   }
 
+  async hasActive(): Promise<boolean> {
+    const { count } = await supabase
+      .from('therapies')
+      .select('id', { count: 'exact', head: true })
+      .eq('active', true);
+    return (count ?? 0) > 0;
+  }
+
   async getById(id: string): Promise<Therapy | undefined> {
     const { data } = await supabase
       .from('therapies')
@@ -40,15 +48,18 @@ export class TherapyService {
   }
 
   async create(therapy: Omit<Therapy, 'id'>): Promise<void> {
-    await supabase.from('therapies').insert(this.toRow(therapy));
+    const { error } = await supabase.from('therapies').insert(this.toRow(therapy));
+    if (error) throw error;
   }
 
   async update(id: string, therapy: Partial<Therapy>): Promise<void> {
-    await supabase.from('therapies').update(this.toRow(therapy)).eq('id', id);
+    const { error } = await supabase.from('therapies').update(this.toRow(therapy)).eq('id', id);
+    if (error) throw error;
   }
 
   async delete(id: string): Promise<void> {
-    await supabase.from('therapies').delete().eq('id', id);
+    const { error } = await supabase.from('therapies').delete().eq('id', id);
+    if (error) throw error;
   }
 
   async clone(id: string): Promise<void> {
@@ -66,23 +77,25 @@ export class TherapyService {
       duration: row.duration,
       price: row.price,
       active: row.active,
-      modality: (row.modality as TherapyModality) ?? undefined,
+      modalities: (row.modalities as TherapyModality[]) ?? [],
+      bonusEnabled: row.bonus_enabled ?? false,
       bonusSessions: row.bonus_sessions ?? undefined,
-      bonusPrice: row.bonus_price ?? undefined,
+      bonusDiscount: row.bonus_discount ?? undefined,
     };
   }
 
-  private toRow(t: Partial<Therapy>): any {
-    return {
-      title: t.title,
-      description: t.description,
-      long_description: t.longDescription,
-      duration: t.duration,
-      price: t.price,
-      active: t.active,
-      modality: t.modality ?? null,
-      bonus_sessions: t.bonusSessions ?? null,
-      bonus_price: t.bonusPrice ?? null,
-    };
+  private toRow(t: Partial<Therapy>): Record<string, unknown> {
+    const row: Record<string, unknown> = {};
+    if (t.title !== undefined)         row['title']          = t.title;
+    if (t.description !== undefined)   row['description']    = t.description;
+    if (t.longDescription !== undefined) row['long_description'] = t.longDescription;
+    if (t.duration !== undefined)      row['duration']       = t.duration;
+    if (t.price !== undefined)         row['price']          = t.price;
+    if (t.active !== undefined)        row['active']         = t.active;
+    if (t.modalities !== undefined)    row['modalities']     = t.modalities;
+    if (t.bonusEnabled !== undefined)  row['bonus_enabled']  = t.bonusEnabled;
+    if (t.bonusSessions !== undefined) row['bonus_sessions'] = t.bonusSessions;
+    if (t.bonusDiscount !== undefined) row['bonus_discount'] = t.bonusDiscount;
+    return row;
   }
 }
