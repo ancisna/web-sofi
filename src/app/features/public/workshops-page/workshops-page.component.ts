@@ -5,6 +5,7 @@ import { Skeleton } from 'primeng/skeleton';
 import { WorkshopService } from '@core/services/workshop.service';
 import { DateEsPipe } from '@shared/pipes/date-es.pipe';
 import { Workshop, WorkshopModality, WORKSHOP_MODALITY_LABELS } from '@core/models/workshop.model';
+import { SeoService } from '@core/services/seo.service';
 
 @Component({
   selector: 'workshops-page',
@@ -15,10 +16,16 @@ import { Workshop, WorkshopModality, WORKSHOP_MODALITY_LABELS } from '@core/mode
 })
 export class WorkshopsPageComponent implements OnInit {
   private workshopService = inject(WorkshopService);
+  private seo = inject(SeoService);
   workshops: Workshop[] = [];
   loading = true;
 
   async ngOnInit() {
+    this.seo.set({
+      title: 'Talleres',
+      description: 'Talleres presenciales de bienestar, crecimiento personal y acompañamiento emocional con Sofía Reyes Psicóloga. Grupos reducidos.',
+      url: 'https://sofiareyespsicologa.com/workshops',
+    });
     this.workshops = await this.workshopService.getAllActive();
     this.loading = false;
   }

@@ -20,6 +20,38 @@
   flex-shrink: 0;
 }
 
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--sofi-text);
+  font-size: 1rem;
+}
+
+.contact-link:hover {
+  color: var(--sofi-primary-dark);
+}
+
+.contact-link__icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.contact-link__icon.pi-whatsapp {
+  color: #25d366;
+}
+
+.contact-link__icon.pi-envelope {
+  color: #6b7280;
+}
+
 @media (max-width: 768px) {
   .contact-card {
     flex-direction: column;

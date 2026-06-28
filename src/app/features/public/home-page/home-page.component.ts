@@ -10,6 +10,7 @@ import { Therapy, THERAPY_MODALITY_LABELS, TherapyModality } from '@core/models/
 import { Constellation, CONSTELLATION_MODALITY_LABELS, ConstellationModality } from '@core/models/constellation.model';
 import { Workshop, WorkshopModality, WORKSHOP_MODALITY_LABELS } from '@core/models/workshop.model';
 import { DateEsPipe } from '@shared/pipes/date-es.pipe';
+import { SeoService } from '@core/services/seo.service';
 
 @Component({
   selector: 'home-page',
@@ -22,6 +23,7 @@ export class HomePageComponent implements OnInit {
   private therapyService = inject(TherapyService);
   private constellationService = inject(ConstellationService);
   private workshopService = inject(WorkshopService);
+  private seo = inject(SeoService);
 
   therapies: Therapy[] = [];
   constellations: Constellation[] = [];
@@ -29,6 +31,7 @@ export class HomePageComponent implements OnInit {
   loading = true;
 
   async ngOnInit() {
+    this.seo.setHome();
     [this.therapies, this.constellations, this.workshops] = await Promise.all([
       this.therapyService.getFeatured(),
       this.constellationService.getFeatured(),

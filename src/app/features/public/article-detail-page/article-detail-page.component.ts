@@ -6,6 +6,7 @@ import { ArticleService } from '@core/services/article.service';
 import { Article } from '@core/models/article.model';
 import { DateEsPipe } from '@shared/pipes/date-es.pipe';
 import { TiptapRendererComponent } from '@shared/ui/tiptap-renderer/tiptap-renderer.component';
+import { SeoService } from '@core/services/seo.service';
 
 @Component({
   selector: 'article-detail-page',
@@ -17,6 +18,7 @@ import { TiptapRendererComponent } from '@shared/ui/tiptap-renderer/tiptap-rende
 export class ArticleDetailPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private articleService = inject(ArticleService);
+  private seo = inject(SeoService);
 
   article: Article | undefined;
   related: Article[] = [];
@@ -26,6 +28,13 @@ export class ArticleDetailPageComponent implements OnInit {
     const slug = this.route.snapshot.paramMap.get('slug') ?? '';
     this.article = await this.articleService.getBySlug(slug);
     if (this.article) {
+      this.seo.set({
+        title: this.article.title,
+        description: this.article.excerpt ?? this.article.title,
+        image: this.article.coverImage ?? undefined,
+        url: `https://sofiareyespsicologa.com/articles/${slug}`,
+        type: 'article',
+      });
       this.articleService.incrementViews(this.article.id);
       if (this.article.categoryId) {
         this.related = await this.articleService.getRelated(this.article.categoryId, this.article.id);

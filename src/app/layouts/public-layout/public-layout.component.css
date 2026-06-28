@@ -146,6 +146,20 @@ nav a.active-link {
   }
 }
 
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--sofi-text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: 0.2s ease;
+}
+
+.footer-social-link span {
+  font-size: 0.85rem;
+}
+
 .footer-socials a {
   color: var(--sofi-text);
 

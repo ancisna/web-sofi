@@ -1,29 +1,29 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      providers: [
+        provideRouter([]),
+        ConfirmationService,
+        MessageService,
+      ],
     }).compileComponents();
   });
 
-  it('should create the app', () => {
+  it('se crea correctamente', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it(`should have the '01-new-ang' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('01-new-ang');
-  });
-
-  it('should render title', () => {
+  it('renderiza el router-outlet', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, 01-new-ang');
+    const el = fixture.nativeElement as HTMLElement;
+    expect(el.querySelector('router-outlet')).toBeTruthy();
   });
 });

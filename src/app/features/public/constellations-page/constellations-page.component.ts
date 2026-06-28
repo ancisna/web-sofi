@@ -4,6 +4,7 @@ import { PageHeroComponent } from '@shared/ui/page-hero/page-hero.component';
 import { Skeleton } from 'primeng/skeleton';
 import { ConstellationService } from '@core/services/constellation.service';
 import { Constellation, CONSTELLATION_MODALITY_LABELS, ConstellationModality } from '@core/models/constellation.model';
+import { SeoService } from '@core/services/seo.service';
 
 @Component({
   selector: 'constellations-page',
@@ -14,10 +15,16 @@ import { Constellation, CONSTELLATION_MODALITY_LABELS, ConstellationModality } f
 })
 export class ConstellationsPageComponent implements OnInit {
   private constellationService = inject(ConstellationService);
+  private seo = inject(SeoService);
   constellations: Constellation[] = [];
   loading = true;
 
   async ngOnInit() {
+    this.seo.set({
+      title: 'Constelaciones Familiares',
+      description: 'Constelaciones familiares con Sofía Reyes Psicóloga. Un proceso terapéutico para explorar vínculos y patrones relacionales. Modalidad presencial y online.',
+      url: 'https://sofiareyespsicologa.com/constellations',
+    });
     this.constellations = await this.constellationService.getAllActive();
     this.loading = false;
   }

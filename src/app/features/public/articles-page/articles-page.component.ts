@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PageHeroComponent } from '@shared/ui/page-hero/page-hero.component';
 import { Article } from '@core/models/article.model';
 import { DateEsPipe } from '@shared/pipes/date-es.pipe';
+import { SeoService } from '@core/services/seo.service';
 
 @Component({
   selector: 'articles-page',
@@ -14,6 +15,7 @@ import { DateEsPipe } from '@shared/pipes/date-es.pipe';
 export class ArticlesPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private seo = inject(SeoService);
 
   private allArticles: Article[] = [];
   articles = signal<Article[]>([]);
@@ -34,6 +36,11 @@ export class ArticlesPageComponent implements OnInit {
   });
 
   ngOnInit() {
+    this.seo.set({
+      title: 'Artículos',
+      description: 'Reflexiones, herramientas y recursos sobre psicología y bienestar emocional escritos por Sofía Reyes Psicóloga.',
+      url: 'https://sofiareyespsicologa.com/articles',
+    });
     this.allArticles = this.route.snapshot.data['articles'] ?? [];
     const categoryId = this.route.snapshot.queryParams['categoryId'] || null;
     this.applyFilter(categoryId);

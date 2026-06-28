@@ -4,6 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { Skeleton } from 'primeng/skeleton';
 import { TherapyService } from '@core/services/therapy.service';
 import { Therapy } from '@core/models/therapy.model';
+import { SeoService } from '@core/services/seo.service';
 
 @Component({
   selector: 'therapy-detail-page',
@@ -15,6 +16,7 @@ import { Therapy } from '@core/models/therapy.model';
 export class TherapyDetailPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private therapyService = inject(TherapyService);
+  private seo = inject(SeoService);
 
   therapy: Therapy | undefined;
   loading = true;
@@ -22,6 +24,13 @@ export class TherapyDetailPageComponent implements OnInit {
   async ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id') ?? '';
     this.therapy = await this.therapyService.getById(id);
+    if (this.therapy) {
+      this.seo.set({
+        title: this.therapy.title,
+        description: this.therapy.description,
+        url: `https://sofiareyespsicologa.com/therapies/${id}`,
+      });
+    }
     this.loading = false;
   }
 }

@@ -4,6 +4,7 @@ import { PageHeroComponent } from '@shared/ui/page-hero/page-hero.component';
 import { Skeleton } from 'primeng/skeleton';
 import { TherapyService } from '@core/services/therapy.service';
 import { computeBonusPrice, Therapy, THERAPY_MODALITY_LABELS, TherapyModality } from '@core/models/therapy.model';
+import { SeoService } from '@core/services/seo.service';
 
 @Component({
   selector: 'therapies-page',
@@ -14,10 +15,16 @@ import { computeBonusPrice, Therapy, THERAPY_MODALITY_LABELS, TherapyModality } 
 })
 export class TherapiesPageComponent implements OnInit {
   private therapyService = inject(TherapyService);
+  private seo = inject(SeoService);
   therapies: Therapy[] = [];
   loading = true;
 
   async ngOnInit() {
+    this.seo.set({
+      title: 'Terapias',
+      description: 'Espacios terapéuticos adaptados a diferentes necesidades emocionales. Terapia individual presencial y online con Sofía Reyes Psicóloga.',
+      url: 'https://sofiareyespsicologa.com/therapies',
+    });
     this.therapies = await this.therapyService.getAllActive();
     this.loading = false;
   }
